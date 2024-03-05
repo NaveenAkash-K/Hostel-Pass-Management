@@ -118,7 +118,6 @@ class LoginPageState extends ConsumerState<LoginPage> {
             .read(hostelStudentProvider.notifier)
             .loadHostelStudentsFromDB();
         await ref.read(specialPassProvider.notifier).getSpecailPassesFromDB();
-        await ref.read(rtPassProvider.notifier).loadPassRequestsFromDB();
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => const WardenPage(),

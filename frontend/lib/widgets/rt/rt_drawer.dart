@@ -113,7 +113,7 @@ class RtDrawer extends StatelessWidget {
           const Spacer(),
           ListTile(
             onTap: () {
-              Navigator.push(
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const BugReportPage(),
@@ -125,10 +125,10 @@ class RtDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.push(
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const DeveloperPage(),
+                  builder: (context) => DeveloperPage(),
                 ),
               );
             },

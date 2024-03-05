@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hostel_pass_management/utils/shared_preferences.dart';
+import 'package:hostel_pass_management/widgets/rt/rt_drawer.dart';
 import 'package:hostel_pass_management/widgets/student/student_drawer.dart';
+import 'package:hostel_pass_management/widgets/warden/warden_drawer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RulesPage extends StatelessWidget {
   RulesPage({super.key});
@@ -19,12 +23,20 @@ class RulesPage extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
     // ignore: unused_local_variable
     ColorScheme colorScheme = Theme.of(context).colorScheme;
-
+    SharedPreferences? prefs = SharedPreferencesManager.preferences;
+    var drawer;
+    if (prefs!.getString("role") == "student") {
+      drawer = StudentDrawer();
+    } else if (prefs.getString("role") == "rt") {
+      drawer = RtDrawer();
+    } else if (prefs.getString("role") == "warden") {
+      drawer = WardenDrawer();
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text("Rules and Regulations"),
       ),
-      drawer: StudentDrawer(),
+      drawer: drawer(),
       body: Padding(
         padding: EdgeInsets.all(20),
         child: SingleChildScrollView(

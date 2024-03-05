@@ -8,6 +8,8 @@ import 'package:hostel_pass_management/providers/block_students_provider.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
 import 'package:hostel_pass_management/widgets/common/profile_item.dart';
 import 'package:hostel_pass_management/widgets/rt/rt_drawer.dart';
+import 'package:hostel_pass_management/widgets/student/student_drawer.dart';
+import 'package:hostel_pass_management/widgets/warden/warden_drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BlockStudentsPage extends ConsumerStatefulWidget {
@@ -24,7 +26,15 @@ class _BlockStudentsPageState extends ConsumerState<BlockStudentsPage> {
   @override
   Widget build(BuildContext context) {
     final blockStudents;
-
+    SharedPreferences? prefs = SharedPreferencesManager.preferences;
+    var drawer;
+    if (prefs!.getString("role") == "student") {
+      drawer = StudentDrawer();
+    } else if (prefs.getString("role") == "rt") {
+      drawer = RtDrawer();
+    } else if (prefs.getString("role") == "warden") {
+      drawer = WardenDrawer();
+    }
     if (widget.students == null) {
       blockStudents = ref.watch(blockStudentProvider);
     } else {
@@ -35,7 +45,7 @@ class _BlockStudentsPageState extends ConsumerState<BlockStudentsPage> {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      drawer: const RtDrawer(),
+      drawer: drawer,
       appBar: AppBar(
         title: const Text('Block Students'),
         centerTitle: true,
