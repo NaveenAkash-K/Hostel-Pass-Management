@@ -20,7 +20,6 @@ router.get("/getPass", async (req, res) => {
       var tempPass = [];
       var studentPasses = await Pass.find({
         studentId: student.studentId,
-        isSpecialPass: false,
       });
       for (const pass of studentPasses) {
         tempPass.push({

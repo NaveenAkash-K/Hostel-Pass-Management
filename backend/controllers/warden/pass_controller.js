@@ -11,7 +11,7 @@ router.get("/getPass", async (req, res) => {
     for (const student of allStudents) {
       const studentPasses = await Pass.find({
         studentId: student.studentId,
-        isSpecialPass: true,
+        // isSpecialPass: true,
       });
 
       for (const pass of studentPasses) {

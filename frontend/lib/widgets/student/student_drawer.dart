@@ -87,7 +87,7 @@ class StudentDrawer extends StatelessWidget {
           Spacer(),
           ListTile(
             onTap: () {
-              Navigator.push(
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (context) => BugReportPage(),
@@ -99,7 +99,7 @@ class StudentDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.push(
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (context) => DeveloperPage(),
