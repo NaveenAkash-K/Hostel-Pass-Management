@@ -18,6 +18,8 @@ frontend/.idea/
 
 QR Automation/node_modules
 QR Automation/package-lock.json
+QR Automation/.env
+
 
 
 # The .vscode folder contains launch configuration and tasks you configure in
