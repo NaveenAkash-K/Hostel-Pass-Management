@@ -47,12 +47,13 @@ class _PassRequestPageState extends ConsumerState<PassRequestPage> {
     if (prefs!.getString("role") == "warden") {
       warden = true;
     }
+
     if (prefs.getString("role") == "rt") {
       warden = false;
     }
     return Scaffold(
       appBar: AppBar(
-        title:  Text(widget.passRequest ? "Pass Request" : "Pass Log" ),
+        title: Text(widget.passRequest ? "Pass Request" : "Pass Log"),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -136,13 +137,13 @@ class _PassRequestPageState extends ConsumerState<PassRequestPage> {
                 content:
                     "Date: ${widget.pass.expectedInDate}  Time: ${widget.pass.expectedInTime}",
               ),
-              if (!widget.passRequest && widget.pass.status == "Used" )
+              if (!widget.passRequest && widget.pass.status == "Used")
                 PassTile(
                   title: "Actual Leaving Date & Time",
                   content:
                       "Date: ${widget.pass.actualOutDate}  Time: ${widget.pass.actualOutTime}",
                 ),
-              if (!widget.passRequest && widget.pass.status == "Used" )
+              if (!widget.passRequest && widget.pass.status == "Used")
                 PassTile(
                   title: "Actual Returning Date & Time",
                   content:

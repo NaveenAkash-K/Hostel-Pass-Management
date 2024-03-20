@@ -1361,3 +1361,179 @@ errored
 7. 2023ee0265@svce.ac.in QR Sent Successfully
 8. 2021me0485@svce.ac.in DB Update Success
 8. 2021me0485@svce.ac.in QR Sent Successfully
+Cannot read properties of undefined (reading 'trim')
+Cannot read properties of undefined (reading 'trim')
+Cannot read properties of undefined (reading 'trim')
+Cannot read properties of undefined (reading 'trim')
+Cannot read properties of undefined (reading 'trim')
+Cannot read properties of undefined (reading 'trim')
+Cannot read properties of undefined (reading 'trim')
+Cannot read properties of undefined (reading 'toString')
+Cannot read properties of undefined (reading 'toString')
+Cannot read properties of undefined (reading 'toString')
+Cannot read properties of undefined (reading 'toString')
+users validation failed: email: Path `email` is required.
+users validation failed: email: Path `email` is required.
+users validation failed: email: Path `email` is required.
+users validation failed: email: Path `email` is required.
+users validation failed: email: Path `email` is required.
+users validation failed: email: Path `email` is required.
+users validation failed: email: Path `email` is required.
+users validation failed: email: Path `email` is required.
+users validation failed: email: Path `email` is required.
+users validation failed: email: Path `email` is required.
+users validation failed: email: Path `email` is required.
+users validation failed: email: Path `email` is required.
+1. 2021it0305@svce.ac.in DB Update Success
+1. 2021ec0127@svce.ac.in DB Update Success
+1. 2021ec0215@svce.ac.in DB Update Success
+1. 2021ec0309@svce.ac.in DB Update Success
+1. 2021ee0924@svce.ac.in DB Update Success
+1. 2021me0868@svce.ac.in DB Update Success
+1. 2021me0310@svce.ac.in DB Update Success
+1. 2021me0274@svce.ac.in  DB Update Success
+1. 2021ce0390@svce.ac.in DB Update Success
+1. 2021ee0147@svce.ac.in DB Update Success
+1. 2021ee0302@svce.ac.in DB Update Success
+1. 2021me0207@svce.ac.in DB Update Success
+1. 2021ec0473@svce.ac.in DB Update Success
+1. 2021me0461@svce.ac.in DB Update Success
+1. 2021ec0740@svce.ac.in DB Update Success
+1. 2021it0826@gmail.com DB Update Success
+1. 2021me0958@svce.ac.in DB Update Success
+1. 2021ee0565@svce.ac.in DB Update Success
+1. 2021it0305@svce.ac.in DB Update Success
+1. 2021ec0127@svce.ac.in DB Update Success
+1. 2021ec0215@svce.ac.in DB Update Success
+1. 2021ec0309@svce.ac.in DB Update Success
+1. 2021ee0924@svce.ac.in DB Update Success
+1. 2021me0868@svce.ac.in DB Update Success
+1. 2021me0310@svce.ac.in DB Update Success
+1. 2021me0274@svce.ac.in  DB Update Success
+1. 2021ce0390@svce.ac.in DB Update Success
+1. 2021ee0147@svce.ac.in DB Update Success
+1. 2021ee0302@svce.ac.in DB Update Success
+1. 2021me0207@svce.ac.in DB Update Success
+1. 2021ec0473@svce.ac.in DB Update Success
+1. 2021me0461@svce.ac.in DB Update Success
+1. 2021ec0740@svce.ac.in DB Update Success
+1. 2021it0826@gmail.com DB Update Success
+1. 2021me0958@svce.ac.in DB Update Success
+1. 2021ee0565@svce.ac.in DB Update Success
+1. 2021it0305@svce.ac.in DB Update Success
+1. 2021ec0127@svce.ac.in DB Update Success
+1. 2021ec0215@svce.ac.in DB Update Success
+1. 2021ec0309@svce.ac.in DB Update Success
+1. 2021ee0924@svce.ac.in DB Update Success
+1. 2021me0868@svce.ac.in DB Update Success
+1. 2021me0310@svce.ac.in DB Update Success
+1. 2021me0274@svce.ac.in  DB Update Success
+1. 2021ce0390@svce.ac.in DB Update Success
+1. 2021ee0147@svce.ac.in DB Update Success
+1. 2021ee0302@svce.ac.in DB Update Success
+1. 2021me0207@svce.ac.in DB Update Success
+1. 2021ec0473@svce.ac.in DB Update Success
+1. 2021me0461@svce.ac.in DB Update Success
+1. 2021ec0740@svce.ac.in DB Update Success
+1. 2021it0826@gmail.com DB Update Success
+1. 2021me0958@svce.ac.in DB Update Success
+1. 2021ee0565@svce.ac.in DB Update Success
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+students validation failed: year: Cast to Number failed for value "III" (type string) at path "year"
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. undefined DB Update Success
+1. 2021it0305@svce.ac.in DB Update Success
+1. 2021ec0127@svce.ac.in DB Update Success
+1. 2021ec0215@svce.ac.in DB Update Success
+1. 2021ec0309@svce.ac.in DB Update Success
+1. 2021ee0924@svce.ac.in DB Update Success
+1. 2021me0868@svce.ac.in DB Update Success
+1. 2021me0310@svce.ac.in DB Update Success
+1. 2021me0274@svce.ac.in  DB Update Success
+1. 2021ce0390@svce.ac.in DB Update Success
+1. 2021ee0147@svce.ac.in DB Update Success
+1. 2021ee0302@svce.ac.in DB Update Success
+1. 2021me0207@svce.ac.in DB Update Success
+1. 2021ec0473@svce.ac.in DB Update Success
+1. 2021me0461@svce.ac.in DB Update Success
+1. 2021ec0740@svce.ac.in DB Update Success
+1. 2021it0826@gmail.com DB Update Success
+1. 2021me0958@svce.ac.in DB Update Success
+1. 2021ee0565@svce.ac.in DB Update Success
+security validation failed: email: Path `email` is required.
+security validation failed: email: Path `email` is required.
+security validation failed: email: Path `email` is required.
+security validation failed: email: Path `email` is required.
+security validation failed: email: Path `email` is required.
+1. 2021it0305@svce.ac.in DB Update Success
+1. 2021ec0127@svce.ac.in DB Update Success
+1. 2021ec0215@svce.ac.in DB Update Success
+1. 2021ec0309@svce.ac.in DB Update Success
+1. 2021ee0924@svce.ac.in DB Update Success
+1. 2021me0868@svce.ac.in DB Update Success
+1. 2021me0310@svce.ac.in DB Update Success
+1. 2021me0274@svce.ac.in  DB Update Success
+1. 2021ce0390@svce.ac.in DB Update Success
+1. 2021ee0147@svce.ac.in DB Update Success
+1. 2021ee0302@svce.ac.in DB Update Success
+1. 2021me0207@svce.ac.in DB Update Success
+1. 2021ec0473@svce.ac.in DB Update Success
+1. 2021me0461@svce.ac.in DB Update Success
+1. 2021ec0740@svce.ac.in DB Update Success
+1. 2021it0826@gmail.com DB Update Success
+1. 2021me0958@svce.ac.in DB Update Success
+1. 2021ee0565@svce.ac.in DB Update Success
