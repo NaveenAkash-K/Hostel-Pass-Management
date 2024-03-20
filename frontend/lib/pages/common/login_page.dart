@@ -44,6 +44,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
     if (!_loginFormKey.currentState!.validate()) {
       return;
     }
+    FocusScope.of(context).unfocus();
     try {
       setState(() {
         isLoginLoading = true;

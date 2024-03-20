@@ -33,12 +33,12 @@ class BugReportPageState extends State<BugReportPage> {
     var drawer;
     SharedPreferences? prefs = SharedPreferencesManager.preferences;
     if (prefs!.getString("role") == "student") {
-      drawer = StudentDrawer();
+      drawer = const StudentDrawer();
     } else if (prefs.getString("role") == "rt") {
-      drawer = RtDrawer();
+      drawer = const RtDrawer();
     }
     if (prefs.getString("role") == "warden") {
-      drawer = WardenDrawer();
+      drawer = const WardenDrawer();
     }
     TextTheme textTheme = Theme.of(context).textTheme;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
@@ -61,6 +61,8 @@ class BugReportPageState extends State<BugReportPage> {
       //   );
       //   return;
       // }
+      FocusScope.of(context).unfocus();
+      await Future.delayed(const Duration(milliseconds: 70));
       try {
         setState(() {
           isLoading = true;
@@ -184,7 +186,7 @@ class BugReportPageState extends State<BugReportPage> {
                   height: 50,
                   child: Center(
                     child: isLoading
-                        ? SizedBox(
+                        ? const SizedBox(
                             width: 25,
                             height: 25,
                             child: CircularProgressIndicator(),

@@ -48,9 +48,9 @@ class _AnnouncementPageState extends ConsumerState<AnnouncementPage> {
         title: const Text("Announcements"),
         centerTitle: true,
       ),
-      drawer: RtDrawer(),
+      drawer: const RtDrawer(),
       body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -104,7 +104,7 @@ class _AnnouncementPageState extends ConsumerState<AnnouncementPage> {
                         horizontal: 20,
                       ),
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 1, 46, 76),
+                        color: const Color.fromARGB(255, 1, 46, 76),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: isLoading
@@ -128,10 +128,10 @@ class _AnnouncementPageState extends ConsumerState<AnnouncementPage> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Text(
+            const Text(
               "Current Announcement(s)",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -149,7 +149,7 @@ class _AnnouncementPageState extends ConsumerState<AnnouncementPage> {
                       ListTile(
                         title: Text(
                           announcement.title,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                         subtitle: Text(announcement.message),
@@ -199,6 +199,9 @@ class _AnnouncementPageState extends ConsumerState<AnnouncementPage> {
 
     final String title = _titleController.text;
     final String message = _messageController.text;
+
+    FocusScope.of(context).unfocus();
+    await Future.delayed(const Duration(milliseconds: 70));
 
     setState(() {
       isLoading = true;

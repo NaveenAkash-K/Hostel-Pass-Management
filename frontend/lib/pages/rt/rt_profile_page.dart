@@ -524,15 +524,16 @@ class _RtProfilePageState extends State<RtProfilePage> {
                       ],
                     ),
                   ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
+                    child: LogoutTile(),
+                  ),
                 ],
               ),
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: LogoutTile(),
       ),
     );
   }

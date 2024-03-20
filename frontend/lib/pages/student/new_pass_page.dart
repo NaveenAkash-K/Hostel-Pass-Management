@@ -81,6 +81,7 @@ class _NewPassPageState extends ConsumerState<NewPassPage> {
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         child: ElevatedButton(
                           onPressed: () {
+                            FocusScope.of(context).unfocus();
                             setState(() {
                               passType = 'GatePass';
                               if (inDate != null) {
@@ -141,6 +142,7 @@ class _NewPassPageState extends ConsumerState<NewPassPage> {
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         child: ElevatedButton(
                           onPressed: () {
+                            FocusScope.of(context).unfocus();
                             setState(() {
                               passType = 'StayPass';
                               inDate = null;
@@ -608,7 +610,7 @@ class _NewPassPageState extends ConsumerState<NewPassPage> {
       );
       return;
     }
-
+    FocusScope.of(context).unfocus();
     try {
       setState(() {
         isSubmitLoading = true;
