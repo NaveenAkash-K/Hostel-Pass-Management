@@ -16,9 +16,6 @@ frontend/*.ipr
 frontend/*.iws
 frontend/.idea/
 
-QR Automation/node_modules
-QR Automation/package-lock.json
-QR Automation/.env
 
 
 
