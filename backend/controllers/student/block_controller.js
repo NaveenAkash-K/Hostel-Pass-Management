@@ -12,4 +12,22 @@ router.get("/getAnnouncement/:blockNo", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+router.post("/readAnnouncement", async (req, res) => {
+  try {
+    const {id} = req.body;
+const announcement = await Announcement.findOneAndUpdate(
+  { _id: id },
+  { isRead: true },
+  { new: true } 
+);
+if(!announcement){
+  res.status(404).json({message:"Announcement not found"});
+}
+    res.json(announcement);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 module.exports = router;

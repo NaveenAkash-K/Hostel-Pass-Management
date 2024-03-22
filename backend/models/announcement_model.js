@@ -5,6 +5,7 @@ const announcementSchema = mongoose.Schema({
     message:{type:String,required:true},
     rtId:{type:String,required:true},
     blockNo:{type:Number,required:true},
+    isRead:{type:Boolean,required:true,default:false},
     isBoysHostelRt:{type:Boolean,required:true}
 })
 

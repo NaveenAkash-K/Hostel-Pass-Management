@@ -38,12 +38,14 @@ router.post("/postAnnouncement", async (req, res) => {
       message: message,
       blockNo: blockNo,
       rtId: rtId,
-      isBoysHostelRt:isBoysHostelRt
+      isBoysHostelRt:isBoysHostelRt,
+      isRead:false,
     }).save();
     res.json({
       _id: announcement._id,
       rtId: announcement.rtId,
       title: announcement.title,
+      isRead:announcement.isRead,
       blockNo: announcement.blockNo,
       message: announcement.message,
       isBoysHostelRt:announcement.isBoysHostelRt
