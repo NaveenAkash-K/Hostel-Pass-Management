@@ -34,6 +34,7 @@ class StudentAnnouncementNotifier extends StateNotifier<List<Announcement>> {
             announcementId: announcement["_id"],
             rtId: announcement["rtId"],
             title: announcement["title"],
+            isRead: announcement['isRead'],
             isBoysHostelRt: announcement['isBoysHostelRt'],
             message: announcement["message"],
             blockNo: announcement["blockNo"]));
@@ -41,6 +42,42 @@ class StudentAnnouncementNotifier extends StateNotifier<List<Announcement>> {
       state = announcements;
     } catch (err) {
       throw "student announcement error";
+    }
+  }
+
+  Future<void> markAnnouncementAsRead(String id) async {
+    try {
+      final response = await http.post(
+        Uri.parse(
+            "${dotenv.env["BACKEND_BASE_API"]}/${prefs!.getString("role")}/block/readAnnouncement"),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": prefs!.getString("jwtToken")!,
+        },
+        body: jsonEncode({
+          'id': id,
+        }),
+      );
+      var responseData = jsonDecode(response.body);
+      if (response.statusCode > 399) {
+        return responseData["message"];
+      }
+      final index =
+          state.indexWhere((announcement) => announcement.announcementId == id);
+      if (index != -1) {
+        Announcement updatedAnnoucement = Announcement(
+            rtId: state[index].rtId,
+            title: state[index].title,
+            message: state[index].message,
+            isBoysHostelRt: state[index].isBoysHostelRt,
+            blockNo: state[index].blockNo,
+            announcementId: state[index].announcementId,
+            isRead: true);
+        state[index] = updatedAnnoucement;
+      }
+      state = [...state];
+    } catch (e) {
+      throw 'Something went wrong';
     }
   }
 }

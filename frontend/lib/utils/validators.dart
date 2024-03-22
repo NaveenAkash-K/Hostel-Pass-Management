@@ -12,6 +12,14 @@ bool isPassword(String password) {
   return false;
 }
 
+bool passHasNumeric(String password) {
+  RegExp numericRegex = RegExp(r'[0-9]');
+  if (numericRegex.hasMatch(password)) {
+    return true;
+  }
+  return false;
+}
+
 bool isPhoneNumber(String phoneNumber) {
   final RegExp phoneRegex = RegExp(r'^[6-9]\d{9}$');
   return phoneRegex.hasMatch(phoneNumber);

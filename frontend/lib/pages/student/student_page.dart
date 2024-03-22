@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hostel_pass_management/models/announcement_model.dart';
 import 'package:hostel_pass_management/models/pass_model.dart';
@@ -12,6 +15,7 @@ import 'package:hostel_pass_management/widgets/student/student_drawer.dart';
 import 'package:hostel_pass_management/widgets/student/pass_log.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class StudentPage extends ConsumerStatefulWidget {
   const StudentPage({super.key});
@@ -23,9 +27,36 @@ class StudentPage extends ConsumerStatefulWidget {
 class _StudentPageState extends ConsumerState<StudentPage> {
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
   List<Announcement>? announcement;
+  int unreadAnnouncements = 0;
+
+  // Future<void> _markAnnouncementAsRead(String id) async {
+  //   try {
+  //     final response = await http.post(
+  //       Uri.parse(
+  //           "${dotenv.env["BACKEND_BASE_API"]}/${prefs!.getString("role")}/block/readAnnouncement"),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "Authorization": prefs!.getString("jwtToken")!,
+  //       },
+  //       body: jsonEncode({
+  //         'id': id,
+  //       }),
+  //     );
+  //     var responseData = jsonDecode(response.body);
+  //     if (response.statusCode > 399) {
+  //       return responseData["message"];
+  //     }
+  //     setState(() {});
+  //   } catch (e) {
+  //     throw 'Something went wrong';
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     final List<Pass> passes = ref.watch(studentPassProvider);
+    final List<Announcement> annoucement =
+        ref.watch(studentAnnouncementNotifier);
     final List<Pass> usedPasses = passes
         .where(
           (pass) => pass.status == "Used",
@@ -37,6 +68,10 @@ class _StudentPageState extends ConsumerState<StudentPage> {
           .read(studentAnnouncementNotifier)
           .where((announcement) => announcement.isBoysHostelRt)
           .toList();
+      unreadAnnouncements = announcement!
+          .where((announcement) => announcement.isRead == false)
+          .toList()
+          .length;
     } else {
       announcement = ref
           .read(studentAnnouncementNotifier)
@@ -51,85 +86,136 @@ class _StudentPageState extends ConsumerState<StudentPage> {
         scrolledUnderElevation: 0,
         centerTitle: true,
         actions: [
-          IconButton(
-              onPressed: () {
-                showModalBottomSheet(
-                  scrollControlDisabledMaxHeightRatio: 0.6,
-                  context: context,
-                  builder: (context) {
-                    return announcement!.isNotEmpty
-                        ? Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.all(20),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    const Text(
-                                      "Announcements",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 28,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    if (announcement != null &&
-                                        announcement!.isNotEmpty) ...[
-                                      ListTile(
-                                        title: Text(
-                                          "1. ${announcement![0].title}",
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20,
-                                          ),
-                                        ),
-                                        subtitle: Text(
-                                          announcement![0].message,
-                                          style: const TextStyle(fontSize: 16),
+          Stack(
+            children: [
+              IconButton(
+                icon: const Icon(Icons.notifications_none),
+                onPressed: () {
+                  showModalBottomSheet(
+                    scrollControlDisabledMaxHeightRatio: 0.6,
+                    context: context,
+                    builder: (context) {
+                      return announcement!.isNotEmpty
+                          ? Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      const Text(
+                                        "Announcements",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 28,
                                         ),
                                       ),
-                                      if (announcement!.length > 1) ...[
-                                        const Divider(),
+                                      const SizedBox(height: 10),
+                                      if (announcement != null &&
+                                          announcement!.isNotEmpty) ...[
                                         ListTile(
+                                          onTap: () async {
+                                            await ref
+                                                .read(
+                                                    studentAnnouncementNotifier
+                                                        .notifier)
+                                                .markAnnouncementAsRead(
+                                                    announcement![0]
+                                                        .announcementId);
+                                            Navigator.of(context).pop();
+                                          },
+                                          tileColor: announcement![0].isRead
+                                              ? Colors.transparent
+                                              : Colors.blue[50],
                                           title: Text(
-                                            "2. ${announcement![1].title}",
+                                            "1. ${announcement![0].title}",
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 20,
                                             ),
                                           ),
                                           subtitle: Text(
-                                            announcement![1].message,
+                                            announcement![0].message,
                                             style:
                                                 const TextStyle(fontSize: 16),
                                           ),
                                         ),
-                                        const Divider(),
+                                        if (announcement!.length > 1) ...[
+                                          const Divider(),
+                                          ListTile(
+                                            onTap: () async {
+                                              await ref
+                                                  .read(
+                                                      studentAnnouncementNotifier
+                                                          .notifier)
+                                                  .markAnnouncementAsRead(
+                                                      announcement![1]
+                                                          .announcementId);
+                                              Navigator.of(context).pop();
+                                            },
+                                            tileColor: announcement![1].isRead
+                                                ? Colors.transparent
+                                                : Colors.blue[50],
+                                            title: Text(
+                                              "2. ${announcement![1].title}",
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                            subtitle: Text(
+                                              announcement![1].message,
+                                              style:
+                                                  const TextStyle(fontSize: 16),
+                                            ),
+                                          ),
+                                          const Divider(),
+                                        ],
+                                      ] else ...[
+                                        const Text(
+                                          "No announcements",
+                                          style: TextStyle(fontSize: 16),
+                                        ),
                                       ],
-                                    ] else ...[
-                                      const Text(
-                                        "No announcements",
-                                        style: TextStyle(fontSize: 16),
-                                      ),
                                     ],
-                                  ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          )
-                        : Container(
-                            height: MediaQuery.of(context).size.height * 0.3,
-                            child: const Align(
-                              alignment: Alignment.topLeft,
-                              child: Center(
-                                child: Text("No announcements"),
+                            )
+                          : Container(
+                              height: MediaQuery.of(context).size.height * 0.3,
+                              child: const Align(
+                                alignment: Alignment.topLeft,
+                                child: Center(
+                                  child: Text("No announcements"),
+                                ),
                               ),
-                            ),
-                          ); // Return empty SizedBox if there's no announcement
-                  },
-                );
-              },
-              icon: const Icon(Icons.notifications_none))
+                            ); // Return empty SizedBox if there's no announcement
+                    },
+                  );
+                },
+              ),
+              if (unreadAnnouncements != 0)
+                Positioned(
+                  top: 5,
+                  right: 5,
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Text(
+                      unreadAnnouncements.toString(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
         ],
       ),
       floatingActionButton: Hero(

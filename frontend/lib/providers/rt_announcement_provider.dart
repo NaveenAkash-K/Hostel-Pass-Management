@@ -34,6 +34,7 @@ class RtAnnoucementNotifier extends StateNotifier<List<Announcement>> {
             announcementId: announcement["_id"],
             rtId: announcement["rtId"],
             isBoysHostelRt: announcement["isBoysHostelRt"],
+            isRead: announcement['isRead'],
             title: announcement["title"],
             message: announcement["message"],
             blockNo: announcement["blockNo"]));
@@ -73,6 +74,7 @@ class RtAnnoucementNotifier extends StateNotifier<List<Announcement>> {
           announcementId: responseData["_id"],
           title: responseData["title"],
           isBoysHostelRt: responseData['isBoysHostelRt'],
+          isRead: responseData['isRead'],
           message: responseData["message"],
           blockNo: responseData["blockNo"],
           rtId: responseData["rtId"],

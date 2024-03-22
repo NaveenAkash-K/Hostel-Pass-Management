@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hostel_pass_management/models/announcement_model.dart';
 import 'package:hostel_pass_management/providers/rt_announcement_provider.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
 import 'package:hostel_pass_management/widgets/common/toast.dart';
@@ -21,12 +22,13 @@ class _AnnouncementPageState extends ConsumerState<AnnouncementPage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _messageController = TextEditingController();
   bool isLoading = false;
-  var announcements;
+  List<Announcement>? announcements;
   late FToast toast;
 
   @override
   Widget build(BuildContext context) {
     SharedPreferences? prefs = SharedPreferencesManager.preferences;
+    announcements = ref.watch(rtAnnouncementNotifier);
     toast = FToast();
     toast.init(context);
     ColorScheme colorScheme = Theme.of(context).colorScheme;
@@ -96,7 +98,9 @@ class _AnnouncementPageState extends ConsumerState<AnnouncementPage> {
                   ),
                   const SizedBox(height: 20),
                   InkWell(
-                    onTap: isLoading ? null : _submitForm,
+                    onTap: isLoading || announcements!.length >= 2
+                        ? null
+                        : _submitForm,
                     child: Ink(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(
@@ -140,9 +144,9 @@ class _AnnouncementPageState extends ConsumerState<AnnouncementPage> {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: announcements.length,
+                itemCount: announcements!.length,
                 itemBuilder: (context, index) {
-                  final announcement = announcements[index];
+                  final announcement = announcements![index];
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

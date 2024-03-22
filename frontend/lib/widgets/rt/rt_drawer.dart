@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hostel_pass_management/pages/common/developer_page.dart';
 import 'package:hostel_pass_management/pages/common/bug_report_page.dart';
 import 'package:hostel_pass_management/pages/common/login_page.dart';
@@ -9,16 +10,23 @@ import 'package:hostel_pass_management/pages/rt/pass_logs_page.dart';
 import 'package:hostel_pass_management/pages/rt/rt_page.dart';
 import 'package:hostel_pass_management/pages/student/student_page.dart';
 import 'package:hostel_pass_management/pages/student/rules_page.dart';
+import 'package:hostel_pass_management/providers/block_students_provider.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
 import 'package:hostel_pass_management/pages/rt/rt_profile_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class RtDrawer extends StatelessWidget {
+class RtDrawer extends ConsumerStatefulWidget {
   const RtDrawer({super.key});
 
   @override
+  ConsumerState<RtDrawer> createState() => _RtDrawerState();
+}
+
+class _RtDrawerState extends ConsumerState<RtDrawer> {
+  @override
   Widget build(BuildContext context) {
     SharedPreferences? prefs = SharedPreferencesManager.preferences;
+    final students = ref.watch(blockStudentProvider);
 
     TextTheme textTheme = Theme.of(context).textTheme;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
@@ -69,7 +77,9 @@ class RtDrawer extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const BlockStudentsPage(),
+                  builder: (context) => BlockStudentsPage(
+                    students: students,
+                  ),
                 ),
               );
             },

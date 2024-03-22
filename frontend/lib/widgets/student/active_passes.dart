@@ -204,7 +204,7 @@ class _DeletePassDialogState extends ConsumerState<DeletePassDialog> {
               foregroundColor: colorScheme.error),
           onPressed: isDeletePassLoading
               ? null
-              : confirmController.text != "DELETE"
+              : confirmController.text.trim() != "DELETE"
                   ? null
                   : () async {
                       await deletePass();

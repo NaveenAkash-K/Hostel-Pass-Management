@@ -201,7 +201,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            "login err" + err.toString(),
+            err.toString(),
           ),
         ),
       );
@@ -324,14 +324,14 @@ class LoginPageState extends ConsumerState<LoginPage> {
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            // borderRadius: BorderRadius.circular(8),
+                            // borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(8),
                             borderSide: const BorderSide(
                               color: Color.fromARGB(255, 5, 44, 76),
                               width: 2.0,
                             ),
                           ),
-                          labelText: "Admission No",
+                          labelText: "Email",
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelStyle: textTheme.displayLarge!
                               .copyWith(color: Colors.black, fontSize: 20),

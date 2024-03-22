@@ -298,6 +298,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                             if (!isPassword(password.trim())) {
                               return "The password must have at least 6 characters";
                             }
+                            if (!passHasNumeric(password.trim())) {
+                              return "The password must contain a numeric value";
+                            }
                             return null;
                           },
                         ),

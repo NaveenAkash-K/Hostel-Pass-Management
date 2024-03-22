@@ -34,23 +34,23 @@ class _PassRequestItemState extends State<PassRequestItem> {
 
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-          child: TextField(
-            controller: _searchController,
-            decoration: const InputDecoration(
-                hintText: 'Search by student name...',
-                border: InputBorder.none,
-                hintStyle: TextStyle(
-                  color: Color.fromARGB(137, 26, 26, 26),
-                ),
-                suffixIcon: Icon(
-                  Icons.search_rounded,
-                )),
-            style: const TextStyle(color: Colors.black),
-            onChanged: _filterPassRequests,
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+        //   child: TextField(
+        //     controller: _searchController,
+        //     decoration: const InputDecoration(
+        //         hintText: 'Search by student name...',
+        //         border: InputBorder.none,
+        //         hintStyle: TextStyle(
+        //           color: Color.fromARGB(137, 26, 26, 26),
+        //         ),
+        //         suffixIcon: Icon(
+        //           Icons.search_rounded,
+        //         )),
+        //     style: const TextStyle(color: Colors.black),
+        //     onChanged: _filterPassRequests,
+        //   ),
+        // ),
         InkWell(
           onTap: () {
             Navigator.push(

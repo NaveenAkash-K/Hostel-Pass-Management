@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hostel_pass_management/models/pass_request_model.dart';
 import 'package:hostel_pass_management/pages/common/developer_page.dart';
 import 'package:hostel_pass_management/pages/common/bug_report_page.dart';
@@ -13,17 +14,26 @@ import 'package:hostel_pass_management/pages/warden/block_details_page.dart';
 import 'package:hostel_pass_management/pages/warden/hostel_stats.dart';
 import 'package:hostel_pass_management/pages/warden/warden_pass_logs_page.dart';
 import 'package:hostel_pass_management/pages/warden/warden_pass_request_page.dart';
+import 'package:hostel_pass_management/providers/warden_pass_provider.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
 import 'package:hostel_pass_management/pages/warden/warden_profile_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class WardenDrawer extends StatelessWidget {
+class WardenDrawer extends ConsumerStatefulWidget {
   const WardenDrawer({super.key});
 
   @override
+  ConsumerState<WardenDrawer> createState() => _WardenDrawerState();
+}
+
+class _WardenDrawerState extends ConsumerState<WardenDrawer> {
+  @override
   Widget build(BuildContext context) {
     SharedPreferences? prefs = SharedPreferencesManager.preferences;
-
+    final passRequests = ref.watch(specialPassProvider);
+    final List<PassRequest> pendingPasses =
+        passRequests.where((pass) => pass.status == 'Pending').toList();
+    final pendingpassesLength = pendingPasses.length;
     TextTheme textTheme = Theme.of(context).textTheme;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
 
@@ -79,6 +89,20 @@ class WardenDrawer extends StatelessWidget {
             },
             leading: const Icon(Icons.apartment_rounded),
             title: const Text("Pass Requests"),
+            trailing: Container(
+              alignment: Alignment.center,
+              width: 25,
+              height: 50,
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Theme.of(context).colorScheme.tertiaryContainer,
+              ),
+              child: Text(
+                pendingpassesLength.toString(),
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
           ),
           // ListTile(
           //   onTap: () {
