@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hostel_pass_management/models/block_student_model.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
@@ -9,6 +10,7 @@ import 'package:hostel_pass_management/widgets/common/logout_tile.dart';
 import 'package:hostel_pass_management/widgets/common/profile_item.dart';
 import 'package:hostel_pass_management/widgets/rt/rt_drawer.dart';
 import 'package:hostel_pass_management/widgets/student/student_drawer.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,6 +23,7 @@ class RtProfilePage extends StatefulWidget {
 
 class _RtProfilePageState extends State<RtProfilePage> {
   String? profileBuffer;
+  List<dynamic>? temporaryBlock;
   List<Map<String, dynamic>> switchedRts = [];
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
   late int _selectedValue;
@@ -70,10 +73,14 @@ class _RtProfilePageState extends State<RtProfilePage> {
         throw responseData["message"];
       }
 
+      print(responseData);
+
       setState(() {
         profileBuffer = responseData["profileBuffer"];
+        temporaryBlock = responseData["temporaryBlock"];
       });
     } catch (e) {
+      print(e);
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -87,8 +94,7 @@ class _RtProfilePageState extends State<RtProfilePage> {
     try {
       var permBlock = prefs!.getInt("permanentBlock");
       var response = await http.get(
-        Uri.parse(
-            "${dotenv.env["BACKEND_BASE_API"]}/rt/block/getSwitchedRts/$permBlock"),
+        Uri.parse("${dotenv.env["BACKEND_BASE_API"]}/rt/block/getSwitchedRts"),
         headers: {
           "Content-Type": "application/json",
           "Authorization": prefs!.getString("jwtToken")!,
@@ -166,11 +172,7 @@ class _RtProfilePageState extends State<RtProfilePage> {
                               "Content-Type": "application/json",
                               "Authorization": prefs!.getString("jwtToken")!,
                             },
-                            body: jsonEncode({
-                              "permanentBlockNo":
-                                  prefs!.getInt("permanentBlock"),
-                              "blockNo": _selectedValue
-                            }),
+                            body: jsonEncode({"blockNo": _selectedValue}),
                           );
                         } catch (err) {
                           print("Error occurred: $err");
@@ -243,10 +245,6 @@ class _RtProfilePageState extends State<RtProfilePage> {
                                 "Content-Type": "application/json",
                                 "Authorization": prefs!.getString("jwtToken")!,
                               },
-                              body: jsonEncode({
-                                "permanentBlockNo":
-                                    prefs!.getInt("permanentBlock"),
-                              }),
                             );
                           } catch (err) {
                             ScaffoldMessenger.of(context).clearSnackBars();
@@ -382,20 +380,40 @@ class _RtProfilePageState extends State<RtProfilePage> {
                     child: Column(
                       children: [
                         ProfileItem(
+                          // iconData: Icons.mail_rounded,
+                          // iconData: Ionicons.mail,
+                          iconData: FaIcon(
+                            FontAwesomeIcons.solidEnvelope,
+                            size: 20,
+                          ),
                           attribute: "Email",
                           value: prefs!.getString(("email"))!,
                         ),
                         const Divider(height: 0),
                         ProfileItem(
+                          // iconData: Ionicons.call,
+                          // iconData: Icons.call,
+                          iconData: FaIcon(
+                            FontAwesomeIcons.phone,
+                            size: 20,
+                          ),
+
                           attribute: "Phone No",
                           value: prefs!.getString(("phNo"))!,
                         ),
                         const Divider(height: 0),
                         ProfileItem(
+                          // iconData: Icons.apartment_rounded,
+                          iconData: FaIcon(
+                            FontAwesomeIcons.solidBuilding,
+                            size: 20,
+                          ),
                           attribute: "Temporary Blocks Assigned",
-                          value: prefs!
-                              .getStringList(("temporaryBlock"))!
-                              .join(", "),
+                          value: temporaryBlock == null
+                              ? "Loading..."
+                              : temporaryBlock!.isEmpty
+                                  ? "None"
+                                  : temporaryBlock!.join(", "),
                         ),
                       ],
                     ),

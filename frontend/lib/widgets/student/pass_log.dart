@@ -71,7 +71,7 @@ class PassLog extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  "Sriperumbudhur",
+                                  pass.destination,
                                   style: textTheme.bodyLarge!.copyWith(
                                     fontWeight: FontWeight.bold,
                                   ),

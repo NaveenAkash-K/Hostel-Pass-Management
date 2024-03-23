@@ -107,8 +107,8 @@ class _RtDrawerState extends ConsumerState<RtDrawer> {
                 ),
               );
             },
-            leading: const Icon(Icons.receipt_long_rounded),
-            title: const Text("Make Announcement"),
+            leading: const Icon(Icons.notifications_rounded),
+            title: const Text("Announcements"),
           ),
           ListTile(
             onTap: () {

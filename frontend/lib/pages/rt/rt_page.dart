@@ -81,7 +81,7 @@ class _RtPageState extends ConsumerState<RtPage> {
       // });
       if (prefs.getBool('isBoysHostelRt')!) {
         pendingPasses = passRequests
-            .where((pass) => pass.status == 'Pending' && pass.gender == 'M')
+            .where((pass) => pass.status == 'Pending' && pass.gender == 'M' && pass.isSpecialPass == false)
             .toList();
       } else {
         pendingPasses = passRequests

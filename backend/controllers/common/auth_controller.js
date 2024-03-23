@@ -92,7 +92,6 @@ router.post("/login", async (req, res) => {
         username: rt.username,
         email: rt.email,
         permanentBlock: rt.permanentBlock,
-        temporaryBlock: rt.temporaryBlock,
         phNo: rt.phNo,
         role: user.role,
       },
@@ -106,7 +105,6 @@ router.post("/login", async (req, res) => {
       username: rt.username,
       email: rt.email,
       permanentBlock: rt.permanentBlock,
-      temporaryBlock: rt.temporaryBlock,
       phNo: rt.phNo,
       role: user.role,
     });

@@ -594,14 +594,6 @@ class _NewPassPageState extends ConsumerState<NewPassPage> {
         );
         return;
       }
-      // print("Destination: ${_destinationController.text}");
-      // print(_reasonController.text);
-      // print("In Date: $inDate");
-      // print("In Time: $inTime");
-      // print("Out Date: $outDate");
-      // print("Out Time: $outTime");
-      // // print(DateTime.parse("${inDate}"));
-      // print(passType);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -639,7 +631,7 @@ class _NewPassPageState extends ConsumerState<NewPassPage> {
       if (!mounted) {
         return;
       }
-      Navigator.pop(context);
+      // Navigator.pop(context);
       await Future.delayed(const Duration(milliseconds: 1));
 
       ScaffoldMessenger.of(context).clearSnackBars();

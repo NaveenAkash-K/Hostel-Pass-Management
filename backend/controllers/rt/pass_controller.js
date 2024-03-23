@@ -50,6 +50,11 @@ router.get("/getPass", async (req, res) => {
       passes.push(...tempPass);
     }
     console.log(passes);
+
+    passes.sort((a, b) => {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
+
     res.json({ data: passes });
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });

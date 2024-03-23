@@ -49,6 +49,8 @@ dependencies:
   flutter_phone_direct_caller: ^2.1.1
   simple_barcode_scanner: ^0.1.0
   fluttertoast: ^8.2.4
+  ionicons: ^0.2.2
+  font_awesome_flutter: ^10.7.0
 
   
 dev_dependencies:

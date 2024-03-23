@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hostel_pass_management/models/block_student_model.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
@@ -169,11 +170,19 @@ class _WardenProfilePageState extends State<WardenProfilePage> {
                     child: Column(
                       children: [
                         ProfileItem(
+                          iconData: FaIcon(
+                            FontAwesomeIcons.solidEnvelope,
+                            size: 20,
+                          ),
                           attribute: "Email",
                           value: prefs!.getString(("email"))!,
                         ),
                         const Divider(height: 0),
                         ProfileItem(
+                          iconData: FaIcon(
+                            FontAwesomeIcons.phone,
+                            size: 20,
+                          ),
                           attribute: "Phone No",
                           value: prefs!.getString(("phNo"))!,
                         ),

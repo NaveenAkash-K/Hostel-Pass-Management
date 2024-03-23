@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hostel_pass_management/pages/common/forget_password.dart';
 import 'package:hostel_pass_management/pages/rt/rt_page.dart';
@@ -39,7 +40,9 @@ class LoginPageState extends ConsumerState<LoginPage> {
   bool isLoginLoading = false;
   late FToast toast;
 
-  void login() async {
+  void login(context) async {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
     HapticFeedback.selectionClick();
     if (!_loginFormKey.currentState!.validate()) {
       return;
@@ -96,13 +99,6 @@ class LoginPageState extends ConsumerState<LoginPage> {
             builder: (context) => const StudentPage(),
           ),
         );
-        toast.removeQueuedCustomToasts();
-        toast.showToast(
-            child: const ToastMsg(
-          text: "Login Success",
-          bgColor: Colors.greenAccent,
-          icondata: Icons.check,
-        ));
       } else if (responseData["role"] == "rt") {
         await prefs?.setString('jwtToken', responseData['jwtToken']);
         await prefs?.setString('uid', responseData['uid']);
@@ -113,16 +109,6 @@ class LoginPageState extends ConsumerState<LoginPage> {
         await prefs?.setString('phNo', responseData['phNo']);
         await prefs?.setInt('permanentBlock', responseData['permanentBlock']);
         await prefs?.setBool('isBoysHostelRt', responseData['isBoysHostelRt']);
-
-        List<String> temporaryBlock = [];
-
-        responseData["temporaryBlock"].forEach(
-          (block) {
-            temporaryBlock.add(block.toString());
-          },
-        );
-
-        await prefs?.setStringList('temporaryBlock', temporaryBlock);
 
         await ref.read(blockStudentProvider.notifier).loadBlockStudentsFromDB();
 
@@ -136,13 +122,6 @@ class LoginPageState extends ConsumerState<LoginPage> {
             builder: (context) => const RtPage(),
           ),
         );
-        toast.removeQueuedCustomToasts();
-        toast.showToast(
-            child: const ToastMsg(
-          text: "Login Success",
-          bgColor: Colors.greenAccent,
-          icondata: Icons.check,
-        ));
       } else if (responseData["role"] == "warden") {
         await prefs?.setString('jwtToken', responseData['jwtToken']);
         await prefs?.setString('uid', responseData['uid']);
@@ -162,13 +141,6 @@ class LoginPageState extends ConsumerState<LoginPage> {
             // builder: (context) => StatsPage(),
           ),
         );
-        toast.removeQueuedCustomToasts();
-        toast.showToast(
-            child: const ToastMsg(
-          text: "Login Success",
-          bgColor: Colors.greenAccent,
-          icondata: Icons.check,
-        ));
       } else if (responseData["role"] == "security") {
         await prefs?.setString('jwtToken', responseData['jwtToken']);
         await prefs?.setString('uid', responseData['uid']);
@@ -185,13 +157,6 @@ class LoginPageState extends ConsumerState<LoginPage> {
             builder: (context) => const SecurityPage(),
           ),
         );
-        toast.removeQueuedCustomToasts();
-        toast.showToast(
-            child: const ToastMsg(
-          text: "Login Success",
-          bgColor: Colors.greenAccent,
-          icondata: Icons.check,
-        ));
       }
     } catch (err) {
       if (!mounted) {
@@ -287,8 +252,6 @@ class LoginPageState extends ConsumerState<LoginPage> {
   bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
-    toast = FToast();
-    toast.init(context);
     // ignore: unused_local_variable
     TextTheme textTheme = Theme.of(context).textTheme;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
@@ -390,7 +353,11 @@ class LoginPageState extends ConsumerState<LoginPage> {
                       ),
                       const SizedBox(height: 32),
                       InkWell(
-                        onTap: isLoginLoading ? null : login,
+                        onTap: isLoginLoading
+                            ? null
+                            : () {
+                                login(context);
+                              },
                         child: Ink(
                           width: double.infinity,
                           padding: const EdgeInsets.symmetric(

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hostel_pass_management/models/block_student_model.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
@@ -38,7 +39,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
       } else {
         response = await http.get(
           Uri.parse(
-              "${dotenv.env["BACKEND_BASE_API"]}/profile/studentProfile/${widget.studentData!.uid}"),
+              "${dotenv.env["BACKEND_BASE_API"]}/profile/studentProfile/${widget.studentData!.studentId}"),
           headers: {
             "Content-Type": "application/json",
             "Authorization": prefs!.getString("jwtToken")!,
@@ -236,21 +237,37 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                       child: Column(
                         children: [
                           ProfileItem(
+                            iconData: FaIcon(
+                              FontAwesomeIcons.graduationCap,
+                              size: 20,
+                            ),
                             attribute: "Year",
                             value: student.year.toString(),
                           ),
                           const Divider(height: 0),
                           ProfileItem(
+                            iconData: FaIcon(
+                              FontAwesomeIcons.solidBuilding,
+                              size: 20,
+                            ),
                             attribute: "Department",
                             value: student.dept,
                           ),
                           const Divider(height: 0),
                           ProfileItem(
+                            iconData: FaIcon(
+                              FontAwesomeIcons.school,
+                              size: 20,
+                            ),
                             attribute: "Section",
                             value: student.section,
                           ),
                           const Divider(height: 0),
                           ProfileItem(
+                            iconData: FaIcon(
+                              FontAwesomeIcons.solidAddressCard,
+                              size: 20,
+                            ),
                             attribute: "Admission Number",
                             value: student.studentId,
                           ),
@@ -282,27 +299,39 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                       child: Column(
                         children: [
                           ProfileItem(
+                            iconData: FaIcon(
+                              FontAwesomeIcons.solidEnvelope,
+                              size: 20,
+                            ),
                             attribute: "Email",
                             value: student.email,
                           ),
                           const Divider(height: 0),
                           ProfileItem(
+                            iconData: FaIcon(
+                              FontAwesomeIcons.phone,
+                              size: 20,
+                            ),
                             attribute: "Phone No",
                             value: student.phNo,
                           ),
                           const Divider(height: 0),
                           ProfileItem(
-                            attribute: "Father's Name",
-                            value: student.fatherName,
+                            iconData: FaIcon(FontAwesomeIcons.peopleRoof, size: 20,),
+                            attribute: "Father's / Mother's Name",
+                            value:
+                                "${student.fatherName} / ${student.motherName}",
                           ),
+                          // const Divider(height: 0),
+                          // ProfileItem(
+                          //   attribute: "Mother's Name",
+                          //   value: student.motherName,
+                          // ),
                           const Divider(height: 0),
+
                           ProfileItem(
-                            attribute: "Mother's Name",
-                            value: student.motherName,
-                          ),
-                          const Divider(height: 0),
-                          ProfileItem(
-                            attribute: "Parent's Phone Number",
+                            iconData: FaIcon(FontAwesomeIcons.phone, size: 20,),
+                            attribute: "Father's / Mother's Phone No",
                             value:
                                 "${student.fatherPhNo}  /  ${student.motherPhNo}",
                           ),
@@ -335,10 +364,12 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                         children: [
                           ProfileItem(
                             attribute: "Block No",
+                            iconData: FaIcon(FontAwesomeIcons.solidBuilding,size: 20,),
                             value: student.blockNo.toString(),
                           ),
                           const Divider(height: 0),
                           ProfileItem(
+                            iconData: FaIcon(FontAwesomeIcons.doorOpen,size: 20,),
                             attribute: "Room No",
                             value: student.roomNo.toString(),
                           ),

@@ -11,7 +11,6 @@ router.get("/getStudents", async (req, res, next) => {
     const filteredStudents = await Student.find({
       blockNo: req.body.USER_permanentBlock,
     });
-    console.log(req.body.USER_permanentBlock);
 
     let blockStudents = [];
 
@@ -32,23 +31,23 @@ router.get("/getStudents", async (req, res, next) => {
 
 router.post("/postAnnouncement", async (req, res) => {
   try {
-    const { title, message, blockNo, rtId ,isBoysHostelRt} = req.body;
+    const { title, message, blockNo, rtId, isBoysHostelRt } = req.body;
     const announcement = await new Announcement({
       title: title,
       message: message,
       blockNo: blockNo,
       rtId: rtId,
-      isBoysHostelRt:isBoysHostelRt,
-      isRead:false,
+      isBoysHostelRt: isBoysHostelRt,
+      isRead: false,
     }).save();
     res.json({
       _id: announcement._id,
       rtId: announcement.rtId,
       title: announcement.title,
-      isRead:announcement.isRead,
+      isRead: announcement.isRead,
       blockNo: announcement.blockNo,
       message: announcement.message,
-      isBoysHostelRt:announcement.isBoysHostelRt
+      isBoysHostelRt: announcement.isBoysHostelRt,
     });
   } catch (err) {
     console.log(err);
@@ -80,7 +79,8 @@ router.delete("/deleteAnnouncement/:announcementId", async (req, res) => {
 });
 router.post("/switchRt", async (req, res) => {
   try {
-    const { blockNo, permanentBlockNo } = req.body;
+    const { blockNo } = req.body;
+    const permanentBlockNo = req.body.USER_permanentBlock;
 
     const switchedRt = await Rt.findOneAndUpdate(
       { permanentBlock: blockNo },
@@ -101,7 +101,7 @@ router.post("/switchRt", async (req, res) => {
 
 router.post("/revertSwitchRt", async (req, res) => {
   try {
-    const { permanentBlockNo } = req.body;
+    const permanentBlockNo = req.body.USER_permanentBlock;
 
     const allRts = await Rt.updateMany(
       { temporaryBlock: permanentBlockNo },
@@ -115,15 +115,19 @@ router.post("/revertSwitchRt", async (req, res) => {
   }
 });
 
-router.get("/getSwitchedRts/:permanentBlock", async (req, res) => {
+router.get("/getSwitchedRts", async (req, res) => {
   try {
-    const permanentBlock = req.params.permanentBlock;
+    const permanentBlock = req.body.USER_permanentBlock;
 
     const docs = await Rt.find({});
 
     const rtArray = docs
       .filter((doc) => doc.temporaryBlock.includes(permanentBlock))
-      .map((doc) => ({ uid: doc.uid, permanentBlock: doc.permanentBlock,rtName:doc.username }));
+      .map((doc) => ({
+        uid: doc.uid,
+        permanentBlock: doc.permanentBlock,
+        rtName: doc.username,
+      }));
 
     res.json(rtArray);
   } catch (error) {
@@ -131,8 +135,5 @@ router.get("/getSwitchedRts/:permanentBlock", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
-
-
 
 module.exports = router;

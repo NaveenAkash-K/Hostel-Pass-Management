@@ -90,11 +90,11 @@ class RtPassRequestsNotifier extends StateNotifier<List<PassRequest>> {
                   expectedInDate:
                       "${DateTime.parse(pass['expectedIn']).day}-${DateTime.parse(pass['expectedIn']).month}-${DateTime.parse(pass['expectedIn']).year}",
                   expectedInTime:
-                      "${TimeOfDay.fromDateTime(DateTime.parse(pass['expectedIn'])).hour}:${TimeOfDay.fromDateTime(DateTime.parse(pass['expectedIn'])).minute} ${TimeOfDay.fromDateTime(DateTime.parse(pass['expectedIn'])).period.name.toUpperCase()}",
+                      "${TimeOfDay.fromDateTime(DateTime.parse(pass['expectedIn'])).hourOfPeriod}:${TimeOfDay.fromDateTime(DateTime.parse(pass['expectedIn'])).minute} ${TimeOfDay.fromDateTime(DateTime.parse(pass['expectedIn'])).period.name.toUpperCase()}",
                   expectedOutDate:
                       "${DateTime.parse(pass['expectedOut']).day}-${DateTime.parse(pass['expectedOut']).month}-${DateTime.parse(pass['expectedOut']).year}",
                   expectedOutTime:
-                      "${TimeOfDay.fromDateTime(DateTime.parse(pass['expectedOut'])).hour}:${TimeOfDay.fromDateTime(DateTime.parse(pass['expectedOut'])).minute} ${TimeOfDay.fromDateTime(DateTime.parse(pass['expectedOut'])).period.name.toUpperCase()}",
+                      "${TimeOfDay.fromDateTime(DateTime.parse(pass['expectedOut'])).hourOfPeriod}:${TimeOfDay.fromDateTime(DateTime.parse(pass['expectedOut'])).minute} ${TimeOfDay.fromDateTime(DateTime.parse(pass['expectedOut'])).period.name.toUpperCase()}",
                   isSpecialPass: pass["isSpecialPass"],
                   studentName: pass["studentName"],
                   dept: pass["dept"],
@@ -111,7 +111,6 @@ class RtPassRequestsNotifier extends StateNotifier<List<PassRequest>> {
       }
       state = passRequests;
     } catch (e) {
-      print(e);
       throw "Something went wrong";
     }
   }

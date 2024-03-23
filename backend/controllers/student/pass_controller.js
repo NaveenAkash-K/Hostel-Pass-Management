@@ -51,6 +51,10 @@ router.get("/getPass", async (req, res) => {
       });
     });
 
+    finalPasses.sort((a, b) => {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
+
     res.json({ data: finalPasses });
     console.log(finalPasses);
   } catch (error) {
@@ -72,6 +76,34 @@ router.post("/newPass", async (req, res) => {
 
     const passId = "pass_" + uuidv4();
     const qrId = "qr_" + uuidv4();
+
+    const oldPasses = await Pass.find({
+      studentId: req.body.USER_studentId,
+      status: "Used",
+      isActive: false,
+    });
+
+    var oldPassCount = 0;
+
+    if (!isSpecialPass) {
+      oldPasses.forEach((oldPass) => {
+        if (
+          new Date(oldPass.expectedOut).getMonth() ===
+            new Date(outDateTime).getMonth() &&
+          !oldPass.isSpecialPass
+        ) {
+          oldPassCount += 1;
+        }
+      });
+    }
+
+    if (oldPassCount >= 5) {
+      res.status(400).json({
+        message:
+          "Limit of 5 pass has been reached this month. Please apply for special pass",
+      });
+      return;
+    }
 
     await new QR({ passId, qrId, studentId }).save();
     const student = await Student.findOne({

@@ -116,6 +116,7 @@ class StudentPassNotifier extends StateNotifier<List<Pass>> {
     required TimeOfDay outTime,
     required bool isSpecialPass,
   }) async {
+    dynamic responseData;
     try {
       var response = await http.post(
         Uri.parse(
@@ -140,7 +141,7 @@ class StudentPassNotifier extends StateNotifier<List<Pass>> {
           },
         ),
       );
-      var responseData = jsonDecode(response.body);
+      responseData = jsonDecode(response.body);
 
       state = [
         ...state,
@@ -165,7 +166,7 @@ class StudentPassNotifier extends StateNotifier<List<Pass>> {
       ];
     } catch (e) {
       print(e);
-      throw "Something went wrong";
+      throw responseData["message"];
     }
   }
 
