@@ -79,7 +79,7 @@ class _StatsPageState extends ConsumerState<StatsPage> {
             _navigateToBlockDetails(context, i + 1, maleStudents, malePasses);
           },
           child: BlockTile(
-            blockName: "Block ${i + 1} (Male)",
+            blockName: "Block ${i + 1}",
             inCount: maleBlockCounts[i],
             outCount: malePassCount[i],
           ),
@@ -93,7 +93,7 @@ class _StatsPageState extends ConsumerState<StatsPage> {
                 context, i + 1, femaleStudents, femalePasses);
           },
           child: BlockTile(
-            blockName: "Block ${i + 1} (Female)",
+            blockName: "Block ${i + 1}",
             inCount: femaleBlockCounts[i],
             outCount: femalePassCount[i],
           ),
@@ -121,7 +121,7 @@ class _StatsPageState extends ConsumerState<StatsPage> {
               children: [
                 ...maleBlockTiles,
                 BlockTile(
-                  blockName: "Overall Count (Male)",
+                  blockName: "Overall Count",
                   inCount: maleStudents.length,
                   outCount: maleInUsePasses.length,
                 )
@@ -131,7 +131,7 @@ class _StatsPageState extends ConsumerState<StatsPage> {
               children: [
                 ...femaleBlockTiles,
                 BlockTile(
-                  blockName: "Overall Count (Female)",
+                  blockName: "Overall Count",
                   inCount: femaleStudents.length,
                   outCount: femaleInUsePasses.length,
                 )

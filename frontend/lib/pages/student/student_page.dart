@@ -79,6 +79,22 @@ class _StudentPageState extends ConsumerState<StudentPage> {
           .toList();
     }
 
+    Widget _buildTickIcon(Announcement announcement) {
+      if (!announcement.isRead) {
+        return IconButton(
+          icon: Icon(Icons.check, color: Colors.green),
+          onPressed: () async {
+            await ref
+                .read(studentAnnouncementNotifier.notifier)
+                .markAnnouncementAsRead(announcement.announcementId);
+            Navigator.of(context).pop();
+          },
+        );
+      } else {
+        return SizedBox();
+      }
+    }
+
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
@@ -114,19 +130,12 @@ class _StudentPageState extends ConsumerState<StudentPage> {
                                       if (announcement != null &&
                                           announcement!.isNotEmpty) ...[
                                         ListTile(
-                                          onTap: () async {
-                                            await ref
-                                                .read(
-                                                    studentAnnouncementNotifier
-                                                        .notifier)
-                                                .markAnnouncementAsRead(
-                                                    announcement![0]
-                                                        .announcementId);
-                                            Navigator.of(context).pop();
-                                          },
-                                          tileColor: announcement![0].isRead
-                                              ? Colors.transparent
-                                              : Colors.blue[50],
+                                          trailing: !annoucement[0].isRead
+                                              ? _buildTickIcon(announcement![0])
+                                              : null,
+                                          // tileColor: announcement![0].isRead
+                                          //     ? Colors.transparent
+                                          //     : Colors.blue[50],
                                           title: Text(
                                             "1. ${announcement![0].title}",
                                             style: const TextStyle(
@@ -139,23 +148,29 @@ class _StudentPageState extends ConsumerState<StudentPage> {
                                             style:
                                                 const TextStyle(fontSize: 16),
                                           ),
-                                        ),
-                                        if (announcement!.length > 1) ...[
-                                          const Divider(),
-                                          ListTile(
-                                            onTap: () async {
+                                          onTap: () async {
+                                            if (!announcement![0].isRead) {
                                               await ref
                                                   .read(
                                                       studentAnnouncementNotifier
                                                           .notifier)
                                                   .markAnnouncementAsRead(
-                                                      announcement![1]
+                                                      announcement![0]
                                                           .announcementId);
                                               Navigator.of(context).pop();
-                                            },
-                                            tileColor: announcement![1].isRead
-                                                ? Colors.transparent
-                                                : Colors.blue[50],
+                                            }
+                                          },
+                                        ),
+                                        if (announcement!.length > 1) ...[
+                                          const Divider(),
+                                          ListTile(
+                                            trailing: !announcement![1].isRead
+                                                ? _buildTickIcon(
+                                                    announcement![1])
+                                                : null,
+                                            // tileColor: announcement![1].isRead
+                                            //     ? Colors.transparent
+                                            //     : Colors.blue[50],
                                             title: Text(
                                               "2. ${announcement![1].title}",
                                               style: const TextStyle(
@@ -168,6 +183,18 @@ class _StudentPageState extends ConsumerState<StudentPage> {
                                               style:
                                                   const TextStyle(fontSize: 16),
                                             ),
+                                            onTap: () async {
+                                              if (!announcement![1].isRead) {
+                                                await ref
+                                                    .read(
+                                                        studentAnnouncementNotifier
+                                                            .notifier)
+                                                    .markAnnouncementAsRead(
+                                                        announcement![1]
+                                                            .announcementId);
+                                                Navigator.of(context).pop();
+                                              }
+                                            },
                                           ),
                                           const Divider(),
                                         ],

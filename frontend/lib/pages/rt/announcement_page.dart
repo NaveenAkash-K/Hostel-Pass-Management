@@ -98,9 +98,7 @@ class _AnnouncementPageState extends ConsumerState<AnnouncementPage> {
                   ),
                   const SizedBox(height: 20),
                   InkWell(
-                    onTap: isLoading || announcements!.length >= 2
-                        ? null
-                        : _submitForm,
+                    onTap: isLoading ? null : _submitForm,
                     child: Ink(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(
@@ -198,6 +196,13 @@ class _AnnouncementPageState extends ConsumerState<AnnouncementPage> {
 
   void _submitForm() async {
     if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    if (announcements!.length >= 2) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Can post only two announcements. Try deleting one!")));
       return;
     }
 

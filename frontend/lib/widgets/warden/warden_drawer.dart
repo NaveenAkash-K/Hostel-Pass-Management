@@ -89,20 +89,22 @@ class _WardenDrawerState extends ConsumerState<WardenDrawer> {
             },
             leading: const Icon(Icons.apartment_rounded),
             title: const Text("Pass Requests"),
-            trailing: Container(
-              alignment: Alignment.center,
-              width: 25,
-              height: 50,
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Theme.of(context).colorScheme.tertiaryContainer,
-              ),
-              child: Text(
-                pendingpassesLength.toString(),
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
+            trailing: pendingpassesLength > 0
+                ? Container(
+                    alignment: Alignment.center,
+                    width: 25,
+                    height: 50,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Theme.of(context).colorScheme.tertiaryContainer,
+                    ),
+                    child: Text(
+                      pendingpassesLength.toString(),
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  )
+                : SizedBox(),
           ),
           // ListTile(
           //   onTap: () {

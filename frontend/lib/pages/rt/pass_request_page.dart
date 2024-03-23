@@ -1,10 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-=======
 import 'package:flutter_dotenv/flutter_dotenv.dart';
->>>>>>> 059fd912f4ab600fc379ca3c22e6c9935f27a0b2
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hostel_pass_management/models/pass_model.dart';
@@ -145,7 +142,7 @@ class _PassRequestPageState extends ConsumerState<PassRequestPage> {
                                   fit: BoxFit.cover,
                                 ),
                         ),
-                            const SizedBox(width: 15),
+                        const SizedBox(width: 15),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -190,19 +187,15 @@ class _PassRequestPageState extends ConsumerState<PassRequestPage> {
                 content:
                     "Date: ${widget.pass.expectedInDate}  Time: ${widget.pass.expectedInTime}",
               ),
-<<<<<<< HEAD
-=======
               PassTile(
                 title: "Phone No",
-                content:
-                    prefs.getString("phNo")!,
+                content: prefs.getString("phNo")!,
               ),
               if (widget.pass.approvedBy != prefs.getString("username"))
                 PassTile(
                   title: "Approved By",
                   content: widget.pass.approvedBy,
                 ),
->>>>>>> 059fd912f4ab600fc379ca3c22e6c9935f27a0b2
               if (!widget.passRequest && widget.pass.status == "Used")
                 PassTile(
                   title: "Actual Leaving Date & Time",
