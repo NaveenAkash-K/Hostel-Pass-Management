@@ -76,7 +76,7 @@ class _PassLogsPageState extends ConsumerState<PassLogsPage>
     return Scaffold(
       drawer: drawer,
       appBar: AppBar(
-        title: const Text('SVCE Hostel'),
+        title: const Text('Pass Logs'),
         centerTitle: true,
         bottom: TabBar(
           controller: _tabController,

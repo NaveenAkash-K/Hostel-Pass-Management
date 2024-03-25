@@ -6,8 +6,8 @@ import 'package:hostel_pass_management/pages/warden/block_details_page.dart';
 import 'package:hostel_pass_management/providers/hostel_students_provider.dart';
 import 'package:hostel_pass_management/providers/warden_pass_provider.dart';
 
-class BlockTile extends StatefulWidget {
-  const BlockTile({
+class OldBlockTile extends StatefulWidget {
+  const OldBlockTile({
     super.key,
     required this.blockName,
     required this.inCount,
@@ -18,10 +18,10 @@ class BlockTile extends StatefulWidget {
   final int outCount;
 
   @override
-  State<BlockTile> createState() => _BlockTileState();
+  State<OldBlockTile> createState() => _BlockTileState();
 }
 
-class _BlockTileState extends State<BlockTile> {
+class _BlockTileState extends State<OldBlockTile> {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;

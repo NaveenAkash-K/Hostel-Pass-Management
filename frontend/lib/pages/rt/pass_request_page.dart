@@ -344,7 +344,7 @@ class _PassRequestPageState extends ConsumerState<PassRequestPage> {
                                     ));
                                   } else {
                                     ScaffoldMessenger.of(context)
-                                        .clearMaterialBanners();
+                                        .clearSnackBars();
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                         content:

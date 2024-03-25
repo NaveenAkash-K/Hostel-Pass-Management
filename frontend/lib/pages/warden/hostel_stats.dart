@@ -6,6 +6,7 @@ import 'package:hostel_pass_management/pages/warden/block_details_page.dart';
 import 'package:hostel_pass_management/providers/hostel_students_provider.dart';
 import 'package:hostel_pass_management/providers/warden_pass_provider.dart';
 import 'package:hostel_pass_management/widgets/warden/block_tile.dart';
+import 'package:hostel_pass_management/widgets/warden/block_tilee.dart';
 import 'package:hostel_pass_management/widgets/warden/warden_drawer.dart';
 
 class StatsPage extends ConsumerStatefulWidget {
@@ -45,9 +46,9 @@ class _StatsPageState extends ConsumerState<StatsPage> {
         .toList();
 
     List<int> maleBlockCounts = List.filled(8, 0);
-    List<int> femaleBlockCounts = List.filled(8, 0);
+    List<int> femaleBlockCounts = List.filled(3, 0);
     List<int> malePassCount = List.filled(8, 0);
-    List<int> femalePassCount = List.filled(8, 0);
+    List<int> femalePassCount = List.filled(3, 0);
 
     maleStudents.forEach((student) {
       maleBlockCounts[student.blockNo - 1]++;
@@ -70,22 +71,24 @@ class _StatsPageState extends ConsumerState<StatsPage> {
 
     List<Widget> maleBlockTiles = [];
     List<Widget> femaleBlockTiles = [];
-    final NO_OF_BLOCKS = maleBlockCounts.length;
+    final NO_OF_MALE_BLOCKS = maleBlockCounts.length;
+    final NO_OF_FEMALE_BLOCKS = femaleBlockCounts.length;
 
-    for (int i = 0; i < NO_OF_BLOCKS; i++) {
+    for (int i = 0; i < NO_OF_MALE_BLOCKS; i++) {
       maleBlockTiles.add(
         GestureDetector(
           onTap: () {
             _navigateToBlockDetails(context, i + 1, maleStudents, malePasses);
           },
           child: BlockTile(
-            blockName: "Block ${i + 1}",
+            name: "Block ${i + 1}",
             inCount: maleBlockCounts[i],
             outCount: malePassCount[i],
           ),
         ),
       );
-
+    }
+    for (int i = 0; i < NO_OF_FEMALE_BLOCKS; i++) {
       femaleBlockTiles.add(
         GestureDetector(
           onTap: () {
@@ -93,7 +96,7 @@ class _StatsPageState extends ConsumerState<StatsPage> {
                 context, i + 1, femaleStudents, femalePasses);
           },
           child: BlockTile(
-            blockName: "Block ${i + 1}",
+            name: "Block ${i + 1}",
             inCount: femaleBlockCounts[i],
             outCount: femalePassCount[i],
           ),
@@ -106,7 +109,7 @@ class _StatsPageState extends ConsumerState<StatsPage> {
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 245, 244, 250),
         appBar: AppBar(
-          title: const Text('Stats and Blocks'),
+          title: const Text('Block Stats'),
           bottom: const TabBar(
             tabs: [
               Tab(text: 'Boys Hostel'),
@@ -119,28 +122,50 @@ class _StatsPageState extends ConsumerState<StatsPage> {
           children: [
             ListView(
               children: [
-                ...maleBlockTiles,
                 BlockTile(
-                  blockName: "Overall Count",
+                  isOverallCount: true,
+                  name: "Overall Count",
                   inCount: maleStudents.length,
                   outCount: maleInUsePasses.length,
-                )
+                ),
+                buildRows(maleBlockTiles),
               ],
             ),
             ListView(
               children: [
-                ...femaleBlockTiles,
                 BlockTile(
-                  blockName: "Overall Count",
+                  isOverallCount: true,
+                  name: "Overall Count",
                   inCount: femaleStudents.length,
                   outCount: femaleInUsePasses.length,
-                )
+                ),
+                buildRows(femaleBlockTiles),
               ],
             ),
           ],
         ),
       ),
     );
+  }
+
+  Widget buildRows(List<Widget> blockTiles) {
+    List<Widget> rows = [];
+    int i = 0;
+    while (i < blockTiles.length) {
+      if (i == blockTiles.length - 1) {
+        rows.add(Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [blockTiles[i]],
+        ));
+      } else {
+        rows.add(Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [blockTiles[i], blockTiles[i + 1]],
+        ));
+      }
+      i += 2;
+    }
+    return Column(children: rows);
   }
 
   void _navigateToBlockDetails(

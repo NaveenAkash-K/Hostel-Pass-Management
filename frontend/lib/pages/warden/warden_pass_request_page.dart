@@ -23,7 +23,7 @@ class _WardenPassRequestPageState extends ConsumerState<WardenPassRequestPage> {
     return Scaffold(
       drawer: const WardenDrawer(),
       appBar: AppBar(
-        title: const Text('SVCE Hostel'),
+        title: const Text('Pass Requests'),
         centerTitle: true,
       ),
       body: DefaultTabController(

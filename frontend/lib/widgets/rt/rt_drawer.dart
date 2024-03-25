@@ -48,13 +48,6 @@ class _RtDrawerState extends ConsumerState<RtDrawer> {
                       "assets/images/logo.png",
                       width: 200,
                     ),
-                    Text(
-                      "Hostel Pass Manager",
-                      style: textTheme.titleMedium!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 29, 79, 158),
-                      ),
-                    ),
                   ],
                 ),
               ],
@@ -121,18 +114,6 @@ class _RtDrawerState extends ConsumerState<RtDrawer> {
             },
             leading: const Icon(Icons.person),
             title: const Text("Profile"),
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => RulesPage(),
-                ),
-              );
-            },
-            title: const Text("Rules and Regulations"),
-            leading: const Icon(Icons.rule),
           ),
           // const Spacer(),
           ListTile(

@@ -38,13 +38,6 @@ class StudentDrawer extends StatelessWidget {
                       "assets/images/logo.png",
                       width: 200,
                     ),
-                    Text(
-                      "Hostel Pass Manager",
-                      style: textTheme.titleMedium!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 29, 79, 158),
-                      ),
-                    ),
                   ],
                 ),
               ],

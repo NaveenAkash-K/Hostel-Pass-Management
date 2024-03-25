@@ -98,7 +98,7 @@ class _StudentPageState extends ConsumerState<StudentPage> {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SVCE Hostel'),
+        title: const Text('Home'),
         scrolledUnderElevation: 0,
         centerTitle: true,
         actions: [
