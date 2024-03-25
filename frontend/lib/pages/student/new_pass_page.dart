@@ -372,7 +372,7 @@ class _NewPassPageState extends ConsumerState<NewPassPage> {
               if (passType == null) {
                 ScaffoldMessenger.of(context).clearSnackBars();
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
+                  const SnackBar(
                     content: Text("Please select pass type first"),
                   ),
                 );
@@ -391,7 +391,7 @@ class _NewPassPageState extends ConsumerState<NewPassPage> {
                 if (outDate == null) {
                   ScaffoldMessenger.of(context).clearSnackBars();
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       content: Text("Please select leaving date first"),
                     ),
                   );
@@ -400,8 +400,8 @@ class _NewPassPageState extends ConsumerState<NewPassPage> {
                 if (passType == "StayPass") {
                   pickedDate = await showDatePicker(
                     context: context,
-                    initialDate: inDate ?? outDate!.add(Duration(days: 1)),
-                    firstDate: outDate!.add(Duration(days: 1)),
+                    initialDate: inDate ?? outDate!.add(const Duration(days: 1)),
+                    firstDate: outDate!.add(const Duration(days: 1)),
                     lastDate: DateTime(2026),
                   );
                 } else {

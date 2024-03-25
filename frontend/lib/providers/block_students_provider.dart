@@ -57,7 +57,6 @@ class BlockStudentsNotifier extends StateNotifier<List<BlockStudent>> {
       }
       state = blockStudents;
     } catch (e) {
-      print(e);
       throw "Something went wrong";
     }
   }

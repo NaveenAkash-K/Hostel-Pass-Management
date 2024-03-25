@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hostel_pass_management/models/pass_model.dart';
 import 'package:hostel_pass_management/models/pass_request_model.dart';
 import 'package:hostel_pass_management/pages/rt/pass_request_page.dart';
 
@@ -18,7 +17,9 @@ class PassRequestItem extends StatefulWidget {
 }
 
 class _PassRequestItemState extends State<PassRequestItem> {
-  TextEditingController _searchController = TextEditingController();
+  // ignore: unused_field
+  final TextEditingController _searchController = TextEditingController();
+  // ignore: unused_field
   late List<PassRequest> _filteredPassRequests;
 
   @override
@@ -87,7 +88,7 @@ class _PassRequestItemState extends State<PassRequestItem> {
                 const SizedBox(width: 20),
                 Column(
                   children: [
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width * 0.7,
                       child: Text(
                         widget.pass.studentName,
@@ -98,7 +99,7 @@ class _PassRequestItemState extends State<PassRequestItem> {
                         ),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width * 0.7,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -135,19 +136,19 @@ class _PassRequestItemState extends State<PassRequestItem> {
     );
   }
 
-  void _filterPassRequests(String query) {
-    if (query.isEmpty) {
-      setState(() {
-        _filteredPassRequests = [widget.pass];
-      });
-    } else {
-      setState(() {
-        _filteredPassRequests = [widget.pass]
-            .where((passRequest) => passRequest.studentName
-                .toLowerCase()
-                .contains(query.toLowerCase()))
-            .toList();
-      });
-    }
-  }
+  // void _filterPassRequests(String query) {
+  //   if (query.isEmpty) {
+  //     setState(() {
+  //       _filteredPassRequests = [widget.pass];
+  //     });
+  //   } else {
+  //     setState(() {
+  //       _filteredPassRequests = [widget.pass]
+  //           .where((passRequest) => passRequest.studentName
+  //               .toLowerCase()
+  //               .contains(query.toLowerCase()))
+  //           .toList();
+  //     });
+  //   }
+  // }
 }

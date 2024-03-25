@@ -4,6 +4,7 @@ import 'package:hostel_pass_management/pages/common/login_page.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// ignore: must_be_immutable
 class LogoutTile extends StatelessWidget {
   LogoutTile({super.key});
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
@@ -44,14 +45,14 @@ class LogoutTile extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
                     "Are you sure you want to logout from the app?",
                     style: textTheme.titleMedium!.copyWith(
                         // fontWeight: FontWeight.bold,
                         ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   InkWell(
                     borderRadius: BorderRadius.circular(30),
                     onTap: logout,
@@ -71,7 +72,7 @@ class LogoutTile extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   InkWell(
                     onTap: () {
                       Navigator.pop(context);

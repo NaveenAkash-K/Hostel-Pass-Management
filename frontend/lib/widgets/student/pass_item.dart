@@ -9,7 +9,7 @@ class PassItem extends StatefulWidget {
   final String status;
   final String? action;
 
-  PassItem({
+  const PassItem({
     required this.inDate,
     required this.inTime,
     required this.outDate,

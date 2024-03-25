@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hostel_pass_management/models/pass_request_model.dart';
 import 'package:hostel_pass_management/providers/rt_pass_provider.dart';
-import 'package:hostel_pass_management/providers/warden_pass_provider.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
 import 'package:hostel_pass_management/widgets/rt/pass_request_item.dart';
 import 'package:hostel_pass_management/widgets/rt/rt_drawer.dart';
@@ -35,12 +34,12 @@ class _PassLogsPageState extends ConsumerState<PassLogsPage>
     var drawer;
     SharedPreferences? prefs = SharedPreferencesManager.preferences;
     if (prefs!.getString("role") == "student") {
-      drawer = StudentDrawer();
+      drawer = const StudentDrawer();
     } else if (prefs.getString("role") == "rt") {
-      drawer = RtDrawer();
+      drawer = const RtDrawer();
     }
     if (prefs.getString("role") == "warden") {
-      drawer = WardenDrawer();
+      drawer = const WardenDrawer();
     }
     final passRequests;
     List<PassRequest> inUsePasses = [];

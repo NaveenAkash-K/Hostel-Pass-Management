@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:hostel_pass_management/pages/common/developer_page.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hostel_pass_management/pages/common/bug_report_page.dart';
 import 'package:hostel_pass_management/pages/common/login_page.dart';
 import 'package:hostel_pass_management/pages/student/student_faq_page.dart';
 import 'package:hostel_pass_management/pages/student/student_page.dart';
-import 'package:hostel_pass_management/pages/student/rules_page.dart';
 import 'package:hostel_pass_management/pages/student/student_profile_page.dart';
-import 'package:hostel_pass_management/utils/shared_preferences.dart';
-import 'package:hostel_pass_management/widgets/common/logout_tile.dart';
-import 'package:hostel_pass_management/widgets/rt/rt_drawer.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class StudentDrawer extends StatelessWidget {
   const StudentDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    SharedPreferences? prefs = SharedPreferencesManager.preferences;
 
     TextTheme textTheme = Theme.of(context).textTheme;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
@@ -38,6 +32,15 @@ class StudentDrawer extends StatelessWidget {
                       "assets/images/logo.png",
                       width: 200,
                     ),
+
+                    // Text(
+                    //   "Hostel Pass Manager",
+                    //   style: textTheme.titleMedium!.copyWith(
+                    //     fontWeight: FontWeight.bold,
+                    //     color: Color.fromARGB(255, 29, 79, 158),
+                    //   ),
+                    // ),
+
                   ],
                 ),
               ],
@@ -48,24 +51,24 @@ class StudentDrawer extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => StudentPage(),
+                  builder: (context) => const StudentPage(),
                 ),
               );
             },
-            leading: Icon(Icons.home_filled),
-            title: Text("Home"),
+            leading: const Icon(Icons.home_filled),
+            title: const Text("Home"),
           ),
           ListTile(
             onTap: () {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => StudentProfilePage(),
+                  builder: (context) => const StudentProfilePage(),
                 ),
               );
             },
-            leading: Icon(Icons.person),
-            title: Text("Profile"),
+            leading: const Icon(Icons.person),
+            title: const Text("Profile"),
           ),
           ListTile(
             onTap: () {
@@ -78,6 +81,7 @@ class StudentDrawer extends StatelessWidget {
             },
             title: Text("Guidelines"),
             leading: Icon(Icons.rule),
+
           ),
           // Spacer(),
           ListTile(
@@ -85,13 +89,23 @@ class StudentDrawer extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => BugReportPage(),
+                  builder: (context) => const BugReportPage(),
                 ),
               );
             },
-            title: Text("Bug Report"),
-            leading: Icon(Icons.bug_report_rounded),
+            title: const Text("Bug Report"),
+            leading: const Icon(Icons.bug_report_rounded),
           ),
+          const Spacer(),
+          Text(
+            'App version ${dotenv.env["VERSION"]}',
+            textAlign: TextAlign.center,
+            style: textTheme.labelMedium!.copyWith(
+              fontWeight: FontWeight.bold,
+              color: const Color.fromARGB(255, 135, 135, 135),
+            ),
+          ),
+          const SizedBox(height: 12),
           // ListTile(
           //   onTap: () {
           //     Navigator.pushReplacement(

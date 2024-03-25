@@ -4,15 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hostel_pass_management/models/pass_model.dart';
 import 'package:hostel_pass_management/models/pass_request_model.dart';
 import 'package:hostel_pass_management/providers/rt_pass_provider.dart';
 import 'package:hostel_pass_management/providers/warden_pass_provider.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
 import 'package:hostel_pass_management/widgets/common/pass_tile.dart';
-import 'package:hostel_pass_management/widgets/common/profile_item.dart';
 import 'package:hostel_pass_management/widgets/common/toast.dart';
-import 'package:hostel_pass_management/widgets/rt/rt_drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -33,6 +30,7 @@ class PassRequestPage extends ConsumerStatefulWidget {
 
 class _PassRequestPageState extends ConsumerState<PassRequestPage> {
   late FToast toast;
+  bool isLoading = false;
   late String? profileBuffer = null;
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
 
@@ -191,7 +189,7 @@ class _PassRequestPageState extends ConsumerState<PassRequestPage> {
                 title: "Phone No",
                 content: prefs.getString("phNo")!,
               ),
-              if (widget.pass.approvedBy != prefs.getString("username"))
+              if (!widget.passRequest)
                 PassTile(
                   title: "Approved By",
                   content: widget.pass.approvedBy,
@@ -274,43 +272,99 @@ class _PassRequestPageState extends ConsumerState<PassRequestPage> {
                             backgroundColor:
                                 const Color.fromARGB(255, 255, 198, 198),
                           ),
-                          onPressed: warden
-                              ? () async {
-                                  ref
-                                      .read(specialPassProvider.notifier)
-                                      .rejectPassRequest(widget.pass.passId);
-                                  Navigator.of(context).pop();
-                                  toast.removeQueuedCustomToasts();
+                          onPressed: isLoading
+                              ? null
+                              : warden
+                                  ? () async {
+                                      setState(() {
+                                        isLoading = true;
+                                      });
+                                      ref
+                                          .read(specialPassProvider.notifier)
+                                          .rejectPassRequest(
+                                              widget.pass.passId);
 
-                                  toast.showToast(
-                                      child: ToastMsg(
-                                    text: "Pass Rejected",
-                                    bgColor: Theme.of(context)
-                                        .colorScheme
-                                        .errorContainer,
-                                  ));
-                                }
-                              : () async {
-                                  ref
-                                      .read(rtPassProvider.notifier)
-                                      .rejectPassRequest(widget.pass.passId);
-                                  Navigator.of(context).pop();
-                                  toast.removeQueuedCustomToasts();
+                                      setState(() {
+                                        isLoading = false;
+                                      });
+                                      Navigator.of(context).pop();
+                                      toast.removeQueuedCustomToasts();
 
-                                  toast.showToast(
-                                      child: ToastMsg(
-                                    text: "Pass Rejected",
-                                    bgColor: Theme.of(context)
-                                        .colorScheme
-                                        .errorContainer,
-                                  ));
-                                },
-                          child: const Text(
-                            "Deny",
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 255, 57, 43),
-                            ),
-                          ),
+                                      toast.showToast(
+                                          child: ToastMsg(
+                                        text: "Pass Rejected",
+                                        bgColor: Theme.of(context)
+                                            .colorScheme
+                                            .errorContainer,
+                                      ));
+                                    }
+                                  : () async {
+                                      if (await showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: const Text("Reject Pass?"),
+                                          content: const Text(
+                                            "Are you sure you want to reject the pass?",
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context)
+                                                    .pop(false);
+                                              },
+                                              child: const Text("Cancel"),
+                                            ),
+                                            ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      colorScheme.error,
+                                                  foregroundColor:
+                                                      colorScheme.background),
+                                              onPressed: () async {
+                                                Navigator.of(context).pop(true);
+                                              },
+                                              child: const Text("Reject"),
+                                            )
+                                          ],
+                                        ),
+                                      )) {
+                                        setState(() {
+                                          isLoading = true;
+                                        });
+                                        await ref
+                                            .read(rtPassProvider.notifier)
+                                            .rejectPassRequest(
+                                                widget.pass.passId);
+                                        setState(() {
+                                          isLoading = false;
+                                        });
+                                        toast.removeQueuedCustomToasts();
+
+                                        toast.showToast(
+                                          child: ToastMsg(
+                                            text: "Pass Rejected",
+                                            bgColor: Theme.of(context)
+                                                .colorScheme
+                                                .errorContainer,
+                                          ),
+                                        );
+                                        Navigator.of(context).pop();
+                                      }
+                                    },
+                          child: isLoading
+                              ? SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(
+                                    color: colorScheme.error,
+                                  ),
+                                )
+                              : const Text(
+                                  "Deny",
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 255, 57, 43),
+                                  ),
+                                ),
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -322,70 +376,94 @@ class _PassRequestPageState extends ConsumerState<PassRequestPage> {
                             // shape: RoundedRectangleBorder(
                             //     borderRadius: BorderRadius.circular(4)),
                           ),
-                          onPressed: warden
-                              ? () async {
-                                  if (selectedParent != null) {
-                                    ref
-                                        .read(
-                                          specialPassProvider.notifier,
-                                        )
-                                        .approvePassRequest(
-                                          widget.pass.passId,
-                                          selectedParent!,
-                                        );
-                                    Navigator.of(context).pop();
-                                    toast.removeQueuedCustomToasts();
+                          onPressed: isLoading
+                              ? null
+                              : warden
+                                  ? () async {
+                                      if (selectedParent != null) {
+                                        setState(() {
+                                          isLoading = true;
+                                        });
+                                        await ref
+                                            .read(
+                                              specialPassProvider.notifier,
+                                            )
+                                            .approvePassRequest(
+                                              widget.pass.passId,
+                                              selectedParent!,
+                                            );
+                                        setState(() {
+                                          isLoading = false;
+                                        });
+                                        Navigator.of(context).pop();
+                                        toast.removeQueuedCustomToasts();
 
-                                    toast.showToast(
-                                        child: const ToastMsg(
-                                      text: "Pass Approved",
-                                      bgColor: Colors.greenAccent,
-                                      icondata: Icons.check,
-                                    ));
-                                  } else {
-                                    ScaffoldMessenger.of(context)
-                                        .clearSnackBars();
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content:
-                                            Text('Please select a parent.'),
-                                      ),
-                                    );
-                                  }
-                                }
-                              : () async {
-                                  if (selectedParent != null) {
-                                    ref
-                                        .read(rtPassProvider.notifier)
-                                        .approvePassRequest(
-                                          widget.pass.passId,
-                                          selectedParent!,
+                                        toast.showToast(
+                                            child: const ToastMsg(
+                                          text: "Pass Approved",
+                                          bgColor: Colors.greenAccent,
+                                          icondata: Icons.check,
+                                        ));
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .clearMaterialBanners();
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content:
+                                                Text('Please select a parent.'),
+                                          ),
                                         );
-                                    Navigator.of(context).pop();
-                                    toast.removeQueuedCustomToasts();
+                                      }
+                                    }
+                                  : () async {
+                                      if (selectedParent != null) {
+                                        setState(() {
+                                          isLoading = true;
+                                        });
+                                        await ref
+                                            .read(rtPassProvider.notifier)
+                                            .approvePassRequest(
+                                              widget.pass.passId,
+                                              selectedParent!,
+                                            );
+                                        setState(() {
+                                          isLoading = false;
+                                        });
+                                        Navigator.of(context).pop();
+                                        toast.removeQueuedCustomToasts();
 
-                                    toast.showToast(
-                                        child: const ToastMsg(
-                                      text: "Pass Approved",
-                                      bgColor: Colors.greenAccent,
-                                      icondata: Icons.check,
-                                    ));
-                                  } else {
-                                    // Handle case where no parent is selected
-                                    ScaffoldMessenger.of(context)
-                                        .clearMaterialBanners();
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(const SnackBar(
-                                      content: Text('Please select a parent.'),
-                                    ));
-                                  }
-                                },
-                          child: const Text(
-                            "Approve",
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 57, 139, 60),
-                            ),
-                          ),
+                                        toast.showToast(
+                                            child: const ToastMsg(
+                                          text: "Pass Approved",
+                                          bgColor: Colors.greenAccent,
+                                          icondata: Icons.check,
+                                        ));
+                                      } else {
+                                        // Handle case where no parent is selected
+                                        ScaffoldMessenger.of(context)
+                                            .clearMaterialBanners();
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                          content:
+                                              Text('Please select a parent.'),
+                                        ));
+                                      }
+                                    },
+                          child: isLoading
+                              ? const SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(
+                                    color: Color.fromARGB(255, 57, 139, 60),
+                                  ),
+                                )
+                              : const Text(
+                                  "Approve",
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 57, 139, 60),
+                                  ),
+                                ),
                         ),
                       ),
                     ],

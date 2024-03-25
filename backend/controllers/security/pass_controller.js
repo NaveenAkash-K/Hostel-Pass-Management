@@ -19,16 +19,22 @@ router.get("/getDetails/:qrData", async (req, res) => {
   console.log(new Date(pass.expectedOut).getTime() + 60 * 60000);
   console.log(Date.now());
 
-  if (new Date(pass.expectedOut).getTime() + 60 * 60000 < Date.now()) {
+  if (
+    new Date(pass.expectedOut).getTime() + 60 * 60000 < Date.now() &&
+    pass.status === "Approved"
+  ) {
     res.status(400).json({ message: "QR expired" });
     return;
   }
 
-  if(pass.status == "In use"){
-    if(new Date(pass.exitScanAt).getTime() + 30 * 60000 > Date.now()){
-      res.status(400).json({ message: "Entry scan should be after 30 mins of Exit scan" });
-      return;
-    }
+  if (
+    new Date(pass.exitScanAt).getTime() + 30 * 60000 > Date.now() &&
+    pass.status === "In use"
+  ) {
+    res
+      .status(400)
+      .json({ message: "Entry scan should be after 30 mins of Exit scan" });
+    return;
   }
 
   // let photoFilePath;
@@ -64,15 +70,15 @@ router.post("/confirmScan/:qrData", async (req, res) => {
     pass.exitScanBy = req.body.USER_username;
     pass.exitScanAt = req.body.scanAt;
     pass.status = "In use";
-    pass.save();
-    qr.save();
+    await pass.save();
   } else if (pass.entryScanAt == undefined) {
+    console.log(qrId);
     pass.entryScanBy = req.body.USER_username;
     pass.entryScanAt = req.body.scanAt;
     pass.status = "Used";
     pass.isActive = false;
-    pass.save();
-    Qr.deleteOne({ qrId: qrId });
+    await pass.save();
+    await Qr.deleteOne({ qrId: qrId });
   }
 
   res.json({ message: "Scan successful" });

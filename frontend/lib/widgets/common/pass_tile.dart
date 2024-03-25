@@ -5,7 +5,7 @@ class PassTile extends StatelessWidget {
   final String title;
   final String content;
 
-  const PassTile({required this.title, required this.content});
+  const PassTile({super.key, required this.title, required this.content});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class _ContactTileState extends State<ContactTile> {
         widget.onSelect(!widget.isSelected);
       },
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4.0),
+        padding: const EdgeInsets.symmetric(horizontal: 4.0),
         child: ListTile(
           title: Text(
             widget.title,
@@ -75,7 +75,7 @@ class _ContactTileState extends State<ContactTile> {
               fontSize: 18, // Adjust the font size as needed
               fontWeight: FontWeight.bold,
               color: widget.isSelected
-                  ? Color.fromARGB(255, 7, 161, 76)
+                  ? const Color.fromARGB(255, 7, 161, 76)
                   : Colors.black, // Highlight if selected
             ),
           ),
@@ -84,12 +84,12 @@ class _ContactTileState extends State<ContactTile> {
             style: TextStyle(
               fontSize: 15,
               color: widget.isSelected
-                  ? Color.fromARGB(255, 7, 161, 76)
+                  ? const Color.fromARGB(255, 7, 161, 76)
                   : Colors.black,
             ),
           ),
           trailing: IconButton(
-            icon: Icon(Icons.call),
+            icon: const Icon(Icons.call),
             onPressed: () async {
               await FlutterPhoneDirectCaller.callNumber(widget.number);
               print('Calling ${widget.number}');

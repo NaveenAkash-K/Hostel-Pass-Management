@@ -10,6 +10,8 @@ import 'package:hostel_pass_management/widgets/warden/block_tilee.dart';
 import 'package:hostel_pass_management/widgets/warden/warden_drawer.dart';
 
 class StatsPage extends ConsumerStatefulWidget {
+  const StatsPage({super.key});
+
   @override
   _StatsPageState createState() => _StatsPageState();
 }
@@ -50,31 +52,30 @@ class _StatsPageState extends ConsumerState<StatsPage> {
     List<int> malePassCount = List.filled(8, 0);
     List<int> femalePassCount = List.filled(3, 0);
 
-    maleStudents.forEach((student) {
+    for (var student in maleStudents) {
       maleBlockCounts[student.blockNo - 1]++;
-    });
+    }
 
-    femaleStudents.forEach((student) {
+    for (var student in femaleStudents) {
       femaleBlockCounts[student.blockNo - 1]++;
-    });
+    }
 
-    maleInUsePasses.forEach((pass) {
+    for (var pass in maleInUsePasses) {
       malePassCount[pass.blockNo - 1]++;
-    });
+    }
 
-    femaleInUsePasses.forEach((pass) {
+    for (var pass in femaleInUsePasses) {
       femalePassCount[pass.blockNo - 1]++;
-    });
-
-    print(maleBlockCounts);
-    print(malePassCount);
+    }
 
     List<Widget> maleBlockTiles = [];
     List<Widget> femaleBlockTiles = [];
+
     final NO_OF_MALE_BLOCKS = maleBlockCounts.length;
     final NO_OF_FEMALE_BLOCKS = femaleBlockCounts.length;
 
     for (int i = 0; i < NO_OF_MALE_BLOCKS; i++) {
+
       maleBlockTiles.add(
         GestureDetector(
           onTap: () {
@@ -82,6 +83,7 @@ class _StatsPageState extends ConsumerState<StatsPage> {
           },
           child: BlockTile(
             name: "Block ${i + 1}",
+
             inCount: maleBlockCounts[i],
             outCount: malePassCount[i],
           ),
@@ -125,6 +127,7 @@ class _StatsPageState extends ConsumerState<StatsPage> {
                 BlockTile(
                   isOverallCount: true,
                   name: "Overall Count",
+
                   inCount: maleStudents.length,
                   outCount: maleInUsePasses.length,
                 ),
@@ -136,6 +139,7 @@ class _StatsPageState extends ConsumerState<StatsPage> {
                 BlockTile(
                   isOverallCount: true,
                   name: "Overall Count",
+
                   inCount: femaleStudents.length,
                   outCount: femaleInUsePasses.length,
                 ),

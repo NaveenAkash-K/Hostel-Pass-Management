@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hostel_pass_management/models/announcement_model.dart';
 import 'package:hostel_pass_management/models/pass_model.dart';
@@ -15,7 +12,6 @@ import 'package:hostel_pass_management/widgets/student/student_drawer.dart';
 import 'package:hostel_pass_management/widgets/student/pass_log.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 
 class StudentPage extends ConsumerStatefulWidget {
   const StudentPage({super.key});
@@ -82,7 +78,9 @@ class _StudentPageState extends ConsumerState<StudentPage> {
     Widget _buildTickIcon(Announcement announcement) {
       if (!announcement.isRead) {
         return IconButton(
-          icon: Icon(Icons.check, color: Colors.green),
+
+          icon: const Icon(Icons.check, color: Colors.green),
+
           onPressed: () async {
             await ref
                 .read(studentAnnouncementNotifier.notifier)
@@ -91,7 +89,9 @@ class _StudentPageState extends ConsumerState<StudentPage> {
           },
         );
       } else {
-        return SizedBox();
+
+        return const SizedBox();
+
       }
     }
 
@@ -234,7 +234,7 @@ class _StudentPageState extends ConsumerState<StudentPage> {
                     ),
                     child: Text(
                       unreadAnnouncements.toString(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),

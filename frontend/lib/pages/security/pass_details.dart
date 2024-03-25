@@ -2,13 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:hostel_pass_management/models/block_student_model.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
-import 'package:hostel_pass_management/widgets/common/logout_tile.dart';
 import 'package:hostel_pass_management/widgets/common/profile_item.dart';
 import 'package:hostel_pass_management/widgets/security/security_drawer.dart';
-import 'package:hostel_pass_management/widgets/student/student_drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -129,14 +125,14 @@ class _PassDetailsState extends State<PassDetails> {
           : FloatingActionButton.extended(
               backgroundColor: passData["exitScanBy"] == null
                   ? colorScheme.errorContainer
-                  : Color.fromARGB(255, 179, 255, 181),
+                  : const Color.fromARGB(255, 179, 255, 181),
               onPressed: isButtonLoading ? null : confirmScan,
               label: isButtonLoading
-                  ? CircularProgressIndicator()
+                  ? const CircularProgressIndicator()
                   : Row(
                       children: [
-                        Icon(Icons.check),
-                        SizedBox(width: 5),
+                        const Icon(Icons.check),
+                        const SizedBox(width: 5),
                         Text(
                           passData["exitScanBy"] == null
                               ? "Confirm Exit"
@@ -150,9 +146,9 @@ class _PassDetailsState extends State<PassDetails> {
           "Student Pass",
         ),
       ),
-      drawer: SecurityDrawer(),
+      drawer: const SecurityDrawer(),
       body: isPassLoading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : SingleChildScrollView(
@@ -162,7 +158,7 @@ class _PassDetailsState extends State<PassDetails> {
                   Container(
                     margin: const EdgeInsets.fromLTRB(16, 10, 16, 10),
                     clipBehavior: Clip.hardEdge,
-                    padding: EdgeInsets.all(30),
+                    padding: const EdgeInsets.all(30),
                     width: double.infinity,
                     decoration: BoxDecoration(
                       boxShadow: [
@@ -176,7 +172,7 @@ class _PassDetailsState extends State<PassDetails> {
                       borderRadius: BorderRadius.circular(20),
                       color: passData["exitScanBy"] == null
                           ? colorScheme.errorContainer
-                          : Color.fromARGB(255, 179, 255, 181),
+                          : const Color.fromARGB(255, 179, 255, 181),
                     ),
                     child: Column(
                       children: [
@@ -184,7 +180,7 @@ class _PassDetailsState extends State<PassDetails> {
                           height: 200,
                           width: 200,
                           clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                           ),
                           child: profileBuffer == null
@@ -197,7 +193,7 @@ class _PassDetailsState extends State<PassDetails> {
                                   fit: BoxFit.cover,
                                 ),
                         ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         Text(
                           passData["username"],
                           textAlign: TextAlign.center,

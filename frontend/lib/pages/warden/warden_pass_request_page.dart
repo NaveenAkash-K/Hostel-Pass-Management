@@ -54,7 +54,6 @@ class _WardenPassRequestPageState extends ConsumerState<WardenPassRequestPage> {
 
   Widget _buildPasses(List<PassRequest> passes, String gender) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    ColorScheme colorScheme = Theme.of(context).colorScheme;
     final filteredPasses =
         passes.where((pass) => pass.gender == gender).toList();
 
@@ -63,19 +62,19 @@ class _WardenPassRequestPageState extends ConsumerState<WardenPassRequestPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Spacer(),
+            const Spacer(),
             SvgPicture.asset(
               "assets/images/no-pass.svg",
               width: 300,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               "No pass requests detected.\nSit back and Enjoy",
               textAlign: TextAlign.center,
               style: textTheme.titleMedium,
             ),
-            Spacer(),
-            Spacer()
+            const Spacer(),
+            const Spacer()
           ],
         ),
       );

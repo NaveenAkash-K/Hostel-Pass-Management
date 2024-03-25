@@ -160,7 +160,6 @@ class _DeletePassDialogState extends ConsumerState<DeletePassDialog> {
   Widget build(BuildContext context) {
     toast = FToast();
     toast.init(context);
-    TextTheme textTheme = Theme.of(context).textTheme;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     return AlertDialog(

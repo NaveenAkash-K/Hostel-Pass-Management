@@ -1,23 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hostel_pass_management/models/pass_request_model.dart';
-import 'package:hostel_pass_management/pages/common/developer_page.dart';
 import 'package:hostel_pass_management/pages/common/bug_report_page.dart';
-import 'package:hostel_pass_management/pages/common/login_page.dart';
-import 'package:hostel_pass_management/pages/student/student_profile_page.dart';
-import 'package:hostel_pass_management/pages/rt/block_students_page.dart';
-import 'package:hostel_pass_management/pages/rt/pass_logs_page.dart';
-import 'package:hostel_pass_management/pages/rt/rt_page.dart';
-import 'package:hostel_pass_management/pages/student/student_page.dart';
 import 'package:hostel_pass_management/pages/student/rules_page.dart';
-import 'package:hostel_pass_management/pages/warden/block_details_page.dart';
 import 'package:hostel_pass_management/pages/warden/hostel_stats.dart';
-import 'package:hostel_pass_management/pages/warden/warden_pass_logs_page.dart';
 import 'package:hostel_pass_management/pages/warden/warden_pass_request_page.dart';
 import 'package:hostel_pass_management/providers/warden_pass_provider.dart';
-import 'package:hostel_pass_management/utils/shared_preferences.dart';
 import 'package:hostel_pass_management/pages/warden/warden_profile_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class WardenDrawer extends ConsumerStatefulWidget {
   const WardenDrawer({super.key});
@@ -29,7 +19,6 @@ class WardenDrawer extends ConsumerStatefulWidget {
 class _WardenDrawerState extends ConsumerState<WardenDrawer> {
   @override
   Widget build(BuildContext context) {
-    SharedPreferences? prefs = SharedPreferencesManager.preferences;
     final passRequests = ref.watch(specialPassProvider);
     final List<PassRequest> pendingPasses =
         passRequests.where((pass) => pass.status == 'Pending').toList();
@@ -71,7 +60,7 @@ class _WardenDrawerState extends ConsumerState<WardenDrawer> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => StatsPage(),
+                  builder: (context) => const StatsPage(),
                 ),
               );
             },
@@ -94,17 +83,19 @@ class _WardenDrawerState extends ConsumerState<WardenDrawer> {
                     alignment: Alignment.center,
                     width: 25,
                     height: 50,
-                    padding: EdgeInsets.all(8),
+
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Theme.of(context).colorScheme.tertiaryContainer,
                     ),
                     child: Text(
                       pendingpassesLength.toString(),
-                      style: TextStyle(fontWeight: FontWeight.bold),
+
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   )
-                : SizedBox(),
+                : const SizedBox(),
           ),
           // ListTile(
           //   onTap: () {
@@ -130,6 +121,19 @@ class _WardenDrawerState extends ConsumerState<WardenDrawer> {
             leading: const Icon(Icons.person),
             title: const Text("Profile"),
           ),
+
+          ListTile(
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const RulesPage(),
+                ),
+              );
+            },
+            title: const Text("Rules and Regulations"),
+            leading: const Icon(Icons.rule),
+          ),
           // const Spacer(),
           ListTile(
             onTap: () {
@@ -140,8 +144,17 @@ class _WardenDrawerState extends ConsumerState<WardenDrawer> {
                 ),
               );
             },
-            title: Text("Bug Report"),
-            leading: Icon(Icons.bug_report_rounded),
+            title: const Text("Bug Report"),
+            leading: const Icon(Icons.bug_report_rounded),
+          ),
+          const Spacer(),
+          Text(
+            'App version ${dotenv.env["VERSION"]}',
+            textAlign: TextAlign.center,
+            style: textTheme.labelMedium!.copyWith(
+              fontWeight: FontWeight.bold,
+              color: const Color.fromARGB(255, 135, 135, 135),
+            ),
           ),
           // ListTile(
           //   onTap: () {

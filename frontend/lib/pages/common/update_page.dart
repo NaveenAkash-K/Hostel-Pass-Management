@@ -15,22 +15,22 @@ class UpdatePage extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            Spacer(),
-            Spacer(),
+            const Spacer(),
+            const Spacer(),
             Center(
               child: SvgPicture.asset(
                 "assets/images/update.svg",
                 width: MediaQuery.of(context).size.width - 100,
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Text(
               "Please update the app to continue",
               style: textTheme.displaySmall!.copyWith(
                 fontWeight: FontWeight.w500,
               ),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             InkWell(
               borderRadius: BorderRadius.circular(16),
               onTap: () {},
@@ -53,8 +53,8 @@ class UpdatePage extends StatelessWidget {
                 ),
               ),
             ),
-            Spacer(),
-            Spacer(),
+            const Spacer(),
+            const Spacer(),
           ],
         ),
       ),
