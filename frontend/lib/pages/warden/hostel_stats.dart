@@ -5,9 +5,13 @@ import 'package:hostel_pass_management/models/pass_request_model.dart';
 import 'package:hostel_pass_management/pages/warden/block_details_page.dart';
 import 'package:hostel_pass_management/providers/hostel_students_provider.dart';
 import 'package:hostel_pass_management/providers/warden_pass_provider.dart';
+import 'package:hostel_pass_management/utils/shared_preferences.dart';
+import 'package:hostel_pass_management/widgets/faculty/faculty_drawer.dart';
+import 'package:hostel_pass_management/widgets/student/student_drawer.dart';
 import 'package:hostel_pass_management/widgets/warden/block_tile.dart';
 import 'package:hostel_pass_management/widgets/warden/block_tilee.dart';
 import 'package:hostel_pass_management/widgets/warden/warden_drawer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StatsPage extends ConsumerStatefulWidget {
   @override
@@ -15,6 +19,7 @@ class StatsPage extends ConsumerStatefulWidget {
 }
 
 class _StatsPageState extends ConsumerState<StatsPage> {
+  SharedPreferences? prefs = SharedPreferencesManager.preferences;
   @override
   Widget build(BuildContext context) {
     final students = ref.watch(hostelStudentProvider);
@@ -117,7 +122,10 @@ class _StatsPageState extends ConsumerState<StatsPage> {
             ],
           ),
         ),
-        drawer: const WardenDrawer(),
+        // drawer: WardenDrawer(),
+        drawer: prefs!.getString("role") == "warden"
+            ? WardenDrawer()
+            : FacultyDrawer(),
         body: TabBarView(
           children: [
             ListView(

@@ -12,6 +12,7 @@ const { v4: uuidv4 } = require("uuid");
 const Student = require("../../models/student_model");
 const Rt = require("../../models/rt_model");
 const Warden = require("../../models/warden_model");
+const Faculty = require("../../models/faculty_model");
 const Security = require("../../models/security_model");
 
 const transporter = nodemailer.createTransport({
@@ -153,6 +154,30 @@ router.post("/login", async (req, res) => {
       role: user.role,
     });
   }
+   else if (user.role == "faculty") {
+    const faculty = await Faculty.findOne({ uid: user.uid });
+    const jwtToken = jwt.sign(
+      {
+        uid: user.uid,
+        facultyId: faculty.facultyId,
+        username: faculty.username,
+        email: faculty.email,
+        phNo: faculty.phNo,
+        role: user.role,
+      },
+      process.env.JWT_KEY
+    );
+    console.log(faculty);
+    res.json({
+      jwtToken,
+      uid: user.uid,
+      facultyId: faculty.facultyId,
+      username: faculty.username,
+      email: user.email,
+      phNo: faculty.phNo,
+      role: user.role,
+    });
+   }
 });
 
 router.get("/dummyOtp", async (req, res) => {

@@ -1,8 +1,14 @@
 const mongoose = require("mongoose");
 const schema = mongoose.Schema;
+const { v4: uuidv4 } = require("uuid");
 
-const UserSchema = new schema(
+const FacultySchema = new schema(
   {
+    facultyId: {
+      type: String,
+      required: true,
+      default: "faculty_" + uuidv4(),
+    },
     uid: {
       type: String,
       required: true,
@@ -13,22 +19,13 @@ const UserSchema = new schema(
     },
     email: {
       type: String,
-      required: true,
     },
-    password: {
+    phNo: {
       type: String,
       required: true,
-    },
-    role: {
-      type: String,
-      required: true,
-      enum: ["student", "rt", "warden", "security","faculty"],
-    },
-    otpSecret: {
-      type: String,
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("users", UserSchema);
+module.exports = mongoose.model("faculty", FacultySchema);

@@ -116,6 +116,17 @@ class _SplashPageState extends ConsumerState<SplashPage> {
             ),
           );
           return;
+        } else if (prefs!.getString("role") == "faculty") {
+          await ref
+              .read(hostelStudentProvider.notifier)
+              .loadHostelStudentsFromDB();
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => StatsPage(),
+              // builder: (context) => WardenPage(),
+            ),
+          );
+          return;
         } else if (prefs!.getString("role") == "security") {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(

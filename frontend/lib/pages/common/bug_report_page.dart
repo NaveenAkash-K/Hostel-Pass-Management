@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
 import 'package:hostel_pass_management/widgets/common/toast.dart';
+import 'package:hostel_pass_management/widgets/faculty/faculty_drawer.dart';
 import 'package:hostel_pass_management/widgets/rt/rt_drawer.dart';
 import 'package:hostel_pass_management/widgets/student/student_drawer.dart';
 import 'package:hostel_pass_management/widgets/warden/warden_drawer.dart';
@@ -39,6 +40,9 @@ class BugReportPageState extends State<BugReportPage> {
     }
     if (prefs.getString("role") == "warden") {
       drawer = const WardenDrawer();
+    }
+    if (prefs.getString("role") == "faculty") {
+      drawer = const FacultyDrawer();
     }
     TextTheme textTheme = Theme.of(context).textTheme;
     ColorScheme colorScheme = Theme.of(context).colorScheme;

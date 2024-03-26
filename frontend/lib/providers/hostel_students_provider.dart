@@ -16,8 +16,7 @@ class HostelStudentsNotifier extends StateNotifier<List<BlockStudent>> {
     }
     try {
       var response = await http.get(
-          Uri.parse(
-              "${dotenv.env["BACKEND_BASE_API"]}/${prefs!.getString("role")}/getStudents"),
+          Uri.parse("${dotenv.env["BACKEND_BASE_API"]}/warden/getStudents"),
           headers: {
             "Content-Type": "application/json",
             "Authorization": prefs!.getString("jwtToken")!
