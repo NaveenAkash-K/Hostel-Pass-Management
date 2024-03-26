@@ -49,7 +49,6 @@ router.get("/getPass", async (req, res) => {
       }
       passes.push(...tempPass);
     }
-    console.log(passes);
 
     passes.sort((a, b) => {
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();

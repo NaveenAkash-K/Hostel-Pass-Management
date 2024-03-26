@@ -58,7 +58,6 @@ router.get("/getAnnouncement/:blockNo", async (req, res) => {
   try {
     const blockNo = req.params.blockNo;
     const announcement = await Announcement.find({ blockNo: blockNo });
-    console.log(announcement);
     res.json(announcement);
   } catch (err) {
     console.log(err);
@@ -81,9 +80,10 @@ router.post("/switchRt", async (req, res) => {
   try {
     const { blockNo } = req.body;
     const permanentBlockNo = req.body.USER_permanentBlock;
+    const isBoysHostelRt = req.body.USER_isBoysHostelRt;
 
     const switchedRt = await Rt.findOneAndUpdate(
-      { permanentBlock: blockNo },
+      { permanentBlock: blockNo, isBoysHostelRt:isBoysHostelRt },
       { $addToSet: { temporaryBlock: permanentBlockNo } },
       { new: true }
     );
@@ -101,10 +101,12 @@ router.post("/switchRt", async (req, res) => {
 
 router.post("/revertSwitchRt", async (req, res) => {
   try {
-    const permanentBlockNo = req.body.USER_permanentBlock;
+    const permanentBlockNo = req.body.USER_permanentBlock;    
+    const isBoysHostelRt = req.body.USER_isBoysHostelRt;
+
 
     const allRts = await Rt.updateMany(
-      { temporaryBlock: permanentBlockNo },
+      { temporaryBlock: permanentBlockNo, isBoysHostelRt:isBoysHostelRt },
       { $pull: { temporaryBlock: permanentBlockNo } }
     );
 
@@ -115,25 +117,66 @@ router.post("/revertSwitchRt", async (req, res) => {
   }
 });
 
+// router.get("/getSwitchedRts", async (req, res) => {
+//   try {
+//     const permanentBlock = req.body.USER_permanentBlock;
+
+//     const docs = await Rt.find({});
+
+//     const rtArray = docs
+//       .filter((doc) => doc.temporaryBlock.includes(permanentBlock))
+//       .map((doc) => ({
+//         uid: doc.uid,
+//         permanentBlock: doc.permanentBlock,
+//         rtName: doc.username,
+//       }));
+
+//     res.json(rtArray);
+//   } catch (error) {
+//     console.error("Error fetching rt documents:", error);
+//     res.status(500).json({ error: "Internal server error" });
+//   }
+// });
+
 router.get("/getSwitchedRts", async (req, res) => {
   try {
     const permanentBlock = req.body.USER_permanentBlock;
+    const isBoysHostelRt = req.body.USER_isBoysHostelRt; // Assuming this is a boolean value
 
-    const docs = await Rt.find({});
+    const docs = await Rt.find({ temporaryBlock: { $in: [permanentBlock] } });
 
-    const rtArray = docs
-      .filter((doc) => doc.temporaryBlock.includes(permanentBlock))
-      .map((doc) => ({
-        uid: doc.uid,
-        permanentBlock: doc.permanentBlock,
-        rtName: doc.username,
-      }));
+    let maleFilteredRts = [];
+    let femaleFilteredRts = [];
 
-    res.json(rtArray);
+    docs.forEach((doc) => {
+      if (isBoysHostelRt && doc.isBoysHostelRt) {
+        maleFilteredRts.push({
+          uid: doc.uid,
+          permanentBlock: doc.permanentBlock,
+          rtName: doc.username,
+        });
+      } else if (!isBoysHostelRt && !doc.isBoysHostelRt) {
+        femaleFilteredRts.push({
+          uid: doc.uid,
+          permanentBlock: doc.permanentBlock,
+          rtName: doc.username,
+        });
+      }
+    });
+
+    if (isBoysHostelRt) {
+      console.log(maleFilteredRts);
+      res.json(maleFilteredRts);
+    } else {
+            console.log(femaleFilteredRts);
+
+      res.json(femaleFilteredRts);
+    }
   } catch (error) {
     console.error("Error fetching rt documents:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
 
 module.exports = router;

@@ -30,6 +30,7 @@ const checkAuth = (req, res, next) =>  {
       req.body.USER_phNo = result.phNo;
       req.body.USER_temporaryBlock =result.temporaryBlock;
       req.body.USER_permanentBlock = result.permanentBlock;
+      req.body.USER_isBoysHostelRt = result.isBoysHostelRt;
     } else if (result.role == "warden") {
       req.body.USER_uid = result.uid;
       req.body.USER_wardenId = result.wardenId;
