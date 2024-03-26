@@ -92,12 +92,11 @@ class StudentPassNotifier extends StateNotifier<List<Pass>> {
                 showQr: pass["status"] == "In use"
                     ? true
                     : DateTime.parse(pass['expectedOut'])
-                            .add(Duration(minutes: 60))
+                            .add(const Duration(minutes: 60))
                             .isAfter(DateTime.now()) &&
                         DateTime.parse(pass['expectedOut'])
-                            .subtract(Duration(minutes: 60))
+                            .subtract(const Duration(minutes: 60))
                             .isBefore(DateTime.now()),
-
                 isSpecialPass: pass["isSpecialPass"],
               ));
       }

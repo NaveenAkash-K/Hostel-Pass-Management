@@ -31,7 +31,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         textTheme: GoogleFonts.amikoTextTheme(),
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0x002e4c)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0x00002e4c)),
         useMaterial3: true,
       ),
       home: const SplashPage(),

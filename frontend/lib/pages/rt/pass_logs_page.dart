@@ -10,7 +10,8 @@ import 'package:hostel_pass_management/widgets/warden/warden_drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PassLogsPage extends ConsumerStatefulWidget {
-  PassLogsPage({Key? key, this.inUsePasses, this.usedPasses, this.blockNo})
+  const PassLogsPage(
+      {Key? key, this.inUsePasses, this.usedPasses, this.blockNo})
       : super(key: key);
   final List<PassRequest>? inUsePasses;
   final List<PassRequest>? usedPasses;

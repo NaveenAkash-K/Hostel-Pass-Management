@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hostel_pass_management/models/pass_request_model.dart';
 import 'package:hostel_pass_management/widgets/rt/pass_request_item.dart';
 
 class WardenPassLogPage extends StatelessWidget {
-  const WardenPassLogPage({super.key, required this.passes, required this.blockNo});
+  const WardenPassLogPage(
+      {super.key, required this.passes, required this.blockNo});
   final List<PassRequest> passes;
   final int blockNo;
 

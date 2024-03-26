@@ -6,7 +6,8 @@ class BlockTile extends StatelessWidget {
   final int outCount;
   final bool isOverallCount;
 
-  BlockTile({
+  const BlockTile({
+    super.key,
     required this.name,
     required this.inCount,
     required this.outCount,
@@ -56,7 +57,7 @@ class BlockTile extends StatelessWidget {
                     fontSize: isOverallCount ? 20 : 16,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 ),
                 const Icon(
@@ -70,7 +71,7 @@ class BlockTile extends StatelessWidget {
                     fontSize: isOverallCount ? 20 : 16,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 ),
               ],

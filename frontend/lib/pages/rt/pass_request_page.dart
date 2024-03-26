@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -49,7 +51,6 @@ class _PassRequestPageState extends ConsumerState<PassRequestPage> {
 
   Future<void> fetchProfilePic() async {
     try {
-      print(widget.pass.studentId);
       var response = await http.get(
         Uri.parse(
             "${dotenv.env["BACKEND_BASE_API"]}/profile/studentProfile/${widget.pass.studentId}"),
@@ -144,7 +145,7 @@ class _PassRequestPageState extends ConsumerState<PassRequestPage> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
+                            SizedBox(
                               width: MediaQuery.of(context).size.width * 0.65,
                               child: Text(
                                 widget.pass.studentName,
@@ -206,7 +207,7 @@ class _PassRequestPageState extends ConsumerState<PassRequestPage> {
                   content:
                       "Date: ${widget.pass.actualInDate}  Time: ${widget.pass.actualInTime}",
                 ),
-              Container(
+              SizedBox(
                   width: double.infinity,
                   child:
                       PassTile(title: "Reason", content: widget.pass.reason)),

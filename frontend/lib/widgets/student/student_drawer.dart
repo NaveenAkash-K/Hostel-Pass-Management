@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hostel_pass_management/pages/common/bug_report_page.dart';
-import 'package:hostel_pass_management/pages/common/login_page.dart';
 import 'package:hostel_pass_management/pages/student/student_faq_page.dart';
 import 'package:hostel_pass_management/pages/student/student_page.dart';
 import 'package:hostel_pass_management/pages/student/student_profile_page.dart';
@@ -11,7 +10,6 @@ class StudentDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     TextTheme textTheme = Theme.of(context).textTheme;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
 
@@ -40,7 +38,6 @@ class StudentDrawer extends StatelessWidget {
                     //     color: Color.fromARGB(255, 29, 79, 158),
                     //   ),
                     // ),
-
                   ],
                 ),
               ],
@@ -75,13 +72,12 @@ class StudentDrawer extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => StudentFaqPage(),
+                  builder: (context) => const StudentFaqPage(),
                 ),
               );
             },
-            title: Text("Guidelines"),
-            leading: Icon(Icons.rule),
-
+            title: const Text("Guidelines"),
+            leading: const Icon(Icons.rule),
           ),
           // Spacer(),
           ListTile(

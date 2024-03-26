@@ -132,7 +132,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
         await ref.read(specialPassProvider.notifier).getSpecailPassesFromDB();
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => StatsPage(),
+            builder: (context) => const StatsPage(),
             // builder: (context) => StatsPage(),
           ),
         );
@@ -150,7 +150,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
             .loadHostelStudentsFromDB();
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => StatsPage(),
+            builder: (context) => const StatsPage(),
             // builder: (context) => StatsPage(),
           ),
         );

@@ -7,8 +7,6 @@ import 'package:hostel_pass_management/providers/hostel_students_provider.dart';
 import 'package:hostel_pass_management/providers/warden_pass_provider.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
 import 'package:hostel_pass_management/widgets/faculty/faculty_drawer.dart';
-import 'package:hostel_pass_management/widgets/student/student_drawer.dart';
-import 'package:hostel_pass_management/widgets/warden/block_tile.dart';
 import 'package:hostel_pass_management/widgets/warden/block_tilee.dart';
 import 'package:hostel_pass_management/widgets/warden/warden_drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,7 +15,9 @@ class StatsPage extends ConsumerStatefulWidget {
   const StatsPage({super.key});
 
   @override
-  _StatsPageState createState() => _StatsPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() {
+    return _StatsPageState();
+  }
 }
 
 class _StatsPageState extends ConsumerState<StatsPage> {
@@ -76,11 +76,10 @@ class _StatsPageState extends ConsumerState<StatsPage> {
     List<Widget> maleBlockTiles = [];
     List<Widget> femaleBlockTiles = [];
 
-    final NO_OF_MALE_BLOCKS = maleBlockCounts.length;
-    final NO_OF_FEMALE_BLOCKS = femaleBlockCounts.length;
+    final noOfMaleBlocks = maleBlockCounts.length;
+    final noOfFemaleBlocks = femaleBlockCounts.length;
 
-    for (int i = 0; i < NO_OF_MALE_BLOCKS; i++) {
-
+    for (int i = 0; i < noOfMaleBlocks; i++) {
       maleBlockTiles.add(
         GestureDetector(
           onTap: () {
@@ -88,14 +87,13 @@ class _StatsPageState extends ConsumerState<StatsPage> {
           },
           child: BlockTile(
             name: "Block ${i + 1}",
-
             inCount: maleBlockCounts[i],
             outCount: malePassCount[i],
           ),
         ),
       );
     }
-    for (int i = 0; i < NO_OF_FEMALE_BLOCKS; i++) {
+    for (int i = 0; i < noOfFemaleBlocks; i++) {
       femaleBlockTiles.add(
         GestureDetector(
           onTap: () {
@@ -126,8 +124,8 @@ class _StatsPageState extends ConsumerState<StatsPage> {
         ),
         // drawer: WardenDrawer(),
         drawer: prefs!.getString("role") == "warden"
-            ? WardenDrawer()
-            : FacultyDrawer(),
+            ? const WardenDrawer()
+            : const FacultyDrawer(),
         body: TabBarView(
           children: [
             ListView(
@@ -135,7 +133,6 @@ class _StatsPageState extends ConsumerState<StatsPage> {
                 BlockTile(
                   isOverallCount: true,
                   name: "Overall Count",
-
                   inCount: maleStudents.length,
                   outCount: maleInUsePasses.length,
                 ),
@@ -147,7 +144,6 @@ class _StatsPageState extends ConsumerState<StatsPage> {
                 BlockTile(
                   isOverallCount: true,
                   name: "Overall Count",
-
                   inCount: femaleStudents.length,
                   outCount: femaleInUsePasses.length,
                 ),

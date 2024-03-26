@@ -10,7 +10,9 @@ class WardenPassRequestPage extends ConsumerStatefulWidget {
   const WardenPassRequestPage({Key? key}) : super(key: key);
 
   @override
-  _WardenPassRequestPageState createState() => _WardenPassRequestPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() {
+    return _WardenPassRequestPageState();
+  }
 }
 
 class _WardenPassRequestPageState extends ConsumerState<WardenPassRequestPage> {

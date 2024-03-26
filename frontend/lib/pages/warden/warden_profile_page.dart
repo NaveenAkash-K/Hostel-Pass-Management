@@ -66,135 +66,132 @@ class _WardenProfilePageState extends State<WardenProfilePage> {
         title: const Text("Profile"),
       ),
       drawer: const WardenDrawer(),
-      body: Container(
-        // height: MediaQuery.of(context).size.height,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              margin: const EdgeInsets.fromLTRB(16, 10, 16, 10),
-              clipBehavior: Clip.hardEdge,
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    spreadRadius: 1,
-                    blurRadius: 1,
-                    offset: const Offset(0, 1),
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(20),
-                color: colorScheme.primaryContainer,
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        height: 60,
-                        width: 60,
-                        clipBehavior: Clip.antiAlias,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                        ),
-                        child: profileBuffer == null
-                            ? const Icon(
-                                Icons.person_rounded,
-                                size: 30,
-                              )
-                            : Image.memory(
-                                base64Decode(profileBuffer!),
-                                fit: BoxFit.cover,
-                              ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            margin: const EdgeInsets.fromLTRB(16, 10, 16, 10),
+            clipBehavior: Clip.hardEdge,
+            padding: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 1,
+                  offset: const Offset(0, 1),
+                ),
+              ],
+              borderRadius: BorderRadius.circular(20),
+              color: colorScheme.primaryContainer,
+            ),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      height: 60,
+                      width: 60,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
                       ),
-                      const SizedBox(width: 15),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            prefs!.getString("username")!,
-                            overflow: TextOverflow.fade,
-                            softWrap: true,
-                            style: textTheme.bodyLarge!.copyWith(
-                              color: const Color.fromARGB(255, 25, 32, 42),
-                              fontWeight: FontWeight.bold,
+                      child: profileBuffer == null
+                          ? const Icon(
+                              Icons.person_rounded,
+                              size: 30,
+                            )
+                          : Image.memory(
+                              base64Decode(profileBuffer!),
+                              fit: BoxFit.cover,
                             ),
+                    ),
+                    const SizedBox(width: 15),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          prefs!.getString("username")!,
+                          overflow: TextOverflow.fade,
+                          softWrap: true,
+                          style: textTheme.bodyLarge!.copyWith(
+                            color: const Color.fromARGB(255, 25, 32, 42),
+                            fontWeight: FontWeight.bold,
                           ),
-                          const SizedBox(height: 4),
-                          Text(
-                            "Warden",
-                            style: textTheme.bodyMedium!.copyWith(
-                              color: const Color.fromARGB(255, 96, 102, 110),
-                            ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          "Warden",
+                          style: textTheme.bodyMedium!.copyWith(
+                            color: const Color.fromARGB(255, 96, 102, 110),
                           ),
-                        ],
-                      )
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'PERSONAL INFORMATION',
+                  style: textTheme.bodyLarge!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: const Color.fromARGB(255, 30, 75, 130),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        spreadRadius: 1,
+                        blurRadius: 1,
+                        offset: const Offset(0, 1),
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    children: [
+                      ProfileItem(
+                        iconData: const FaIcon(
+                          FontAwesomeIcons.solidEnvelope,
+                          size: 20,
+                        ),
+                        attribute: "Email",
+                        value: prefs!.getString(("email"))!,
+                      ),
+                      const Divider(height: 0),
+                      ProfileItem(
+                        iconData: const FaIcon(
+                          FontAwesomeIcons.phone,
+                          size: 20,
+                        ),
+                        attribute: "Phone No",
+                        value: prefs!.getString(("phNo"))!,
+                      ),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'PERSONAL INFORMATION',
-                    style: textTheme.bodyLarge!.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: const Color.fromARGB(255, 30, 75, 130),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          spreadRadius: 1,
-                          blurRadius: 1,
-                          offset: const Offset(0, 1),
-                        ),
-                      ],
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      children: [
-                        ProfileItem(
-                          iconData: const FaIcon(
-                            FontAwesomeIcons.solidEnvelope,
-                            size: 20,
-                          ),
-                          attribute: "Email",
-                          value: prefs!.getString(("email"))!,
-                        ),
-                        const Divider(height: 0),
-                        ProfileItem(
-                          iconData: const FaIcon(
-                            FontAwesomeIcons.phone,
-                            size: 20,
-                          ),
-                          attribute: "Phone No",
-                          value: prefs!.getString(("phNo"))!,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-              child: LogoutTile(),
-            ),
-          ],
-        ),
+          ),
+          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+            child: LogoutTile(),
+          ),
+        ],
       ),
     );
   }

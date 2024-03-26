@@ -10,6 +10,7 @@ class PassItem extends StatefulWidget {
   final String? action;
 
   const PassItem({
+    super.key,
     required this.inDate,
     required this.inTime,
     required this.outDate,

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -174,7 +176,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
+                            SizedBox(
                               width: MediaQuery.of(context).size.width * 0.65,
                               child: Text(
                                 // prefs!.getString("username")!,
@@ -316,7 +318,10 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                           ),
                           const Divider(height: 0),
                           ProfileItem(
-                            iconData: const FaIcon(FontAwesomeIcons.peopleRoof, size: 20,),
+                            iconData: const FaIcon(
+                              FontAwesomeIcons.peopleRoof,
+                              size: 20,
+                            ),
                             attribute: "Father's / Mother's Name",
                             value:
                                 "${student.fatherName} / ${student.motherName}",
@@ -329,7 +334,10 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                           const Divider(height: 0),
 
                           ProfileItem(
-                            iconData: const FaIcon(FontAwesomeIcons.phone, size: 20,),
+                            iconData: const FaIcon(
+                              FontAwesomeIcons.phone,
+                              size: 20,
+                            ),
                             attribute: "Father's / Mother's Phone No",
                             value:
                                 "${student.fatherPhNo}  /  ${student.motherPhNo}",
@@ -363,12 +371,18 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                         children: [
                           ProfileItem(
                             attribute: "Block No",
-                            iconData: const FaIcon(FontAwesomeIcons.solidBuilding,size: 20,),
+                            iconData: const FaIcon(
+                              FontAwesomeIcons.solidBuilding,
+                              size: 20,
+                            ),
                             value: student.blockNo.toString(),
                           ),
                           const Divider(height: 0),
                           ProfileItem(
-                            iconData: const FaIcon(FontAwesomeIcons.doorOpen,size: 20,),
+                            iconData: const FaIcon(
+                              FontAwesomeIcons.doorOpen,
+                              size: 20,
+                            ),
                             attribute: "Room No",
                             value: student.roomNo.toString(),
                           ),

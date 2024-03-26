@@ -75,12 +75,10 @@ class _StudentPageState extends ConsumerState<StudentPage> {
           .toList();
     }
 
-    Widget _buildTickIcon(Announcement announcement) {
+    Widget buildTickIcon(Announcement announcement) {
       if (!announcement.isRead) {
         return IconButton(
-
           icon: const Icon(Icons.check, color: Colors.green),
-
           onPressed: () async {
             await ref
                 .read(studentAnnouncementNotifier.notifier)
@@ -89,9 +87,7 @@ class _StudentPageState extends ConsumerState<StudentPage> {
           },
         );
       } else {
-
         return const SizedBox();
-
       }
     }
 
@@ -131,7 +127,7 @@ class _StudentPageState extends ConsumerState<StudentPage> {
                                           announcement!.isNotEmpty) ...[
                                         ListTile(
                                           trailing: !annoucement[0].isRead
-                                              ? _buildTickIcon(announcement![0])
+                                              ? buildTickIcon(announcement![0])
                                               : null,
                                           // tileColor: announcement![0].isRead
                                           //     ? Colors.transparent
@@ -165,7 +161,7 @@ class _StudentPageState extends ConsumerState<StudentPage> {
                                           const Divider(),
                                           ListTile(
                                             trailing: !announcement![1].isRead
-                                                ? _buildTickIcon(
+                                                ? buildTickIcon(
                                                     announcement![1])
                                                 : null,
                                             // tileColor: announcement![1].isRead
@@ -268,7 +264,7 @@ class _StudentPageState extends ConsumerState<StudentPage> {
                       scrollControlDisabledMaxHeightRatio: 0.65,
                       context: context,
                       builder: (context) {
-                        return QrBottomSheet();
+                        return const QrBottomSheet();
                       },
                     );
                   },
@@ -316,7 +312,7 @@ class _StudentPageState extends ConsumerState<StudentPage> {
 }
 
 class QrBottomSheet extends ConsumerStatefulWidget {
-  QrBottomSheet({super.key});
+  const QrBottomSheet({super.key});
 
   @override
   ConsumerState<QrBottomSheet> createState() => _QrBottomSheetState();

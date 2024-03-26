@@ -22,8 +22,8 @@ class _BlockTileState extends State<OldBlockTile> {
 
     return SizedBox(
       child: Container(
-        margin: EdgeInsets.all(10),
-        padding: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
@@ -46,23 +46,23 @@ class _BlockTileState extends State<OldBlockTile> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Expanded(
               child: Container(
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 222, 242, 230),
+                  color: const Color.fromARGB(255, 222, 242, 230),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Row(
                   children: [
                     Container(
                       width: 6,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color.fromARGB(255, 135, 207, 163),
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -84,23 +84,23 @@ class _BlockTileState extends State<OldBlockTile> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Expanded(
               child: Container(
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 246, 232, 232),
+                  color: const Color.fromARGB(255, 246, 232, 232),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Row(
                   children: [
                     Container(
                       width: 6,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color.fromARGB(255, 187, 68, 68),
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,

@@ -41,10 +41,10 @@ class _BlockDetailPageState extends State<BlockDetailPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Block Detail'),
+        title: const Text('Block Detail'),
         bottom: TabBar(
           controller: _tabController,
-          tabs: [
+          tabs: const [
             Tab(text: 'Details'),
             Tab(text: 'In use'),
             Tab(text: 'Used'),

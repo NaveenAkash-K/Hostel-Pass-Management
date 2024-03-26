@@ -108,7 +108,6 @@ class _RtProfilePageState extends State<RtProfilePage> {
       }).toList();
       setState(() {
         switchedRts = switchedRtsData;
-        print(switchedRts);
       });
     } catch (err) {
       if (!mounted) {
@@ -256,7 +255,6 @@ class _RtProfilePageState extends State<RtProfilePage> {
                               ),
                             );
                           }
-                          print("selected value : $_selectedValue");
                           fetchSwitchedRts();
                           Navigator.of(context).pop();
                         }

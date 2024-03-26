@@ -13,7 +13,9 @@ class PassRequestItem extends StatefulWidget {
   final bool passRequest;
 
   @override
-  _PassRequestItemState createState() => _PassRequestItemState();
+  State<StatefulWidget> createState() {
+    return _PassRequestItemState();
+  }
 }
 
 class _PassRequestItemState extends State<PassRequestItem> {

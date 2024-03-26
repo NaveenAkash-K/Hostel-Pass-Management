@@ -55,7 +55,9 @@ class ContactTile extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ContactTileState createState() => _ContactTileState();
+  State<StatefulWidget> createState() {
+    return _ContactTileState();
+  }
 }
 
 class _ContactTileState extends State<ContactTile> {
@@ -92,7 +94,6 @@ class _ContactTileState extends State<ContactTile> {
             icon: const Icon(Icons.call),
             onPressed: () async {
               await FlutterPhoneDirectCaller.callNumber(widget.number);
-              print('Calling ${widget.number}');
             },
           ),
         ),

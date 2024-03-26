@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -400,7 +402,8 @@ class _NewPassPageState extends ConsumerState<NewPassPage> {
                 if (passType == "StayPass") {
                   pickedDate = await showDatePicker(
                     context: context,
-                    initialDate: inDate ?? outDate!.add(const Duration(days: 1)),
+                    initialDate:
+                        inDate ?? outDate!.add(const Duration(days: 1)),
                     firstDate: outDate!.add(const Duration(days: 1)),
                     lastDate: DateTime(2026),
                   );
@@ -556,7 +559,6 @@ class _NewPassPageState extends ConsumerState<NewPassPage> {
       return;
     }
 
-    print(passType);
     if (passType == null) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(

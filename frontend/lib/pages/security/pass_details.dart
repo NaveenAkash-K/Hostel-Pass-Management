@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -51,7 +53,6 @@ class _PassDetailsState extends State<PassDetails> {
       );
 
       Navigator.pop(context);
-
     } finally {
       setState(() {
         isPassLoading = false;
@@ -238,12 +239,14 @@ class _PassDetailsState extends State<PassDetails> {
                               const Divider(height: 0),
                               ProfileItem(
                                 attribute: "Leaving Time",
-                                value: "${DateTime.parse(passData['leavingDateTime']).day}-${DateTime.parse(passData['leavingDateTime']).month}-${DateTime.parse(passData['leavingDateTime']).year} ${TimeOfDay.fromDateTime(DateTime.parse(passData['leavingDateTime'])).hourOfPeriod}:${TimeOfDay.fromDateTime(DateTime.parse(passData['leavingDateTime'])).minute} ${TimeOfDay.fromDateTime(DateTime.parse(passData['leavingDateTime'])).period.name}",
+                                value:
+                                    "${DateTime.parse(passData['leavingDateTime']).day}-${DateTime.parse(passData['leavingDateTime']).month}-${DateTime.parse(passData['leavingDateTime']).year} ${TimeOfDay.fromDateTime(DateTime.parse(passData['leavingDateTime'])).hourOfPeriod}:${TimeOfDay.fromDateTime(DateTime.parse(passData['leavingDateTime'])).minute} ${TimeOfDay.fromDateTime(DateTime.parse(passData['leavingDateTime'])).period.name}",
                               ),
                               const Divider(height: 0),
                               ProfileItem(
                                 attribute: "Retruning Time",
-                                value: "${DateTime.parse(passData['returningDateTime']).day}-${DateTime.parse(passData['returningDateTime']).month}-${DateTime.parse(passData['returningDateTime']).year} ${TimeOfDay.fromDateTime(DateTime.parse(passData['returningDateTime'])).hourOfPeriod}:${TimeOfDay.fromDateTime(DateTime.parse(passData['returningDateTime'])).minute} ${TimeOfDay.fromDateTime(DateTime.parse(passData['returningDateTime'])).period.name}",
+                                value:
+                                    "${DateTime.parse(passData['returningDateTime']).day}-${DateTime.parse(passData['returningDateTime']).month}-${DateTime.parse(passData['returningDateTime']).year} ${TimeOfDay.fromDateTime(DateTime.parse(passData['returningDateTime'])).hourOfPeriod}:${TimeOfDay.fromDateTime(DateTime.parse(passData['returningDateTime'])).minute} ${TimeOfDay.fromDateTime(DateTime.parse(passData['returningDateTime'])).period.name}",
                               ),
                               const Divider(height: 0),
                               ProfileItem(
