@@ -6,7 +6,7 @@ import 'package:hostel_pass_management/widgets/warden/warden_drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RulesPage extends StatelessWidget {
-  RulesPage({super.key});
+  const RulesPage({super.key});
 
   static const List<String> rules = [
     "Quiet Hours: Set specific hours during which noise levels should be kept to a minimum to ensure a peaceful environment for studying and rest.",
@@ -26,20 +26,20 @@ class RulesPage extends StatelessWidget {
     var drawer;
     SharedPreferences? prefs = SharedPreferencesManager.preferences;
     if (prefs!.getString("role") == "student") {
-      drawer = StudentDrawer();
+      drawer = const StudentDrawer();
     } else if (prefs.getString("role") == "rt") {
-      drawer = RtDrawer();
+      drawer = const RtDrawer();
     }
     if (prefs.getString("role") == "warden") {
-      drawer = WardenDrawer();
+      drawer = const WardenDrawer();
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text("Rules and Regulations"),
+        title: const Text("Rules and Regulations"),
       ),
       drawer: drawer,
       body: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -52,7 +52,7 @@ class RulesPage extends StatelessWidget {
                         "$index. ${rules[index]}",
                         style: textTheme.bodyLarge!.copyWith(height: 2),
                       ),
-                      Divider()
+                      const Divider()
                     ],
                   ),
                 ),

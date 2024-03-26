@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_pass_management/pages/common/splash_page.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hostel_pass_management/pages/student/new_pass_page.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -32,10 +31,10 @@ class App extends StatelessWidget {
       theme: ThemeData(
         textTheme: GoogleFonts.amikoTextTheme(),
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        colorScheme: ColorScheme.fromSeed(seedColor: Color(0x002e4c)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0x002e4c)),
         useMaterial3: true,
       ),
-      home: SplashPage(),
+      home: const SplashPage(),
     );
   }
 }

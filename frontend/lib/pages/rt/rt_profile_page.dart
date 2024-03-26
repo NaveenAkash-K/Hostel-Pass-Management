@@ -3,14 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:hostel_pass_management/models/block_student_model.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
 import 'package:hostel_pass_management/widgets/common/logout_tile.dart';
 import 'package:hostel_pass_management/widgets/common/profile_item.dart';
 import 'package:hostel_pass_management/widgets/rt/rt_drawer.dart';
-import 'package:hostel_pass_management/widgets/student/student_drawer.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -73,14 +69,14 @@ class _RtProfilePageState extends State<RtProfilePage> {
         throw responseData["message"];
       }
 
-      print(responseData);
-
       setState(() {
         profileBuffer = responseData["profileBuffer"];
         temporaryBlock = responseData["temporaryBlock"];
       });
     } catch (e) {
-      print(e);
+      if (!mounted) {
+        return;
+      }
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -92,7 +88,6 @@ class _RtProfilePageState extends State<RtProfilePage> {
 
   void fetchSwitchedRts() async {
     try {
-      var permBlock = prefs!.getInt("permanentBlock");
       var response = await http.get(
         Uri.parse("${dotenv.env["BACKEND_BASE_API"]}/rt/block/getSwitchedRts"),
         headers: {
@@ -116,6 +111,9 @@ class _RtProfilePageState extends State<RtProfilePage> {
         print(switchedRts);
       });
     } catch (err) {
+      if (!mounted) {
+        return;
+      }
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -175,7 +173,9 @@ class _RtProfilePageState extends State<RtProfilePage> {
                             body: jsonEncode({"blockNo": _selectedValue}),
                           );
                         } catch (err) {
-                          print("Error occurred: $err");
+                          if (!mounted) {
+                            return;
+                          }
                           ScaffoldMessenger.of(context).clearSnackBars();
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
@@ -183,7 +183,6 @@ class _RtProfilePageState extends State<RtProfilePage> {
                             ),
                           );
                         }
-                        print("selected value : $_selectedValue");
                         fetchSwitchedRts();
                         Navigator.of(context).pop();
                       }
@@ -247,6 +246,9 @@ class _RtProfilePageState extends State<RtProfilePage> {
                               },
                             );
                           } catch (err) {
+                            if (!mounted) {
+                              return;
+                            }
                             ScaffoldMessenger.of(context).clearSnackBars();
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -340,10 +342,7 @@ class _RtProfilePageState extends State<RtProfilePage> {
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
-                                  "Block " +
-                                      prefs!
-                                          .getInt("permanentBlock")
-                                          .toString(),
+                                  "Block ${prefs!.getInt("permanentBlock")}",
                                   style: textTheme.bodyMedium!.copyWith(
                                     color:
                                         const Color.fromARGB(255, 96, 102, 110),
@@ -382,7 +381,7 @@ class _RtProfilePageState extends State<RtProfilePage> {
                         ProfileItem(
                           // iconData: Icons.mail_rounded,
                           // iconData: Ionicons.mail,
-                          iconData: FaIcon(
+                          iconData: const FaIcon(
                             FontAwesomeIcons.solidEnvelope,
                             size: 20,
                           ),
@@ -393,7 +392,7 @@ class _RtProfilePageState extends State<RtProfilePage> {
                         ProfileItem(
                           // iconData: Ionicons.call,
                           // iconData: Icons.call,
-                          iconData: FaIcon(
+                          iconData: const FaIcon(
                             FontAwesomeIcons.phone,
                             size: 20,
                           ),
@@ -404,7 +403,7 @@ class _RtProfilePageState extends State<RtProfilePage> {
                         const Divider(height: 0),
                         ProfileItem(
                           // iconData: Icons.apartment_rounded,
-                          iconData: FaIcon(
+                          iconData: const FaIcon(
                             FontAwesomeIcons.solidBuilding,
                             size: 20,
                           ),

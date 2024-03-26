@@ -34,7 +34,7 @@ class _SecurityPageState extends State<SecurityPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: SecurityDrawer(),
+      drawer: const SecurityDrawer(),
       appBar: AppBar(
         title: const Text("Hostel Pass Scanner"),
       ),

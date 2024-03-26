@@ -1,17 +1,13 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hostel_pass_management/models/block_student_model.dart';
 import 'package:hostel_pass_management/pages/student/student_profile_page.dart';
-import 'package:hostel_pass_management/providers/block_students_provider.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
-import 'package:hostel_pass_management/widgets/common/profile_item.dart';
 import 'package:hostel_pass_management/widgets/rt/rt_drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BlockStudentsPage extends ConsumerStatefulWidget {
-  const BlockStudentsPage({Key? key, this.students, this.blockNo});
+  const BlockStudentsPage({this.students, this.blockNo, super.key});
   final List<BlockStudent>? students;
   final int? blockNo;
 
@@ -21,7 +17,7 @@ class BlockStudentsPage extends ConsumerStatefulWidget {
 
 class _BlockStudentsPageState extends ConsumerState<BlockStudentsPage> {
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   List<BlockStudent> _filteredStudents = [];
   List<BlockStudent> blockStudents = [];
   var drawer;

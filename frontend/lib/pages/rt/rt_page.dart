@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hostel_pass_management/models/pass_request_model.dart';
 import 'package:hostel_pass_management/providers/block_students_provider.dart';
-import 'package:hostel_pass_management/providers/rt_announcement_provider.dart';
 import 'package:hostel_pass_management/providers/rt_pass_provider.dart';
 import 'package:hostel_pass_management/providers/warden_pass_provider.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
@@ -33,12 +32,12 @@ class _RtPageState extends ConsumerState<RtPage> {
     var drawer;
     SharedPreferences? prefs = SharedPreferencesManager.preferences;
     if (prefs!.getString("role") == "student") {
-      drawer = StudentDrawer();
+      drawer = const StudentDrawer();
     } else if (prefs.getString("role") == "rt") {
-      drawer = RtDrawer();
+      drawer = const RtDrawer();
     }
     if (prefs.getString("role") == "warden") {
-      drawer = WardenDrawer();
+      drawer = const WardenDrawer();
     }
     if (prefs.getString("role") == "rt") {
       passRequests = ref.watch(rtPassProvider);
@@ -91,15 +90,12 @@ class _RtPageState extends ConsumerState<RtPage> {
             .where((pass) => pass.status == 'Pending' && pass.gender == 'F')
             .toList();
       }
-      print("stduents $studentsCount");
-      print("pases $passesCount");
     } else {
       passRequests = ref.watch(specialPassProvider);
       pendingPasses =
           passRequests.where((pass) => pass.status == 'Pending').toList();
     }
     TextTheme textTheme = Theme.of(context).textTheme;
-    ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       drawer: drawer,
       appBar: AppBar(
@@ -135,7 +131,7 @@ class _RtPageState extends ConsumerState<RtPage> {
                   visible: studentsCount != 0,
                   child: Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey),
                         borderRadius: BorderRadius.circular(10),
@@ -143,23 +139,23 @@ class _RtPageState extends ConsumerState<RtPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.directions_walk, color: Colors.green),
-                          SizedBox(width: 10),
+                          const Icon(Icons.directions_walk, color: Colors.green),
+                          const SizedBox(width: 10),
                           Text(
                             "Students\nOutside: $passesCount",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
                     ),
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Visibility(
                   visible: studentsCount != 0,
                   child: Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey),
                         borderRadius: BorderRadius.circular(10),
@@ -169,10 +165,10 @@ class _RtPageState extends ConsumerState<RtPage> {
                         children: [
                           Icon(Icons.home,
                               color: Theme.of(context).colorScheme.primary),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Text(
                             "Students\nInside: ${studentsCount - passesCount}",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -183,25 +179,25 @@ class _RtPageState extends ConsumerState<RtPage> {
             ),
           ),
 
-          if (pendingPasses.length == 0)
+          if (pendingPasses.isEmpty)
             Expanded(
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Spacer(),
+                    const Spacer(),
                     SvgPicture.asset(
                       "assets/images/no-pass.svg",
                       width: 300,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       "No pass requests detected.\nSit back and Enjoy",
                       textAlign: TextAlign.center,
                       style: textTheme.titleMedium,
                     ),
-                    Spacer(),
-                    Spacer()
+                    const Spacer(),
+                    const Spacer()
                   ],
                 ),
               ),

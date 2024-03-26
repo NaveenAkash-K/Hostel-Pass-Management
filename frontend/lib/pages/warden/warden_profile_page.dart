@@ -3,13 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:hostel_pass_management/models/block_student_model.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
 import 'package:hostel_pass_management/widgets/common/logout_tile.dart';
 import 'package:hostel_pass_management/widgets/common/profile_item.dart';
-import 'package:hostel_pass_management/widgets/rt/rt_drawer.dart';
-import 'package:hostel_pass_management/widgets/student/student_drawer.dart';
 import 'package:hostel_pass_management/widgets/warden/warden_drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -69,7 +65,7 @@ class _WardenProfilePageState extends State<WardenProfilePage> {
       appBar: AppBar(
         title: const Text("Profile"),
       ),
-      drawer: WardenDrawer(),
+      drawer: const WardenDrawer(),
       body: Container(
         // height: MediaQuery.of(context).size.height,
         child: Column(
@@ -79,7 +75,7 @@ class _WardenProfilePageState extends State<WardenProfilePage> {
             Container(
               margin: const EdgeInsets.fromLTRB(16, 10, 16, 10),
               clipBehavior: Clip.hardEdge,
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
@@ -100,7 +96,7 @@ class _WardenProfilePageState extends State<WardenProfilePage> {
                         height: 60,
                         width: 60,
                         clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                         ),
                         child: profileBuffer == null
@@ -113,7 +109,7 @@ class _WardenProfilePageState extends State<WardenProfilePage> {
                                 fit: BoxFit.cover,
                               ),
                       ),
-                      SizedBox(width: 15),
+                      const SizedBox(width: 15),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -122,15 +118,15 @@ class _WardenProfilePageState extends State<WardenProfilePage> {
                             overflow: TextOverflow.fade,
                             softWrap: true,
                             style: textTheme.bodyLarge!.copyWith(
-                              color: Color.fromARGB(255, 25, 32, 42),
+                              color: const Color.fromARGB(255, 25, 32, 42),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Text(
                             "Warden",
                             style: textTheme.bodyMedium!.copyWith(
-                              color: Color.fromARGB(255, 96, 102, 110),
+                              color: const Color.fromARGB(255, 96, 102, 110),
                             ),
                           ),
                         ],
@@ -170,7 +166,7 @@ class _WardenProfilePageState extends State<WardenProfilePage> {
                     child: Column(
                       children: [
                         ProfileItem(
-                          iconData: FaIcon(
+                          iconData: const FaIcon(
                             FontAwesomeIcons.solidEnvelope,
                             size: 20,
                           ),
@@ -179,7 +175,7 @@ class _WardenProfilePageState extends State<WardenProfilePage> {
                         ),
                         const Divider(height: 0),
                         ProfileItem(
-                          iconData: FaIcon(
+                          iconData: const FaIcon(
                             FontAwesomeIcons.phone,
                             size: 20,
                           ),
@@ -192,7 +188,7 @@ class _WardenProfilePageState extends State<WardenProfilePage> {
                 ],
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
               child: LogoutTile(),

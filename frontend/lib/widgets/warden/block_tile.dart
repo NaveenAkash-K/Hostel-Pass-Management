@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hostel_pass_management/models/block_student_model.dart';
-import 'package:hostel_pass_management/models/pass_request_model.dart';
-import 'package:hostel_pass_management/pages/warden/block_details_page.dart';
-import 'package:hostel_pass_management/providers/hostel_students_provider.dart';
-import 'package:hostel_pass_management/providers/warden_pass_provider.dart';
 
 class OldBlockTile extends StatefulWidget {
   const OldBlockTile({
@@ -25,7 +19,6 @@ class _BlockTileState extends State<OldBlockTile> {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     return SizedBox(
       child: Container(

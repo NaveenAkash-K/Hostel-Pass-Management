@@ -7,6 +7,7 @@ class FaqItem extends StatelessWidget {
   final bool? isFinal;
 
   const FaqItem({
+    super.key,
     required this.icon,
     this.isFinal,
     required this.title,

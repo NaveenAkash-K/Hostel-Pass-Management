@@ -170,12 +170,15 @@ class _AnnouncementPageState extends ConsumerState<AnnouncementPage> {
                                   announcementId: announcement.announcementId,
                                 );
                             toast.removeQueuedCustomToasts();
+
                             toast.showToast(
-                                child: ToastMsg(
-                                    text: "Announcement Deleted",
-                                    bgColor: Theme.of(context)
-                                        .colorScheme
-                                        .errorContainer));
+                              child: ToastMsg(
+                                text: "Announcement Deleted",
+                                bgColor: Theme.of(context)
+                                    .colorScheme
+                                    .errorContainer,
+                              ),
+                            );
 
                             setState(() {
                               isLoading = false;
@@ -201,8 +204,12 @@ class _AnnouncementPageState extends ConsumerState<AnnouncementPage> {
 
     if (announcements!.length >= 2) {
       ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Can post only two announcements. Try deleting one!")));
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Can post only two announcements. Try deleting one!"),
+        ),
+      );
       return;
     }
 

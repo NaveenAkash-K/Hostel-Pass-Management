@@ -14,46 +14,44 @@ class ProfileItem extends StatelessWidget {
   Widget build(BuildContext context) {
     TextStyle customFont = GoogleFonts.lato();
 
-    return Container(
-      // color: Colors.white,
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 15),
-            child: Row(
-              children: [
-                iconData ?? Icon(
-                        Icons.person,
-                        size: 25,
-                      ),
-                SizedBox(width: 25),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      attribute,
-                      style: customFont.copyWith(
-                        color: Color.fromARGB(255, 25, 32, 42),
-                        // color: Color.fromARGB(255, 112, 106, 106),
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15,
-                      ),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
+          child: Row(
+            children: [
+              iconData ??
+                  const Icon(
+                    Icons.person,
+                    size: 25,
+                  ),
+              const SizedBox(width: 25),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    attribute,
+                    style: customFont.copyWith(
+                      color: const Color.fromARGB(255, 25, 32, 42),
+                      // color: Color.fromARGB(255, 112, 106, 106),
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
                     ),
-                    SizedBox(height: 7),
-                    Text(
-                      value,
-                      style: customFont.copyWith(
-                        color: Color.fromARGB(255, 96, 102, 110),
-                        fontSize: 15,
-                      ),
+                  ),
+                  const SizedBox(height: 7),
+                  Text(
+                    value,
+                    style: customFont.copyWith(
+                      color: const Color.fromARGB(255, 96, 102, 110),
+                      fontSize: 15,
                     ),
-                  ],
-                )
-              ],
-            ),
+                  ),
+                ],
+              )
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

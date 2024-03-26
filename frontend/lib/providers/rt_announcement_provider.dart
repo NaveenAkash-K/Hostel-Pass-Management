@@ -98,12 +98,15 @@ class RtAnnoucementNotifier extends StateNotifier<List<Announcement>> {
         },
       );
       var responseData = jsonDecode(response.body);
+      if (response.statusCode > 399) {
+        throw responseData["message"];
+      }
       state = state
           .where(
               (announcement) => announcement.announcementId != announcementId)
           .toList();
     } catch (e) {
-      throw "Something went wrong";
+      throw e.toString();
     }
   }
 }

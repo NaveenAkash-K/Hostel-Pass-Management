@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hostel_pass_management/pages/common/forget_password.dart';
 import 'package:hostel_pass_management/pages/rt/rt_page.dart';
 import 'package:hostel_pass_management/pages/security/security_page.dart';
@@ -19,7 +17,6 @@ import 'package:hostel_pass_management/providers/student_pass_provider.dart';
 import 'package:hostel_pass_management/providers/warden_pass_provider.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
 import 'package:hostel_pass_management/utils/validators.dart';
-import 'package:hostel_pass_management/widgets/common/toast.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -41,8 +38,6 @@ class LoginPageState extends ConsumerState<LoginPage> {
   late FToast toast;
 
   void login(context) async {
-    TextTheme textTheme = Theme.of(context).textTheme;
-    ColorScheme colorScheme = Theme.of(context).colorScheme;
     HapticFeedback.selectionClick();
     if (!_loginFormKey.currentState!.validate()) {
       return;
@@ -407,7 +402,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
                     ],
                   ),
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 TextButton(
                   onPressed: isForgotPassLoading ? null : forgotPass,
                   child: isForgotPassLoading

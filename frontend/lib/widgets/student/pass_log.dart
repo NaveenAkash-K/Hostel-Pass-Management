@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_pass_management/models/pass_model.dart';
-import 'package:intl/intl.dart';
 
 class PassLog extends StatelessWidget {
   const PassLog({
@@ -45,8 +44,8 @@ class PassLog extends StatelessWidget {
             height: 0,
           ),
           if (passlog.isEmpty)
-            Expanded(
-              child: const Center(
+            const Expanded(
+              child: Center(
                 child: Text("Empty Log"),
               ),
             )
@@ -57,7 +56,7 @@ class PassLog extends StatelessWidget {
                   children: passlog.map((pass) {
                     return Container(
                       height: 100,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         border: Border(
                           bottom: BorderSide(color: Colors.grey),
                         ),
@@ -76,7 +75,7 @@ class PassLog extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 // Container(
                                 //   padding: EdgeInsets.all(3),
                                 //   decoration: BoxDecoration(
@@ -89,11 +88,11 @@ class PassLog extends StatelessWidget {
                                 //   ),
                                 // ),
                                 if (pass.isSpecialPass)
-                                  Icon(
+                                  const Icon(
                                     Icons.star_rounded,
                                     color: Colors.amber,
                                   ),
-                                SizedBox(width: 5),
+                                const SizedBox(width: 5),
                                 Text(
                                   "Gatepass",
                                   style: textTheme.bodyLarge!.copyWith(
@@ -102,7 +101,7 @@ class PassLog extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Row(
                               children: [
                                 Column(
@@ -116,7 +115,7 @@ class PassLog extends StatelessWidget {
                                     Text(pass.actualOutTime!)
                                   ],
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 // Container(
                                 //   padding: EdgeInsets.all(3),
                                 //   decoration: BoxDecoration(
@@ -129,12 +128,12 @@ class PassLog extends StatelessWidget {
                                 //     size: 30,
                                 //   ),
                                 // ),
-                                Icon(
+                                const Icon(
                                   Icons.compare_arrows_rounded,
                                   // color: Colors.white,
                                   size: 30,
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 Column(
                                   children: [
                                     Text(

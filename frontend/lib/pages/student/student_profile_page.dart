@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hostel_pass_management/models/block_student_model.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
 import 'package:hostel_pass_management/widgets/common/logout_tile.dart';
@@ -129,7 +128,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
           ),
           // centerTitle: true,
         ),
-        drawer: widget.studentData == null ? StudentDrawer() : null,
+        drawer: widget.studentData == null ? const StudentDrawer() : null,
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,7 +136,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
               Container(
                 margin: const EdgeInsets.fromLTRB(16, 10, 16, 10),
                 clipBehavior: Clip.hardEdge,
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -158,7 +157,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                           height: 60,
                           width: 60,
                           clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                           ),
                           child: profileBuffer == null
@@ -171,7 +170,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                                   fit: BoxFit.cover,
                                 ),
                         ),
-                        SizedBox(width: 15),
+                        const SizedBox(width: 15),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -184,17 +183,17 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                                 overflow: TextOverflow.ellipsis,
                                 softWrap: true,
                                 style: textTheme.bodyLarge!.copyWith(
-                                  color: Color.fromARGB(255, 25, 32, 42),
+                                  color: const Color.fromARGB(255, 25, 32, 42),
                                   // color: Color.fromARGB(255, 112, 106, 106),
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             Text(
                               student.regNo,
                               style: textTheme.bodyMedium!.copyWith(
-                                color: Color.fromARGB(255, 96, 102, 110),
+                                color: const Color.fromARGB(255, 96, 102, 110),
                                 // fontSize: 17,
                               ),
                             ),
@@ -237,7 +236,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                       child: Column(
                         children: [
                           ProfileItem(
-                            iconData: FaIcon(
+                            iconData: const FaIcon(
                               FontAwesomeIcons.graduationCap,
                               size: 20,
                             ),
@@ -246,7 +245,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                           ),
                           const Divider(height: 0),
                           ProfileItem(
-                            iconData: FaIcon(
+                            iconData: const FaIcon(
                               FontAwesomeIcons.solidBuilding,
                               size: 20,
                             ),
@@ -255,7 +254,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                           ),
                           const Divider(height: 0),
                           ProfileItem(
-                            iconData: FaIcon(
+                            iconData: const FaIcon(
                               FontAwesomeIcons.school,
                               size: 20,
                             ),
@@ -264,7 +263,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                           ),
                           const Divider(height: 0),
                           ProfileItem(
-                            iconData: FaIcon(
+                            iconData: const FaIcon(
                               FontAwesomeIcons.solidAddressCard,
                               size: 20,
                             ),
@@ -299,7 +298,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                       child: Column(
                         children: [
                           ProfileItem(
-                            iconData: FaIcon(
+                            iconData: const FaIcon(
                               FontAwesomeIcons.solidEnvelope,
                               size: 20,
                             ),
@@ -308,7 +307,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                           ),
                           const Divider(height: 0),
                           ProfileItem(
-                            iconData: FaIcon(
+                            iconData: const FaIcon(
                               FontAwesomeIcons.phone,
                               size: 20,
                             ),
@@ -317,7 +316,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                           ),
                           const Divider(height: 0),
                           ProfileItem(
-                            iconData: FaIcon(FontAwesomeIcons.peopleRoof, size: 20,),
+                            iconData: const FaIcon(FontAwesomeIcons.peopleRoof, size: 20,),
                             attribute: "Father's / Mother's Name",
                             value:
                                 "${student.fatherName} / ${student.motherName}",
@@ -330,7 +329,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                           const Divider(height: 0),
 
                           ProfileItem(
-                            iconData: FaIcon(FontAwesomeIcons.phone, size: 20,),
+                            iconData: const FaIcon(FontAwesomeIcons.phone, size: 20,),
                             attribute: "Father's / Mother's Phone No",
                             value:
                                 "${student.fatherPhNo}  /  ${student.motherPhNo}",
@@ -364,21 +363,21 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                         children: [
                           ProfileItem(
                             attribute: "Block No",
-                            iconData: FaIcon(FontAwesomeIcons.solidBuilding,size: 20,),
+                            iconData: const FaIcon(FontAwesomeIcons.solidBuilding,size: 20,),
                             value: student.blockNo.toString(),
                           ),
                           const Divider(height: 0),
                           ProfileItem(
-                            iconData: FaIcon(FontAwesomeIcons.doorOpen,size: 20,),
+                            iconData: const FaIcon(FontAwesomeIcons.doorOpen,size: 20,),
                             attribute: "Room No",
                             value: student.roomNo.toString(),
                           ),
                         ],
                       ),
                     ),
-                    if (widget.studentData == null) SizedBox(height: 15),
+                    if (widget.studentData == null) const SizedBox(height: 15),
                     if (widget.studentData == null) LogoutTile(),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                   ],
                 ),
               )

@@ -15,7 +15,7 @@ class ToastMsg extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          icondata != null ? Icon(icondata) : SizedBox(),
+          icondata != null ? Icon(icondata) : const SizedBox(),
           const SizedBox(
             width: 12,
           ),
