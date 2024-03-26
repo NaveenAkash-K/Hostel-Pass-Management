@@ -7,6 +7,7 @@ import 'package:hostel_pass_management/providers/hostel_students_provider.dart';
 import 'package:hostel_pass_management/providers/warden_pass_provider.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
 import 'package:hostel_pass_management/widgets/faculty/faculty_drawer.dart';
+import 'package:hostel_pass_management/widgets/warden/block_tile.dart';
 import 'package:hostel_pass_management/widgets/warden/block_tilee.dart';
 import 'package:hostel_pass_management/widgets/warden/warden_drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -80,6 +81,7 @@ class _StatsPageState extends ConsumerState<StatsPage> {
     final noOfFemaleBlocks = femaleBlockCounts.length;
 
     for (int i = 0; i < noOfMaleBlocks; i++) {
+
       maleBlockTiles.add(
         GestureDetector(
           onTap: () {
@@ -87,6 +89,7 @@ class _StatsPageState extends ConsumerState<StatsPage> {
           },
           child: BlockTile(
             name: "Block ${i + 1}",
+
             inCount: maleBlockCounts[i],
             outCount: malePassCount[i],
           ),
@@ -94,6 +97,7 @@ class _StatsPageState extends ConsumerState<StatsPage> {
       );
     }
     for (int i = 0; i < noOfFemaleBlocks; i++) {
+
       femaleBlockTiles.add(
         GestureDetector(
           onTap: () {

@@ -118,19 +118,19 @@ class _RtDrawerState extends ConsumerState<RtDrawer> {
             leading: const Icon(Icons.person),
             title: const Text("Profile"),
           ),
-
-          ListTile(
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const RulesPage(),
-                ),
-              );
-            },
-            title: const Text("Rules and Regulations"),
-            leading: const Icon(Icons.rule),
-          ),
+          // ListTile(
+          //   onTap: () {
+          //     Navigator.pushReplacement(
+          //       context,
+          //       MaterialPageRoute(
+          //         // builder: (context) => const RulesPage(),
+          //         builder: (context) => Guidelo,
+          //       ),
+          //     );
+          //   },
+          //   title: const Text("Rules and Regulations"),
+          //   leading: const Icon(Icons.rule),
+          // ),
           // const Spacer(),
           ListTile(
             onTap: () {
@@ -153,6 +153,8 @@ class _RtDrawerState extends ConsumerState<RtDrawer> {
               color: const Color.fromARGB(255, 135, 135, 135),
             ),
           ),
+          const SizedBox(height: 12),
+
           // ListTile(
           //   onTap: () {
           //     Navigator.pushReplacement(

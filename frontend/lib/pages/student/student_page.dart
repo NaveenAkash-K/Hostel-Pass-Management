@@ -78,7 +78,9 @@ class _StudentPageState extends ConsumerState<StudentPage> {
     Widget buildTickIcon(Announcement announcement) {
       if (!announcement.isRead) {
         return IconButton(
+
           icon: const Icon(Icons.check, color: Colors.green),
+
           onPressed: () async {
             await ref
                 .read(studentAnnouncementNotifier.notifier)
@@ -87,7 +89,9 @@ class _StudentPageState extends ConsumerState<StudentPage> {
           },
         );
       } else {
+
         return const SizedBox();
+
       }
     }
 

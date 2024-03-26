@@ -31,6 +31,22 @@ router.get("/getDetails/:qrData", async (req, res) => {
     new Date(pass.exitScanAt).getTime() + 30 * 60000 > Date.now() &&
     pass.status === "In use"
   ) {
+    // console.log(
+    //   new Date(pass.exitScanAt).getDate() +
+    //     "-" +
+    //     new Date(pass.exitScanAt).getHours() +
+    //     ":" +
+    //     new Date(pass.exitScanAt).getMinutes()
+    // );
+    console.log(new Date(pass.exitScanAt).getTime());
+    console.log(new Date(pass.exitScanAt).getTime());
+    // console.log(
+    //   new Date(pass.exitScanAt).getDate() +
+    //     "-" +
+    //     new Date(pass.exitScanAt).getHours() +
+    //     ":" +
+    //     new Date(pass.exitScanAt).getMinutes()
+    // );
     res
       .status(400)
       .json({ message: "Entry scan should be after 30 mins of Exit scan" });

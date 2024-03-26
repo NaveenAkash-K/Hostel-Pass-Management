@@ -8,6 +8,7 @@ class BlockTile extends StatelessWidget {
 
   const BlockTile({
     super.key,
+
     required this.name,
     required this.inCount,
     required this.outCount,
@@ -58,7 +59,8 @@ class BlockTile extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  width: 8,
+
+                  width: 8
                 ),
                 const Icon(
                   Icons.arrow_upward_sharp,
@@ -72,7 +74,7 @@ class BlockTile extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  width: 8,
+                  width: 8
                 ),
               ],
             ),

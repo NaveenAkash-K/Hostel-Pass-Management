@@ -19,6 +19,8 @@ const Miscellaneous = require("./models/miscellaneous_model");
 const path = require("path");
 const fs = require("fs");
 
+process.env.TZ= 'Asia/Kolkata';
+
 app.use(helmet());
 app.use(cors());
 app.use(bodyParser.json());
@@ -60,6 +62,23 @@ app.get("/miscellaneous", async (req, res) => {
   } catch (e) {
     res.json({ message: "Internal Server Error" });
   }
+});
+
+app.get("/getTime", (req, res) => {
+  res.json({
+    dateNow: Date.now(),
+    day: new Date(Date.now()).getDay(),
+    date: new Date(Date.now()).getDate(),
+    month: new Date(Date.now()).getMonth(),
+    hour:new Date(Date.now()).getHours(),
+    minute:new Date(Date.now()).getMinutes(),
+    seconds: new Date(Date.now()).getSeconds(),
+    UTCdate: new Date(Date.now()).getUTCDate(),
+    UTCmonth: new Date(Date.now()).getUTCMonth(),
+    UTChour:new Date(Date.now()).getUTCHours(),
+    UTCminute:new Date(Date.now()).getUTCMinutes(),
+    UTCseconds: new Date(Date.now()).getUTCSeconds(),
+  });
 });
 
 app.use("/bugReport", checkAuth, bugReportController);

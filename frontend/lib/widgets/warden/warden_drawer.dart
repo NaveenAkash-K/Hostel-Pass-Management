@@ -3,7 +3,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hostel_pass_management/models/pass_request_model.dart';
 import 'package:hostel_pass_management/pages/common/bug_report_page.dart';
-import 'package:hostel_pass_management/pages/student/rules_page.dart';
 import 'package:hostel_pass_management/pages/warden/hostel_stats.dart';
 import 'package:hostel_pass_management/pages/warden/warden_pass_request_page.dart';
 import 'package:hostel_pass_management/providers/warden_pass_provider.dart';
@@ -122,18 +121,18 @@ class _WardenDrawerState extends ConsumerState<WardenDrawer> {
             title: const Text("Profile"),
           ),
 
-          ListTile(
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const RulesPage(),
-                ),
-              );
-            },
-            title: const Text("Rules and Regulations"),
-            leading: const Icon(Icons.rule),
-          ),
+          // ListTile(
+          //   onTap: () {
+          //     Navigator.pushReplacement(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => const RulesPage(),
+          //       ),
+          //     );
+          //   },
+          //   title: const Text("Rules and Regulations"),
+          //   leading: const Icon(Icons.rule),
+          // ),
           // const Spacer(),
           ListTile(
             onTap: () {
@@ -156,6 +155,8 @@ class _WardenDrawerState extends ConsumerState<WardenDrawer> {
               color: const Color.fromARGB(255, 135, 135, 135),
             ),
           ),
+          const SizedBox(height: 12),
+
           // ListTile(
           //   onTap: () {
           //     Navigator.pushReplacement(
