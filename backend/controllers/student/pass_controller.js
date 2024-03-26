@@ -19,7 +19,7 @@ router.get("/getPass", async (req, res) => {
       studentId: req.body.USER_studentId,
     }).lean();
 
-    passes.filter((pass) => {
+    passes.filter(async (pass) => {
       if (pass.isActive) {
         pass.qrId = aesEncrypt(pass.qrId, process.env.AES_KEY);
         if (pass.status == "Approved") {
@@ -30,6 +30,10 @@ router.get("/getPass", async (req, res) => {
           if (Date.now() > qrEndTime) {
             pass.isActive = false;
             pass.status = "Expired";
+            await Pass.findOneAndUpdate(
+              { passId: pass.passId },
+              { isActive: false, status: "Expired" }
+            );
             return false;
           }
         }
@@ -56,7 +60,7 @@ router.get("/getPass", async (req, res) => {
     });
 
     res.json({ data: finalPasses });
-    console.log(finalPasses);
+    // console.log(finalPasses);
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
   }

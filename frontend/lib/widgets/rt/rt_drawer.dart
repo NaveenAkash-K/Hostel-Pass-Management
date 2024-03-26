@@ -6,7 +6,6 @@ import 'package:hostel_pass_management/pages/rt/announcement_page.dart';
 import 'package:hostel_pass_management/pages/rt/block_students_page.dart';
 import 'package:hostel_pass_management/pages/rt/pass_logs_page.dart';
 import 'package:hostel_pass_management/pages/rt/rt_page.dart';
-import 'package:hostel_pass_management/pages/student/rules_page.dart';
 import 'package:hostel_pass_management/providers/block_students_provider.dart';
 import 'package:hostel_pass_management/pages/rt/rt_profile_page.dart';
 
