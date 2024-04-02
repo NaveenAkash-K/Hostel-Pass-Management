@@ -4,6 +4,7 @@ import 'package:hostel_pass_management/pages/common/bug_report_page.dart';
 import 'package:hostel_pass_management/pages/student/student_faq_page.dart';
 import 'package:hostel_pass_management/pages/student/student_page.dart';
 import 'package:hostel_pass_management/pages/student/student_profile_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class StudentDrawer extends StatelessWidget {
   const StudentDrawer({super.key});
@@ -38,7 +39,6 @@ class StudentDrawer extends StatelessWidget {
                     //     color: Color.fromARGB(255, 29, 79, 158),
                     //   ),
                     // ),
-
                   ],
                 ),
               ],
@@ -73,13 +73,12 @@ class StudentDrawer extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => StudentFaqPage(),
+                  builder: (context) => const StudentFaqPage(),
                 ),
               );
             },
-            title: Text("Guidelines"),
-            leading: Icon(Icons.rule),
-
+            title: const Text("Guidelines"),
+            leading: const Icon(Icons.rule),
           ),
           // Spacer(),
           ListTile(
@@ -93,6 +92,32 @@ class StudentDrawer extends StatelessWidget {
             },
             title: const Text("Bug Report"),
             leading: const Icon(Icons.bug_report_rounded),
+          ),
+          ListTile(
+            leading: const Icon(Icons.mail),
+            title: const Text("Mail us"),
+            onTap: () async {
+              String? encodeQueryParameters(Map<String, String> params) {
+                return params.entries
+                    .map((MapEntry<String, String> e) =>
+                        '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+                    .join('&');
+              }
+
+              final Uri emailUri = Uri(
+                scheme: 'mailto',
+                path: dotenv.env["MAIL_US"],
+                query: encodeQueryParameters(<String, String>{
+                  'subject': 'Query Title',
+                  'body': 'Please post your queries here'
+                }),
+              );
+              if (await canLaunchUrl(emailUri)) {
+                launchUrl(emailUri);
+              } else {
+                throw Exception('Could not launch the email Uri');
+              }
+            },
           ),
           const Spacer(),
           Text(

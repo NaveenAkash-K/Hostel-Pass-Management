@@ -10,6 +10,7 @@ import 'package:hostel_pass_management/widgets/rt/rt_drawer.dart';
 import 'package:hostel_pass_management/widgets/rt/pass_request_item.dart';
 import 'package:hostel_pass_management/widgets/student/student_drawer.dart';
 import 'package:hostel_pass_management/widgets/warden/warden_drawer.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RtPage extends ConsumerStatefulWidget {
@@ -21,10 +22,13 @@ class RtPage extends ConsumerStatefulWidget {
 }
 
 class _RtPageState extends ConsumerState<RtPage> {
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
   @override
   Widget build(BuildContext context) {
-    final passRequests;
-    var studentPasses;
+    final List<PassRequest> passRequests;
+    Iterable<PassRequest> studentPasses;
     List<PassRequest> pendingPasses;
     var students = [];
     int studentsCount = 0;
@@ -102,119 +106,139 @@ class _RtPageState extends ConsumerState<RtPage> {
         title: const Text('Pass Requests'),
         centerTitle: true,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          // DropdownButton<int>(
-          //   value: 0,
-          //   onChanged: (int? value) {
-          //     setState(() {
-          //       // _selectedValue = value!;
-          //     });
-          //   },
-          //   items: List<DropdownMenuItem<int>>.generate(5, (int index) {
-          //     if (index == 1) {
-          //       index++;
-          //     }
-          //     return DropdownMenuItem<int>(
-          //       value: index,
-          //       child: Text(index == 0 ? "None" : 'Block ${index}'),
-          //     );
-          //   }),
-          // ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Row(
-              children: [
-                Visibility(
-                  visible: studentsCount != 0,
-                  child: Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.directions_walk, color: Colors.green),
-                          const SizedBox(width: 10),
-                          Text(
-                            "Students\nOutside: $passesCount",
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Visibility(
-                  visible: studentsCount != 0,
-                  child: Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.home,
-                              color: Theme.of(context).colorScheme.primary),
-                          const SizedBox(width: 10),
-                          Text(
-                            "Students\nInside: ${studentsCount - passesCount}",
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ],
+      body: SmartRefresher(
+        controller: _refreshController,
+        onRefresh: () async {
+          await ref.read(rtPassProvider.notifier).loadPassRequestsFromDB();
+          _refreshController.refreshCompleted();
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // DropdownButton<int>(
+            //   value: 0,
+            //   onChanged: (int? value) {
+            //     setState(() {
+            //       // _selectedValue = value!;
+            //     });
+            //   },
+            //   items: List<DropdownMenuItem<int>>.generate(5, (int index) {
+            //     if (index == 1) {
+            //       index++;
+            //     }
+            //     return DropdownMenuItem<int>(
+            //       value: index,
+            //       child: Text(index == 0 ? "None" : 'Block ${index}'),
+            //     );
+            //   }),
+            // ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Row(
+                children: [
+                  Visibility(
+                    visible: studentsCount != 0,
+                    child: Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.directions_walk,
+                                color: Colors.green),
+                            const SizedBox(width: 10),
+                            Text(
+                              "Students\nOutside: $passesCount",
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(width: 10),
+                  Visibility(
+                    visible: studentsCount != 0,
+                    child: Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.home,
+                                color: Theme.of(context).colorScheme.primary),
+                            const SizedBox(width: 10),
+                            Text(
+                              "Students\nInside: ${studentsCount - passesCount}",
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
 
-          if (pendingPasses.isEmpty)
-            Expanded(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Spacer(),
-                    SvgPicture.asset(
-                      "assets/images/no-pass.svg",
-                      width: 300,
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      "No pass requests detected.\nSit back and Enjoy",
-                      textAlign: TextAlign.center,
-                      style: textTheme.titleMedium,
-                    ),
-                    const Spacer(),
-                    const Spacer()
-                  ],
+            if (pendingPasses.isEmpty)
+              Expanded(
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Spacer(),
+                      SvgPicture.asset(
+                        "assets/images/no-pass.svg",
+                        width: 300,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        "No pass requests detected.\nSit back and Enjoy",
+                        textAlign: TextAlign.center,
+                        style: textTheme.titleMedium,
+                      ),
+                      const Spacer(),
+                      const Spacer()
+                    ],
+                  ),
                 ),
+              )
+            else
+              Column(
+                children: pendingPasses
+                    .map(
+                      (pass) => PassRequestItem(
+                        pass: pass,
+                        passRequest: true,
+                      ),
+                    )
+                    .toList(),
               ),
-            )
-          else
-            Expanded(
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  return PassRequestItem(
-                    pass: pendingPasses[index],
-                    passRequest: true,
-                  );
-                },
-                itemCount: pendingPasses.length,
-              ),
-            ),
-        ],
+            // Expanded(
+            //   child: ListView.builder(
+            //     itemBuilder: (context, index) {
+            //       return PassRequestItem(
+            //         pass: pendingPasses[index],
+            //         passRequest: true,
+            //       );
+            //     },
+            //     itemCount: pendingPasses.length,
+            //   ),
+            // ),
+          ],
+        ),
       ),
     );
   }

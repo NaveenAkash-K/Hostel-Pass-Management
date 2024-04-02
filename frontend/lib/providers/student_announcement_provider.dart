@@ -40,6 +40,7 @@ class StudentAnnouncementNotifier extends StateNotifier<List<Announcement>> {
             blockNo: announcement["blockNo"]));
       }
       state = announcements;
+      return;
     } catch (err) {
       throw "student announcement error";
     }

@@ -35,106 +35,85 @@ class _PassRequestItemState extends State<PassRequestItem> {
     TextTheme textTheme = Theme.of(context).textTheme;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
 
-    return Column(
-      children: [
-        // Padding(
-        //   padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-        //   child: TextField(
-        //     controller: _searchController,
-        //     decoration: const InputDecoration(
-        //         hintText: 'Search by student name...',
-        //         border: InputBorder.none,
-        //         hintStyle: TextStyle(
-        //           color: Color.fromARGB(137, 26, 26, 26),
-        //         ),
-        //         suffixIcon: Icon(
-        //           Icons.search_rounded,
-        //         )),
-        //     style: const TextStyle(color: Colors.black),
-        //     onChanged: _filterPassRequests,
-        //   ),
-        // ),
-        InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => PassRequestPage(
-                  pass: widget.pass,
-                  passRequest: widget.passRequest,
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PassRequestPage(
+              pass: widget.pass,
+              passRequest: widget.passRequest,
+            ),
+          ),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(15, 10, 10, 10),
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          children: [
+            Container(
+              alignment: Alignment.center,
+              height: 55,
+              width: 55,
+              decoration: BoxDecoration(
+                color: colorScheme.primaryContainer,
+                shape: BoxShape.circle,
+              ),
+              child: Text(
+                widget.pass.studentName[0],
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            );
-          },
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(15, 10, 10, 10),
-            width: MediaQuery.of(context).size.width,
-            child: Row(
+            ),
+            const SizedBox(width: 20),
+            Column(
               children: [
-                Container(
-                  alignment: Alignment.center,
-                  height: 55,
-                  width: 55,
-                  decoration: BoxDecoration(
-                    color: colorScheme.primaryContainer,
-                    shape: BoxShape.circle,
-                  ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.7,
                   child: Text(
-                    widget.pass.studentName[0],
-                    style: const TextStyle(
-                      fontSize: 20,
+                    widget.pass.studentName,
+                    softWrap: false,
+                    overflow: TextOverflow.ellipsis,
+                    style: textTheme.bodyLarge!.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                const SizedBox(width: 20),
-                Column(
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      child: Text(
-                        widget.pass.studentName,
-                        softWrap: false,
-                        overflow: TextOverflow.ellipsis,
-                        style: textTheme.bodyLarge!.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(widget.pass.type),
-                          if (widget.pass.status == "Used" &&
-                              !widget.passRequest &&
-                              widget.pass.isLate!)
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 3),
-                              decoration: BoxDecoration(
-                                color: colorScheme.errorContainer,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Text(
-                                "LATE",
-                                style: textTheme.labelSmall!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: colorScheme.error,
-                                ),
-                              ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(widget.pass.type),
+                      if (widget.pass.status == "Used" &&
+                          !widget.passRequest &&
+                          widget.pass.isLate!)
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 3),
+                          decoration: BoxDecoration(
+                            color: colorScheme.errorContainer,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Text(
+                            "LATE",
+                            style: textTheme.labelSmall!.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: colorScheme.error,
                             ),
-                        ],
-                      ),
-                    ),
-                  ],
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
               ],
             ),
-          ),
+          ],
         ),
-      ],
+      ),
     );
   }
 

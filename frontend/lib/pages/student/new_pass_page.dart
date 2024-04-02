@@ -39,75 +39,187 @@ class _NewPassPageState extends ConsumerState<NewPassPage> {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("New Pass"),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text("Destination"),
-                const SizedBox(
-                  height: 4,
-                ),
-                TextFormField(
-                  controller: _destinationController,
-                  maxLength: 20,
-                  decoration: const InputDecoration(
-                    hintText: "Enter Destination",
-                    border: OutlineInputBorder(),
+    return Hero(
+      tag: "newpass",
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("New Pass"),
+          centerTitle: true,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(20),
+          child: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text("Destination"),
+                  const SizedBox(
+                    height: 4,
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter the destination';
-                    }
-                    return null;
-                  },
-                ),
-                const Text(
-                  "Select Pass Type",
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            FocusScope.of(context).unfocus();
-                            setState(() {
-                              passType = 'GatePass';
-                              if (inDate != null) {
+                  TextFormField(
+                    controller: _destinationController,
+                    maxLength: 20,
+                    decoration: const InputDecoration(
+                      hintText: "Enter Destination",
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter the destination';
+                      }
+                      return null;
+                    },
+                  ),
+                  const Text(
+                    "Select Pass Type",
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              FocusScope.of(context).unfocus();
+                              setState(() {
+                                passType = 'GatePass';
+                                if (inDate != null) {
+                                  inDate = null;
+                                }
+                                if (outDate != null) {
+                                  inDate = outDate;
+                                }
+                              });
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: passType == 'GatePass'
+                                  ? const Color.fromARGB(255, 1, 46, 76)
+                                  : Colors.grey[300],
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  if (passType == 'GatePass')
+                                    Container(
+                                      width: 20,
+                                      height: 20,
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.white,
+                                      ),
+                                      child: const Icon(
+                                        Icons.check,
+                                        color: Color.fromARGB(255, 1, 46, 76),
+                                        size: 16,
+                                      ),
+                                    ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    'GatePass',
+                                    style: TextStyle(
+                                      color: passType == 'GatePass'
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              FocusScope.of(context).unfocus();
+                              setState(() {
+                                passType = 'StayPass';
                                 inDate = null;
-                              }
-                              if (outDate != null) {
-                                inDate = outDate;
-                              }
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: passType == 'GatePass'
-                                ? const Color.fromARGB(255, 1, 46, 76)
-                                : Colors.grey[300],
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4),
+                              });
+                            },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: passType == 'StayPass'
+                                    ? const Color.fromARGB(255, 1, 46, 76)
+                                    : Colors.grey[300],
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                )),
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  if (passType == 'StayPass')
+                                    Container(
+                                      width: 20,
+                                      height: 20,
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.white,
+                                      ),
+                                      child: const Icon(
+                                        Icons.check,
+                                        color: Color.fromARGB(255, 1, 46, 76),
+                                        size: 16,
+                                      ),
+                                    ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    'StayPass',
+                                    style: TextStyle(
+                                      color: passType == 'StayPass'
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          child: Center(
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: TextButton(
+                            onPressed: () {
+                              setState(() {
+                                isSpecialPass = false;
+                              });
+                            },
+                            style: TextButton.styleFrom(
+                              backgroundColor: !isSpecialPass
+                                  ? const Color.fromARGB(255, 1, 46, 76)
+                                  : Colors.grey[300],
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                if (passType == 'GatePass')
+                                if (!isSpecialPass)
                                   Container(
                                     width: 20,
                                     height: 20,
@@ -123,9 +235,9 @@ class _NewPassPageState extends ConsumerState<NewPassPage> {
                                   ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  'GatePass',
+                                  'Normal Pass',
                                   style: TextStyle(
-                                    color: passType == 'GatePass'
+                                    color: !isSpecialPass
                                         ? Colors.white
                                         : Colors.black,
                                   ),
@@ -135,34 +247,27 @@ class _NewPassPageState extends ConsumerState<NewPassPage> {
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            FocusScope.of(context).unfocus();
-                            setState(() {
-                              passType = 'StayPass';
-                              inDate = null;
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: passType == 'StayPass'
-                                  ? const Color.fromARGB(255, 1, 46, 76)
-                                  : Colors.grey[300],
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4),
-                              )),
-                          child: Center(
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                isSpecialPass = true;
+                              });
+                            },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: isSpecialPass
+                                    ? const Color.fromARGB(255, 1, 46, 76)
+                                    : Colors.grey[300],
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                )),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                if (passType == 'StayPass')
+                                if (isSpecialPass)
                                   Container(
                                     width: 20,
                                     height: 20,
@@ -178,9 +283,9 @@ class _NewPassPageState extends ConsumerState<NewPassPage> {
                                   ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  'StayPass',
+                                  'Special Pass',
                                   style: TextStyle(
-                                    color: passType == 'StayPass'
+                                    color: isSpecialPass
                                         ? Colors.white
                                         : Colors.black,
                                   ),
@@ -190,166 +295,64 @@ class _NewPassPageState extends ConsumerState<NewPassPage> {
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: TextButton(
-                          onPressed: () {
-                            setState(() {
-                              isSpecialPass = false;
-                            });
-                          },
-                          style: TextButton.styleFrom(
-                            backgroundColor: !isSpecialPass
-                                ? const Color.fromARGB(255, 1, 46, 76)
-                                : Colors.grey[300],
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              if (!isSpecialPass)
-                                Container(
-                                  width: 20,
-                                  height: 20,
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white,
-                                  ),
-                                  child: const Icon(
-                                    Icons.check,
-                                    color: Color.fromARGB(255, 1, 46, 76),
-                                    size: 16,
-                                  ),
-                                ),
-                              const SizedBox(width: 8),
-                              Text(
-                                'Normal Pass',
-                                style: TextStyle(
-                                  color: !isSpecialPass
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              isSpecialPass = true;
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: isSpecialPass
-                                  ? const Color.fromARGB(255, 1, 46, 76)
-                                  : Colors.grey[300],
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4),
-                              )),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              if (isSpecialPass)
-                                Container(
-                                  width: 20,
-                                  height: 20,
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white,
-                                  ),
-                                  child: const Icon(
-                                    Icons.check,
-                                    color: Color.fromARGB(255, 1, 46, 76),
-                                    size: 16,
-                                  ),
-                                ),
-                              const SizedBox(width: 8),
-                              Text(
-                                'Special Pass',
-                                style: TextStyle(
-                                  color: isSpecialPass
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text("Leaving Time"),
-                const SizedBox(height: 8),
-                _buildDateTimePicker("Out", outDate, outTime),
-                const SizedBox(height: 20),
-                const Text("Returning Time"),
-                const SizedBox(height: 8),
-                _buildDateTimePicker("In", inDate, inTime),
-                const SizedBox(height: 20),
-                const Text("Reason"),
-                const SizedBox(height: 4),
-                TextField(
-                  controller: _reasonController,
-                  decoration: const InputDecoration(
-                    hintText: 'Enter your Reason here...',
-                    border: OutlineInputBorder(),
+                    ],
                   ),
-                  keyboardType: TextInputType.text,
-                  maxLines: null,
-                  onChanged: (text) {},
-                ),
-                const SizedBox(height: 20),
-                InkWell(
-                  onTap: isSubmitLoading ? null : _submitForm,
-                  child: Ink(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 18,
-                      horizontal: 20,
-                    ),
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 1, 46, 76),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: isSubmitLoading
-                        ? Column(
-                            children: [
-                              CircularProgressIndicator(
-                                color: colorScheme.background,
-                              ),
-                            ],
-                          )
-                        : Text(
-                            "Submit",
-                            textAlign: TextAlign.center,
-                            style: textTheme.bodyLarge!.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-              ],
+                  const Text("Leaving Time"),
+                  const SizedBox(height: 8),
+                  _buildDateTimePicker("Out", outDate, outTime),
+                  const SizedBox(height: 20),
+                  const Text("Returning Time"),
+                  const SizedBox(height: 8),
+                  _buildDateTimePicker("In", inDate, inTime),
+                  const SizedBox(height: 20),
+                  const Text("Reason"),
+                  const SizedBox(height: 4),
+                  TextField(
+                    controller: _reasonController,
+                    decoration: const InputDecoration(
+                      hintText: 'Enter your Reason here...',
+                      border: OutlineInputBorder(),
+                    ),
+                    keyboardType: TextInputType.text,
+                    maxLines: null,
+                    onChanged: (text) {},
+                  ),
+                  const SizedBox(height: 20),
+                  InkWell(
+                    onTap: isSubmitLoading ? null : _submitForm,
+                    child: Ink(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 18,
+                        horizontal: 20,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 1, 46, 76),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: isSubmitLoading
+                          ? Column(
+                              children: [
+                                CircularProgressIndicator(
+                                  color: colorScheme.background,
+                                ),
+                              ],
+                            )
+                          : Text(
+                              "Submit",
+                              textAlign: TextAlign.center,
+                              style: textTheme.bodyLarge!.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

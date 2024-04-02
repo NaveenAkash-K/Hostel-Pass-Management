@@ -58,30 +58,33 @@ class _BlockStudentsPageState extends ConsumerState<BlockStudentsPage> {
       drawer: drawer,
       appBar: appbar,
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
             child: TextField(
               controller: _searchController,
               decoration: InputDecoration(
-                  hintText: 'Search by student name...',
-                  border: InputBorder.none,
-                  hintStyle: const TextStyle(
-                    color: Color.fromARGB(137, 26, 26, 26),
-                  ),
-                  suffixIcon: _searchController.text.trim() == ""
-                      ? const Icon(
-                          Icons.search_rounded,
-                        )
-                      : InkWell(
-                          onTap: () {
-                            setState(() {
-                              _searchController.text = "";
-                              _filteredStudents = blockStudents;
-                            });
-                          },
-                          child: const Icon(Icons.cancel_outlined))),
+                hintText: 'Search by student name...',
+                border: InputBorder.none,
+                hintStyle: const TextStyle(
+                  color: Color.fromARGB(137, 26, 26, 26),
+                ),
+                suffixIcon: _searchController.text.trim() == ""
+                    ? const Icon(
+                        Icons.search_rounded,
+                      )
+                    : InkWell(
+                        onTap: () {
+                          setState(() {
+                            _searchController.text = "";
+                            _filteredStudents = blockStudents;
+                          });
+                        },
+                        child: const Icon(
+                          Icons.cancel_outlined,
+                        ),
+                      ),
+              ),
               style: const TextStyle(color: Colors.black),
               onChanged: _filterStudents,
             ),
@@ -97,7 +100,7 @@ class _BlockStudentsPageState extends ConsumerState<BlockStudentsPage> {
                 final student = _searchController.text.trim() == ""
                     ? blockStudents[index]
                     : _filteredStudents[index];
-                return GestureDetector(
+                return InkWell(
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -107,24 +110,25 @@ class _BlockStudentsPageState extends ConsumerState<BlockStudentsPage> {
                     );
                   },
                   child: Padding(
-                    padding: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Column(
                       children: [
+                        const SizedBox(height: 10),
                         Padding(
                           padding: const EdgeInsets.only(left: 4),
                           child: Row(
                             children: [
-                              Container(
-                                width: 50,
-                                height: 50,
+                              Align(
                                 alignment: Alignment.center,
-                                clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: colorScheme.primaryContainer,
-                                ),
-                                child: Align(
+                                child: Container(
+                                  width: 50,
+                                  height: 50,
                                   alignment: Alignment.center,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: colorScheme.primaryContainer,
+                                  ),
                                   child: Text(
                                     student.username[0],
                                     style: const TextStyle(
@@ -159,14 +163,11 @@ class _BlockStudentsPageState extends ConsumerState<BlockStudentsPage> {
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        const Divider(
-                          height: 1, // Adjust the height as needed
-                          thickness: 1, // Adjust the thickness as needed
-                          color: Color.fromARGB(255, 219, 219, 219),
-                        ),
+                        // const SizedBox(
+                        //   height: 8,
+                        // ),
+                        const SizedBox(height: 10),
+                        const Divider(height: 0),
                       ],
                     ),
                   ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hostel_pass_management/models/block_student_model.dart';
 import 'package:hostel_pass_management/models/pass_request_model.dart';
@@ -7,7 +8,6 @@ import 'package:hostel_pass_management/providers/hostel_students_provider.dart';
 import 'package:hostel_pass_management/providers/warden_pass_provider.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
 import 'package:hostel_pass_management/widgets/faculty/faculty_drawer.dart';
-import 'package:hostel_pass_management/widgets/warden/block_tile.dart';
 import 'package:hostel_pass_management/widgets/warden/block_tilee.dart';
 import 'package:hostel_pass_management/widgets/warden/warden_drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -53,35 +53,38 @@ class _StatsPageState extends ConsumerState<StatsPage> {
             .any((student) => student.studentId == pass.studentId))
         .toList();
 
-    List<int> maleBlockCounts = List.filled(8, 0);
-    List<int> femaleBlockCounts = List.filled(3, 0);
-    List<int> malePassCount = List.filled(8, 0);
-    List<int> femalePassCount = List.filled(3, 0);
+    List<int> maleBlocksList =
+        List.filled(int.parse(dotenv.env["NO_OF_BOYS_BLOCK"]!), 0);
+    List<int> femaleBlocksList =
+        List.filled(int.parse(dotenv.env["NO_OF_GIRLS_BLOCK"]!), 0);
+    List<int> malePassesList =
+        List.filled(int.parse(dotenv.env["NO_OF_BOYS_BLOCK"]!), 0);
+    List<int> femalePassesList =
+        List.filled(int.parse(dotenv.env["NO_OF_GIRLS_BLOCK"]!), 0);
 
     for (var student in maleStudents) {
-      maleBlockCounts[student.blockNo - 1]++;
+      maleBlocksList[student.blockNo - 1]++;
     }
 
     for (var student in femaleStudents) {
-      femaleBlockCounts[student.blockNo - 1]++;
+      femaleBlocksList[student.blockNo - 1]++;
     }
 
     for (var pass in maleInUsePasses) {
-      malePassCount[pass.blockNo - 1]++;
+      malePassesList[pass.blockNo - 1]++;
     }
 
     for (var pass in femaleInUsePasses) {
-      femalePassCount[pass.blockNo - 1]++;
+      femalePassesList[pass.blockNo - 1]++;
     }
 
     List<Widget> maleBlockTiles = [];
     List<Widget> femaleBlockTiles = [];
 
-    final noOfMaleBlocks = maleBlockCounts.length;
-    final noOfFemaleBlocks = femaleBlockCounts.length;
+    final noOfMaleBlocks = maleBlocksList.length;
+    final noOfFemaleBlocks = femaleBlocksList.length;
 
     for (int i = 0; i < noOfMaleBlocks; i++) {
-
       maleBlockTiles.add(
         GestureDetector(
           onTap: () {
@@ -89,15 +92,13 @@ class _StatsPageState extends ConsumerState<StatsPage> {
           },
           child: BlockTile(
             name: "Block ${i + 1}",
-
-            inCount: maleBlockCounts[i],
-            outCount: malePassCount[i],
+            inCount: maleBlocksList[i],
+            outCount: malePassesList[i],
           ),
         ),
       );
     }
     for (int i = 0; i < noOfFemaleBlocks; i++) {
-
       femaleBlockTiles.add(
         GestureDetector(
           onTap: () {
@@ -106,8 +107,8 @@ class _StatsPageState extends ConsumerState<StatsPage> {
           },
           child: BlockTile(
             name: "Block ${i + 1}",
-            inCount: femaleBlockCounts[i],
-            outCount: femalePassCount[i],
+            inCount: femaleBlocksList[i],
+            outCount: femalePassesList[i],
           ),
         ),
       );

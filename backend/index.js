@@ -19,7 +19,7 @@ const Miscellaneous = require("./models/miscellaneous_model");
 const path = require("path");
 const fs = require("fs");
 
-process.env.TZ= 'Asia/Kolkata';
+process.env.TZ = "Asia/Kolkata";
 
 app.use(helmet());
 app.use(cors());
@@ -43,9 +43,7 @@ app.use("/timeTest", (req, res) => {
   res.send();
 });
 mongoose
-  .connect(
-    "mongodb+srv://NaveenAkash:09naveen@cluster0.3n8lzcq.mongodb.net/outpass?retryWrites=true"
-  )
+  .connect(process.env.MONGO_URI)
   .then(async () => {
     app.listen(3000, () => {
       console.log("Server running on port 3000");
@@ -70,13 +68,13 @@ app.get("/getTime", (req, res) => {
     day: new Date(Date.now()).getDay(),
     date: new Date(Date.now()).getDate(),
     month: new Date(Date.now()).getMonth(),
-    hour:new Date(Date.now()).getHours(),
-    minute:new Date(Date.now()).getMinutes(),
+    hour: new Date(Date.now()).getHours(),
+    minute: new Date(Date.now()).getMinutes(),
     seconds: new Date(Date.now()).getSeconds(),
     UTCdate: new Date(Date.now()).getUTCDate(),
     UTCmonth: new Date(Date.now()).getUTCMonth(),
-    UTChour:new Date(Date.now()).getUTCHours(),
-    UTCminute:new Date(Date.now()).getUTCMinutes(),
+    UTChour: new Date(Date.now()).getUTCHours(),
+    UTCminute: new Date(Date.now()).getUTCMinutes(),
     UTCseconds: new Date(Date.now()).getUTCSeconds(),
   });
 });

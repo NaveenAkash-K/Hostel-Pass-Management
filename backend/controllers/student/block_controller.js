@@ -6,6 +6,7 @@ router.get("/getAnnouncement/:blockNo", async (req, res) => {
   try {
     const blockNo = req.params.blockNo;
     const announcement = await Announcement.find({ blockNo: blockNo });
+    console.log(announcement);
     res.json(announcement);
   } catch (err) {
     console.log(err);

@@ -24,7 +24,7 @@ router.get("/getPass", async (req, res) => {
         pass.qrId = aesEncrypt(pass.qrId, process.env.AES_KEY);
         if (pass.status == "Approved") {
           const expectedOutTime = new Date(pass.expectedOut).getTime();
-          const qrEndTime = expectedOutTime + 60 * 60000;
+          const qrEndTime = expectedOutTime + 24 * 60 * 60000;
           console.log(Date.now());
           console.log(qrEndTime);
           if (Date.now() > qrEndTime) {
@@ -81,6 +81,18 @@ router.post("/newPass", async (req, res) => {
     const passId = "pass_" + uuidv4();
     const qrId = "qr_" + uuidv4();
 
+    const anyCurrentActivePass = await Pass.findOne({
+      studentId: req.body.USER_studentId,
+      isActive: true,
+    });
+
+    if (anyCurrentActivePass) {
+      res.status(400).json({
+        message: `Active pass already exist`,
+      });
+      return;
+    }
+
     const oldPasses = await Pass.find({
       studentId: req.body.USER_studentId,
       status: "Used",
@@ -101,10 +113,9 @@ router.post("/newPass", async (req, res) => {
       });
     }
 
-    if (oldPassCount >= 5) {
+    if (oldPassCount >= parseInt(process.env.PASS_LIMIT)) {
       res.status(400).json({
-        message:
-          "Limit of 5 pass has been reached this month. Please apply for special pass",
+        message: `Limit of ${process.env.PASS_LIMIT} pass has been reached this month. Please apply for special pass`,
       });
       return;
     }

@@ -8,6 +8,7 @@ import 'package:hostel_pass_management/pages/rt/pass_logs_page.dart';
 import 'package:hostel_pass_management/pages/rt/rt_page.dart';
 import 'package:hostel_pass_management/providers/block_students_provider.dart';
 import 'package:hostel_pass_management/pages/rt/rt_profile_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RtDrawer extends ConsumerStatefulWidget {
   const RtDrawer({super.key});
@@ -49,7 +50,6 @@ class _RtDrawerState extends ConsumerState<RtDrawer> {
                     //     color: Color.fromARGB(255, 29, 79, 158),
                     //   ),
                     // ),
-
                   ],
                 ),
               ],
@@ -86,7 +86,7 @@ class _RtDrawerState extends ConsumerState<RtDrawer> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PassLogsPage(),
+                  builder: (context) => const PassLogsPage(),
                 ),
               );
             },
@@ -142,6 +142,32 @@ class _RtDrawerState extends ConsumerState<RtDrawer> {
             },
             title: const Text("Bug Report"),
             leading: const Icon(Icons.bug_report_rounded),
+          ),
+          ListTile(
+            leading: const Icon(Icons.mail),
+            title: const Text("Mail us"),
+            onTap: () async {
+              String? encodeQueryParameters(Map<String, String> params) {
+                return params.entries
+                    .map((MapEntry<String, String> e) =>
+                        '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+                    .join('&');
+              }
+
+              final Uri emailUri = Uri(
+                scheme: 'mailto',
+                path: dotenv.env["MAIL_US"],
+                query: encodeQueryParameters(<String, String>{
+                  'subject': 'Query Title',
+                  'body': 'Please post your queries here'
+                }),
+              );
+              if (await canLaunchUrl(emailUri)) {
+                launchUrl(emailUri);
+              } else {
+                throw Exception('Could not launch the email Uri');
+              }
+            },
           ),
           const Spacer(),
           Text(

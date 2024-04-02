@@ -19,7 +19,6 @@ class PassDetails extends StatefulWidget {
 }
 
 class _PassDetailsState extends State<PassDetails> {
-  String? profileBuffer;
   SharedPreferences? prefs = SharedPreferencesManager.preferences;
   bool isPassLoading = false;
   bool isButtonLoading = false;
@@ -181,18 +180,13 @@ class _PassDetailsState extends State<PassDetails> {
                           height: 200,
                           width: 200,
                           clipBehavior: Clip.antiAlias,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
+                          decoration:  BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          child: profileBuffer == null
-                              ? const Icon(
-                                  Icons.person_rounded,
-                                  size: 100,
-                                )
-                              : Image.memory(
-                                  base64Decode(profileBuffer!),
-                                  fit: BoxFit.cover,
-                                ),
+                          child: Image.memory(
+                            base64Decode(passData["profileBuffer"]),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                         const SizedBox(height: 15),
                         Text(

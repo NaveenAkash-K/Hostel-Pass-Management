@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const path = require("path");
+const fs = require("fs");
 require("dotenv").config();
 const Qr = require("../../models/qr_model");
 const Student = require("../../models/student_model");
@@ -16,8 +18,12 @@ router.get("/getDetails/:qrData", async (req, res) => {
   const pass = await Pass.findOne({ passId: qr.passId, isActive: true });
   const student = await Student.findOne({ studentId: pass.studentId });
 
-  console.log(new Date(pass.expectedOut).getTime() + 60 * 60000);
-  console.log(Date.now());
+  let photoFilePath = path.join(
+    __dirname + "../../../images/profiles/student/" + student.studentId + ".jpg"
+  );
+  
+  const photoBuffer = fs.readFileSync(photoFilePath);
+  const profileBuffer = photoBuffer.toString("base64");
 
   if (
     new Date(pass.expectedOut).getTime() + 60 * 60000 < Date.now() &&
@@ -31,22 +37,6 @@ router.get("/getDetails/:qrData", async (req, res) => {
     new Date(pass.exitScanAt).getTime() + 30 * 60000 > Date.now() &&
     pass.status === "In use"
   ) {
-    // console.log(
-    //   new Date(pass.exitScanAt).getDate() +
-    //     "-" +
-    //     new Date(pass.exitScanAt).getHours() +
-    //     ":" +
-    //     new Date(pass.exitScanAt).getMinutes()
-    // );
-    console.log(new Date(pass.exitScanAt).getTime());
-    console.log(new Date(pass.exitScanAt).getTime());
-    // console.log(
-    //   new Date(pass.exitScanAt).getDate() +
-    //     "-" +
-    //     new Date(pass.exitScanAt).getHours() +
-    //     ":" +
-    //     new Date(pass.exitScanAt).getMinutes()
-    // );
     res
       .status(400)
       .json({ message: "Entry scan should be after 30 mins of Exit scan" });
@@ -74,6 +64,7 @@ router.get("/getDetails/:qrData", async (req, res) => {
     entryScanBy: pass.entryScanBy,
     exitScanAt: pass.exitScanAt,
     entryScanAt: pass.entryScanAt,
+    profileBuffer: profileBuffer,
   });
 });
 

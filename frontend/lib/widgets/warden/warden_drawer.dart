@@ -7,6 +7,7 @@ import 'package:hostel_pass_management/pages/warden/hostel_stats.dart';
 import 'package:hostel_pass_management/pages/warden/warden_pass_request_page.dart';
 import 'package:hostel_pass_management/providers/warden_pass_provider.dart';
 import 'package:hostel_pass_management/pages/warden/warden_profile_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class WardenDrawer extends ConsumerStatefulWidget {
   const WardenDrawer({super.key});
@@ -82,7 +83,6 @@ class _WardenDrawerState extends ConsumerState<WardenDrawer> {
                     alignment: Alignment.center,
                     width: 25,
                     height: 50,
-
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
@@ -90,7 +90,6 @@ class _WardenDrawerState extends ConsumerState<WardenDrawer> {
                     ),
                     child: Text(
                       pendingpassesLength.toString(),
-
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   )
@@ -145,6 +144,32 @@ class _WardenDrawerState extends ConsumerState<WardenDrawer> {
             },
             title: const Text("Bug Report"),
             leading: const Icon(Icons.bug_report_rounded),
+          ),
+          ListTile(
+            leading: const Icon(Icons.mail),
+            title: const Text("Mail us"),
+            onTap: () async {
+              String? encodeQueryParameters(Map<String, String> params) {
+                return params.entries
+                    .map((MapEntry<String, String> e) =>
+                        '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+                    .join('&');
+              }
+
+              final Uri emailUri = Uri(
+                scheme: 'mailto',
+                path: dotenv.env["MAIL_US"],
+                query: encodeQueryParameters(<String, String>{
+                  'subject': 'Query Title',
+                  'body': 'Please post your queries here'
+                }),
+              );
+              if (await canLaunchUrl(emailUri)) {
+                launchUrl(emailUri);
+              } else {
+                throw Exception('Could not launch the email Uri');
+              }
+            },
           ),
           const Spacer(),
           Text(
