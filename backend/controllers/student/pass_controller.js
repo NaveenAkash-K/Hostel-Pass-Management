@@ -19,14 +19,24 @@ router.get("/getPass", async (req, res) => {
       studentId: req.body.USER_studentId,
     }).lean();
 
+
+    function getEndOfDay(date) {
+      const endOfDay = new Date(date);
+      endOfDay.setHours(23, 59, 59, 999);
+      return endOfDay;
+    }
+
     passes.filter(async (pass) => {
       if (pass.isActive) {
         pass.qrId = aesEncrypt(pass.qrId, process.env.AES_KEY);
         if (pass.status == "Approved") {
           const expectedOutTime = new Date(pass.expectedOut).getTime();
-          const qrEndTime = expectedOutTime + 24 * 60 * 60000;
-          console.log(Date.now());
-          console.log(qrEndTime);
+          const qrEndTime = getEndOfDay(expectedOutTime).getTime();
+          // console.log(Date.now()); 
+          // console.log(qrEndTime);
+          // const timestamp = 1715192999999;
+          // const date = new Date(timestamp);
+          // console.log(date.toString());
           if (Date.now() > qrEndTime) {
             pass.isActive = false;
             pass.status = "Expired";

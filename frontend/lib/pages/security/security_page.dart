@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hostel_pass_management/pages/security/pass_details.dart';
+import 'package:hostel_pass_management/utils/shared_preferences.dart';
 import 'package:hostel_pass_management/widgets/security/security_drawer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
 class SecurityPage extends StatefulWidget {
@@ -13,6 +15,7 @@ class SecurityPage extends StatefulWidget {
 
 class _SecurityPageState extends State<SecurityPage> {
   late String result;
+  SharedPreferences? prefs = SharedPreferencesManager.preferences;
 
   void _openQRpage() async {
     var res = await Navigator.push(
@@ -36,7 +39,8 @@ class _SecurityPageState extends State<SecurityPage> {
     return Scaffold(
       drawer: const SecurityDrawer(),
       appBar: AppBar(
-        title: const Text("Hostel Pass Scanner"),
+        title: Text(prefs!.getString("username")!),
+        // title: const Text("Hostel Pass Scanner"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
