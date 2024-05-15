@@ -20,8 +20,9 @@ class _WardenDrawerState extends ConsumerState<WardenDrawer> {
   @override
   Widget build(BuildContext context) {
     final passRequests = ref.watch(specialPassProvider);
-    final List<PassRequest> pendingPasses =
-        passRequests.where((pass) => pass.status == 'Pending').toList();
+    final List<PassRequest> pendingPasses = passRequests
+        .where((pass) => pass.status == 'Pending' && pass.isSpecialPass)
+        .toList();
     final pendingpassesLength = pendingPasses.length;
     TextTheme textTheme = Theme.of(context).textTheme;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
@@ -81,7 +82,7 @@ class _WardenDrawerState extends ConsumerState<WardenDrawer> {
             trailing: pendingpassesLength > 0
                 ? Container(
                     alignment: Alignment.center,
-                    width: 25,
+                    width: 40,
                     height: 50,
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
@@ -89,7 +90,8 @@ class _WardenDrawerState extends ConsumerState<WardenDrawer> {
                       color: Theme.of(context).colorScheme.tertiaryContainer,
                     ),
                     child: Text(
-                      pendingpassesLength.toString(),
+                      "10",
+                      // pendingpassesLength.toString(),
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   )

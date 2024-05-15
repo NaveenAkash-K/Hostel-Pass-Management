@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hostel_pass_management/pages/common/login_page.dart';
 import 'package:hostel_pass_management/pages/security/security_page.dart';
+import 'package:hostel_pass_management/pages/security/security_stats.dart';
+import 'package:hostel_pass_management/pages/warden/hostel_stats.dart';
 import 'package:hostel_pass_management/utils/shared_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -55,6 +57,19 @@ class SecurityDrawer extends StatelessWidget {
             },
             leading: const Icon(Icons.home_filled),
             title: const Text("Home"),
+          ),
+          ListTile(
+            onTap: () async {
+              await prefs!.clear();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SecurityStats(),
+                ),
+              );
+            },
+            leading: const Icon(Icons.book),
+            title: const Text("Passes"),
           ),
           ListTile(
             onTap: () async {

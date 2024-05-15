@@ -68,6 +68,46 @@ router.get("/getDetails/:qrData", async (req, res) => {
   });
 });
 
+router.get("/getPass", async (req, res) => {
+  try {
+    const allStudents = await Student.find({});
+
+    let passes = [];
+    for (const student of allStudents) {
+      const studentPasses = await Pass.find({
+        studentId: student.studentId,
+        // isSpecialPass: true,
+      });
+
+      for (const pass of studentPasses) {
+        passes.push({
+          ...pass._doc,
+          studentName: student.username,
+          gender: student.gender,
+          dept: student.dept,
+          fatherPhNo: student.fatherPhNo,
+          motherPhNo: student.motherPhNo,
+          phNo: student.phNo,
+          blockNo: student.blockNo,
+          roomNo: student.roomNo,
+          year: student.year,
+          isLate:
+            new Date(pass.entryScanAt).getTime() >
+            new Date(pass.expectedIn).getTime() + 60 * 60000,
+        });
+      }
+    }
+
+    passes.sort((a, b) => {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
+
+    res.json(passes);
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 router.post("/confirmScan/:qrData", async (req, res) => {
   const qrId = aesDecrypt(req.params.qrData, process.env.AES_KEY);
   const qr = await Qr.findOne({ qrId: qrId });

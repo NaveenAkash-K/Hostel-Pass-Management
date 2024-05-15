@@ -162,6 +162,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
         await prefs?.setString('email', responseData['email']);
         await prefs?.setString('role', responseData['role']);
         await prefs?.setString('phNo', responseData['phNo']);
+        await ref.read(specialPassProvider.notifier).getSpecailPassesFromDB();
         setState(() {
           isLoginLoading = false;
         });

@@ -143,6 +143,8 @@ class _SplashPageState extends ConsumerState<SplashPage> {
           );
           return;
         } else if (prefs!.getString("role") == "security") {
+          await ref.read(specialPassProvider.notifier).getSpecailPassesFromDB();
+
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) => const SecurityPage(),
