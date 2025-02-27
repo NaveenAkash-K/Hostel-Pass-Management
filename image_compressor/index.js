@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 const sharp = require("sharp");
 
-const inputDir = "C:/Users/subas/Desktop/QR Automation/ghblock3";
-const outputDir = "C:/Users/subas/Desktop/QR Automation/ghblock3/compressed";
+const inputDir = "C:/Users/subas/Desktop/QR Automation/gh_block1";
+const outputDir = "C:/Users/subas/Desktop/QR Automation/gh_block1/compressed";
 
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
